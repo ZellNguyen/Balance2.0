@@ -6,4 +6,12 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class PresentCharityViewController: UIViewController {
+    
+}
+
+class PresentCharityPageController: UIPageViewController {
+    
+}

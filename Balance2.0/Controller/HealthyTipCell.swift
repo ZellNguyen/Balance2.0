@@ -6,4 +6,12 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class HealthyTipCell: UITableViewCell {
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var postImage: UIImageView!
+    @IBOutlet weak var commentButton: UIButton!
+}

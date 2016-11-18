@@ -16,28 +16,36 @@ enum MealType: String {
     case other = "Other"
 }
 
-class MealPost: NSObject, Post {
-    var image: UIImage?
+class MealPost: NSObject, UserPost {
+    var image: UIImage!
     var caption: String?
-    var comments: CommentsList
+    var comments: CommentsList!
     var type: MealType
-    var user: UserAccount
-    var date: NSDate {
-        return NSDate()
-    }
+    var user: UserAccount!
+    var date: NSDate!
     
-    init( image: UIImage?, caption: String?, type: MealType, user: UserAccount, comments: CommentsList ){
+    init( image: UIImage?, caption: String?, type: MealType, user: UserAccount, comments: CommentsList, date: NSDate ){
         self.image = image
         self.caption = caption
         self.type = type
         self.user = user
         self.comments = comments
+        self.date = date
         
         super.init()
+    }
+    
+    convenience init(image: UIImage?, caption: String?, type: MealType, user: UserAccount, comments: CommentsList) {
+        self.init(image: image, caption: caption, type: type, user: user, comments: comments, date: NSDate())
     }
     
     convenience init( image: UIImage?, caption: String?, type: MealType, user: UserAccount ){
         let comments = CommentsList()
         self.init( image: image, caption: caption, type: type, user: user, comments: comments)
+    }
+    
+    convenience init( image: UIImage?, caption: String?, type: MealType) {
+        let user = ProfileManager.myProfile.myself
+        self.init( image: image, caption: caption, type: type, user: user!)
     }
 }

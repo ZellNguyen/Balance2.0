@@ -6,4 +6,12 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol UserPost: Post {
+    var image: UIImage! { get set }
+    var caption: String? { get set }
+    var date: NSDate! { get set }
+    var comments: CommentsList! { get set }
+    var user: UserAccount! { get }
+}

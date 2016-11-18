@@ -7,14 +7,67 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F50633A21DD711A5008A586F /* Charity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50633A11DD711A5008A586F /* Charity.swift */; };
+		F50633A41DD712E8008A586F /* CompanyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50633A31DD712E8008A586F /* CompanyList.swift */; };
+		F50633A61DD7133B008A586F /* CharityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50633A51DD7133B008A586F /* CharityList.swift */; };
+		F50F0A561DDA5B66002ACDFB /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50F0A551DDA5B66002ACDFB /* Challenge.swift */; };
+		F50F0A591DDA5C62002ACDFB /* IndividualExerciseChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50F0A581DDA5C62002ACDFB /* IndividualExerciseChallenge.swift */; };
+		F50F0A5B1DDA5F57002ACDFB /* IndividualMealChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50F0A5A1DDA5F57002ACDFB /* IndividualMealChallenge.swift */; };
+		F513855A1DDD97EC00C30228 /* StepCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51385591DDD97EC00C30228 /* StepCounter.swift */; };
+		F5255D3F1DDF7E0500602C93 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5255D3E1DDF7E0500602C93 /* ProfileViewController.swift */; };
+		F52FE3531DD6F6020046A984 /* MealHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52FE3521DD6F6020046A984 /* MealHistoryCell.swift */; };
+		F52FE3571DD6F89C0046A984 /* MealHistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52FE3561DD6F89C0046A984 /* MealHistoryController.swift */; };
+		F53E10151DDE813300508DA7 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F53E10141DDE813300508DA7 /* HealthKit.framework */; };
 		F53E4BA21DD46FA200C14C83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BA11DD46FA200C14C83 /* AppDelegate.swift */; };
 		F53E4BA41DD46FA200C14C83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BA31DD46FA200C14C83 /* ViewController.swift */; };
 		F53E4BA71DD46FA200C14C83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F53E4BA51DD46FA200C14C83 /* Main.storyboard */; };
 		F53E4BA91DD46FA200C14C83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F53E4BA81DD46FA200C14C83 /* Assets.xcassets */; };
 		F53E4BAC1DD46FA200C14C83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F53E4BAA1DD46FA200C14C83 /* LaunchScreen.storyboard */; };
+		F53E4BBC1DD4750100C14C83 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BB91DD4750100C14C83 /* CommentCell.swift */; };
+		F53E4BBD1DD4750100C14C83 /* MealPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BBA1DD4750100C14C83 /* MealPostCell.swift */; };
+		F53E4BBE1DD4750100C14C83 /* NewsFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BBB1DD4750100C14C83 /* NewsFeedController.swift */; };
+		F53E4BC61DD4750C00C14C83 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BBF1DD4750C00C14C83 /* Comment.swift */; };
+		F53E4BC71DD4750C00C14C83 /* CommentsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BC01DD4750C00C14C83 /* CommentsList.swift */; };
+		F53E4BC81DD4750C00C14C83 /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BC11DD4750C00C14C83 /* FriendList.swift */; };
+		F53E4BC91DD4750C00C14C83 /* MealPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BC21DD4750C00C14C83 /* MealPost.swift */; };
+		F53E4BCA1DD4750C00C14C83 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BC31DD4750C00C14C83 /* Post.swift */; };
+		F53E4BCB1DD4750C00C14C83 /* PostsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BC41DD4750C00C14C83 /* PostsList.swift */; };
+		F53E4BCC1DD4750C00C14C83 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BC51DD4750C00C14C83 /* UserAccount.swift */; };
+		F53E4BCE1DD4754000C14C83 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BCD1DD4754000C14C83 /* CommentTableViewController.swift */; };
+		F53E4BD01DD48B6C00C14C83 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */; };
+		F54B6D3C1DD7CA1A00908D28 /* CharityPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54B6D3B1DD7CA1A00908D28 /* CharityPost.swift */; };
+		F57530D81DD7E36E007FC361 /* PresentCharityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530D71DD7E36E007FC361 /* PresentCharityCell.swift */; };
+		F57530DA1DD7E946007FC361 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530D91DD7E946007FC361 /* UserProfile.swift */; };
+		F57530DC1DD7EAB5007FC361 /* PresentCharityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530DB1DD7EAB5007FC361 /* PresentCharityTableViewController.swift */; };
+		F57530E21DD80056007FC361 /* PresentCharityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530E11DD80056007FC361 /* PresentCharityViewController.swift */; };
+		F5861A7B1DD5378A0061FCE7 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5861A7A1DD5378A0061FCE7 /* PostDetailViewController.swift */; };
+		F59763C81DDAEFD20070E1F9 /* NewExerciseChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59763C71DDAEFD20070E1F9 /* NewExerciseChallengeViewController.swift */; };
+		F59763CA1DDB9A040070E1F9 /* ChallengeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59763C91DDB9A040070E1F9 /* ChallengeList.swift */; };
+		F59F2E411DD939180050B2E5 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59F2E401DD939180050B2E5 /* LogInViewController.swift */; };
+		F59F2E431DD93A1C0050B2E5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59F2E421DD93A1C0050B2E5 /* RegisterViewController.swift */; };
+		F59F2E471DD94FCC0050B2E5 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59F2E461DD94FCC0050B2E5 /* ProfileManager.swift */; };
+		F59F2E491DD95B0A0050B2E5 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59F2E481DD95B0A0050B2E5 /* MoreViewController.swift */; };
+		F5A6F52F1DD508F60090CC90 /* UserPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F52E1DD508F60090CC90 /* UserPost.swift */; };
+		F5A6F5311DD50A070090CC90 /* ExercisePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5301DD50A070090CC90 /* ExercisePost.swift */; };
+		F5A6F5331DD50E5C0090CC90 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5321DD50E5C0090CC90 /* ExerciseCell.swift */; };
+		F5A6F5371DD521030090CC90 /* HealthyTipPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5361DD521030090CC90 /* HealthyTipPost.swift */; };
+		F5A6F5391DD524C30090CC90 /* HealthyTipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */; };
+		F5E3D4061DDC4DDD00905F47 /* ExerciseChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F50633A11DD711A5008A586F /* Charity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Charity.swift; path = Model/Charity.swift; sourceTree = "<group>"; };
+		F50633A31DD712E8008A586F /* CompanyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompanyList.swift; path = Controller/CompanyList.swift; sourceTree = "<group>"; };
+		F50633A51DD7133B008A586F /* CharityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharityList.swift; path = Model/CharityList.swift; sourceTree = "<group>"; };
+		F50F0A551DDA5B66002ACDFB /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Challenge.swift; path = Model/Challenge.swift; sourceTree = "<group>"; };
+		F50F0A581DDA5C62002ACDFB /* IndividualExerciseChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndividualExerciseChallenge.swift; path = Model/IndividualExerciseChallenge.swift; sourceTree = "<group>"; };
+		F50F0A5A1DDA5F57002ACDFB /* IndividualMealChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndividualMealChallenge.swift; path = Model/IndividualMealChallenge.swift; sourceTree = "<group>"; };
+		F51385591DDD97EC00C30228 /* StepCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StepCounter.swift; path = Model/StepCounter.swift; sourceTree = "<group>"; };
+		F5255D3E1DDF7E0500602C93 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Controller/ProfileViewController.swift; sourceTree = "<group>"; };
+		F52FE3521DD6F6020046A984 /* MealHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MealHistoryCell.swift; path = Controller/MealHistoryCell.swift; sourceTree = "<group>"; };
+		F52FE3561DD6F89C0046A984 /* MealHistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MealHistoryController.swift; path = Controller/MealHistoryController.swift; sourceTree = "<group>"; };
+		F53E10131DDE80FE00508DA7 /* Balance2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Balance2.0.entitlements; sourceTree = "<group>"; };
+		F53E10141DDE813300508DA7 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		F53E4B9E1DD46FA200C14C83 /* Balance2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Balance2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F53E4BA11DD46FA200C14C83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F53E4BA31DD46FA200C14C83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +75,36 @@
 		F53E4BA81DD46FA200C14C83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F53E4BAB1DD46FA200C14C83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F53E4BAD1DD46FA200C14C83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F53E4BB91DD4750100C14C83 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = Controller/CommentCell.swift; sourceTree = "<group>"; };
+		F53E4BBA1DD4750100C14C83 /* MealPostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MealPostCell.swift; path = Controller/MealPostCell.swift; sourceTree = "<group>"; };
+		F53E4BBB1DD4750100C14C83 /* NewsFeedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsFeedController.swift; path = Controller/NewsFeedController.swift; sourceTree = "<group>"; };
+		F53E4BBF1DD4750C00C14C83 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = Model/Comment.swift; sourceTree = "<group>"; };
+		F53E4BC01DD4750C00C14C83 /* CommentsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsList.swift; path = Model/CommentsList.swift; sourceTree = "<group>"; };
+		F53E4BC11DD4750C00C14C83 /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendList.swift; path = Model/FriendList.swift; sourceTree = "<group>"; };
+		F53E4BC21DD4750C00C14C83 /* MealPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MealPost.swift; path = Model/MealPost.swift; sourceTree = "<group>"; };
+		F53E4BC31DD4750C00C14C83 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Model/Post.swift; sourceTree = "<group>"; };
+		F53E4BC41DD4750C00C14C83 /* PostsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsList.swift; path = Model/PostsList.swift; sourceTree = "<group>"; };
+		F53E4BC51DD4750C00C14C83 /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAccount.swift; path = Model/UserAccount.swift; sourceTree = "<group>"; };
+		F53E4BCD1DD4754000C14C83 /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentTableViewController.swift; path = Controller/CommentTableViewController.swift; sourceTree = "<group>"; };
+		F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = Controller/CommentViewController.swift; sourceTree = "<group>"; };
+		F54B6D3B1DD7CA1A00908D28 /* CharityPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharityPost.swift; path = Model/CharityPost.swift; sourceTree = "<group>"; };
+		F57530D71DD7E36E007FC361 /* PresentCharityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCharityCell.swift; path = Controller/PresentCharityCell.swift; sourceTree = "<group>"; };
+		F57530D91DD7E946007FC361 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfile.swift; path = Model/UserProfile.swift; sourceTree = "<group>"; };
+		F57530DB1DD7EAB5007FC361 /* PresentCharityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCharityTableViewController.swift; path = Controller/PresentCharityTableViewController.swift; sourceTree = "<group>"; };
+		F57530E11DD80056007FC361 /* PresentCharityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCharityViewController.swift; path = Controller/PresentCharityViewController.swift; sourceTree = "<group>"; };
+		F5861A7A1DD5378A0061FCE7 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostDetailViewController.swift; path = Controller/PostDetailViewController.swift; sourceTree = "<group>"; };
+		F59763C71DDAEFD20070E1F9 /* NewExerciseChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewExerciseChallengeViewController.swift; path = Controller/NewExerciseChallengeViewController.swift; sourceTree = "<group>"; };
+		F59763C91DDB9A040070E1F9 /* ChallengeList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChallengeList.swift; path = Model/ChallengeList.swift; sourceTree = "<group>"; };
+		F59F2E401DD939180050B2E5 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogInViewController.swift; path = Controller/LogInViewController.swift; sourceTree = "<group>"; };
+		F59F2E421DD93A1C0050B2E5 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = Controller/RegisterViewController.swift; sourceTree = "<group>"; };
+		F59F2E461DD94FCC0050B2E5 /* ProfileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileManager.swift; path = Model/ProfileManager.swift; sourceTree = "<group>"; };
+		F59F2E481DD95B0A0050B2E5 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreViewController.swift; path = Controller/MoreViewController.swift; sourceTree = "<group>"; };
+		F5A6F52E1DD508F60090CC90 /* UserPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPost.swift; path = Model/UserPost.swift; sourceTree = "<group>"; };
+		F5A6F5301DD50A070090CC90 /* ExercisePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExercisePost.swift; path = Model/ExercisePost.swift; sourceTree = "<group>"; };
+		F5A6F5321DD50E5C0090CC90 /* ExerciseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExerciseCell.swift; path = Controller/ExerciseCell.swift; sourceTree = "<group>"; };
+		F5A6F5361DD521030090CC90 /* HealthyTipPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthyTipPost.swift; path = Model/HealthyTipPost.swift; sourceTree = "<group>"; };
+		F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthyTipCell.swift; path = Controller/HealthyTipCell.swift; sourceTree = "<group>"; };
+		F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExerciseChallengeViewController.swift; path = Controller/ExerciseChallengeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +112,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F53E10151DDE813300508DA7 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F53E10101DDE80FE00508DA7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F53E10141DDE813300508DA7 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F53E4B951DD46FA200C14C83 = {
 			isa = PBXGroup;
 			children = (
 				F53E4BA01DD46FA200C14C83 /* Balance2.0 */,
 				F53E4B9F1DD46FA200C14C83 /* Products */,
+				F53E10101DDE80FE00508DA7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +147,9 @@
 		F53E4BA01DD46FA200C14C83 /* Balance2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				F53E10131DDE80FE00508DA7 /* Balance2.0.entitlements */,
+				F53E4BB81DD474CB00C14C83 /* Model */,
+				F53E4BB71DD474C500C14C83 /* Controller */,
 				F53E4BA11DD46FA200C14C83 /* AppDelegate.swift */,
 				F53E4BA31DD46FA200C14C83 /* ViewController.swift */,
 				F53E4BA51DD46FA200C14C83 /* Main.storyboard */,
@@ -62,6 +158,60 @@
 				F53E4BAD1DD46FA200C14C83 /* Info.plist */,
 			);
 			path = Balance2.0;
+			sourceTree = "<group>";
+		};
+		F53E4BB71DD474C500C14C83 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F53E4BCD1DD4754000C14C83 /* CommentTableViewController.swift */,
+				F53E4BB91DD4750100C14C83 /* CommentCell.swift */,
+				F53E4BBA1DD4750100C14C83 /* MealPostCell.swift */,
+				F53E4BBB1DD4750100C14C83 /* NewsFeedController.swift */,
+				F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */,
+				F5A6F5321DD50E5C0090CC90 /* ExerciseCell.swift */,
+				F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */,
+				F5861A7A1DD5378A0061FCE7 /* PostDetailViewController.swift */,
+				F52FE3521DD6F6020046A984 /* MealHistoryCell.swift */,
+				F52FE3561DD6F89C0046A984 /* MealHistoryController.swift */,
+				F57530D71DD7E36E007FC361 /* PresentCharityCell.swift */,
+				F57530DB1DD7EAB5007FC361 /* PresentCharityTableViewController.swift */,
+				F57530E11DD80056007FC361 /* PresentCharityViewController.swift */,
+				F59F2E401DD939180050B2E5 /* LogInViewController.swift */,
+				F59F2E421DD93A1C0050B2E5 /* RegisterViewController.swift */,
+				F59F2E481DD95B0A0050B2E5 /* MoreViewController.swift */,
+				F59763C71DDAEFD20070E1F9 /* NewExerciseChallengeViewController.swift */,
+				F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */,
+				F5255D3E1DDF7E0500602C93 /* ProfileViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		F53E4BB81DD474CB00C14C83 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F53E4BBF1DD4750C00C14C83 /* Comment.swift */,
+				F53E4BC01DD4750C00C14C83 /* CommentsList.swift */,
+				F53E4BC11DD4750C00C14C83 /* FriendList.swift */,
+				F53E4BC21DD4750C00C14C83 /* MealPost.swift */,
+				F53E4BC31DD4750C00C14C83 /* Post.swift */,
+				F53E4BC41DD4750C00C14C83 /* PostsList.swift */,
+				F53E4BC51DD4750C00C14C83 /* UserAccount.swift */,
+				F5A6F52E1DD508F60090CC90 /* UserPost.swift */,
+				F5A6F5301DD50A070090CC90 /* ExercisePost.swift */,
+				F5A6F5361DD521030090CC90 /* HealthyTipPost.swift */,
+				F50633A11DD711A5008A586F /* Charity.swift */,
+				F50633A31DD712E8008A586F /* CompanyList.swift */,
+				F50633A51DD7133B008A586F /* CharityList.swift */,
+				F54B6D3B1DD7CA1A00908D28 /* CharityPost.swift */,
+				F57530D91DD7E946007FC361 /* UserProfile.swift */,
+				F59F2E461DD94FCC0050B2E5 /* ProfileManager.swift */,
+				F50F0A551DDA5B66002ACDFB /* Challenge.swift */,
+				F50F0A581DDA5C62002ACDFB /* IndividualExerciseChallenge.swift */,
+				F50F0A5A1DDA5F57002ACDFB /* IndividualMealChallenge.swift */,
+				F59763C91DDB9A040070E1F9 /* ChallengeList.swift */,
+				F51385591DDD97EC00C30228 /* StepCounter.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,8 +246,13 @@
 				TargetAttributes = {
 					F53E4B9D1DD46FA200C14C83 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 3DUA3VRL93;
+						DevelopmentTeam = 4Z3EUXPG39;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -137,8 +292,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F52FE3531DD6F6020046A984 /* MealHistoryCell.swift in Sources */,
+				F53E4BD01DD48B6C00C14C83 /* CommentViewController.swift in Sources */,
+				F5A6F5331DD50E5C0090CC90 /* ExerciseCell.swift in Sources */,
 				F53E4BA41DD46FA200C14C83 /* ViewController.swift in Sources */,
+				F5A6F5391DD524C30090CC90 /* HealthyTipCell.swift in Sources */,
+				F53E4BCE1DD4754000C14C83 /* CommentTableViewController.swift in Sources */,
+				F5A6F5371DD521030090CC90 /* HealthyTipPost.swift in Sources */,
+				F50633A61DD7133B008A586F /* CharityList.swift in Sources */,
+				F50633A41DD712E8008A586F /* CompanyList.swift in Sources */,
+				F53E4BC91DD4750C00C14C83 /* MealPost.swift in Sources */,
+				F54B6D3C1DD7CA1A00908D28 /* CharityPost.swift in Sources */,
+				F53E4BC61DD4750C00C14C83 /* Comment.swift in Sources */,
+				F52FE3571DD6F89C0046A984 /* MealHistoryController.swift in Sources */,
+				F53E4BBC1DD4750100C14C83 /* CommentCell.swift in Sources */,
+				F50F0A5B1DDA5F57002ACDFB /* IndividualMealChallenge.swift in Sources */,
+				F50F0A561DDA5B66002ACDFB /* Challenge.swift in Sources */,
+				F57530D81DD7E36E007FC361 /* PresentCharityCell.swift in Sources */,
+				F59763C81DDAEFD20070E1F9 /* NewExerciseChallengeViewController.swift in Sources */,
+				F5255D3F1DDF7E0500602C93 /* ProfileViewController.swift in Sources */,
+				F53E4BCB1DD4750C00C14C83 /* PostsList.swift in Sources */,
+				F57530DA1DD7E946007FC361 /* UserProfile.swift in Sources */,
+				F59F2E411DD939180050B2E5 /* LogInViewController.swift in Sources */,
+				F53E4BBD1DD4750100C14C83 /* MealPostCell.swift in Sources */,
+				F59F2E491DD95B0A0050B2E5 /* MoreViewController.swift in Sources */,
+				F53E4BC71DD4750C00C14C83 /* CommentsList.swift in Sources */,
+				F50633A21DD711A5008A586F /* Charity.swift in Sources */,
+				F53E4BBE1DD4750100C14C83 /* NewsFeedController.swift in Sources */,
+				F5E3D4061DDC4DDD00905F47 /* ExerciseChallengeViewController.swift in Sources */,
+				F50F0A591DDA5C62002ACDFB /* IndividualExerciseChallenge.swift in Sources */,
+				F53E4BCC1DD4750C00C14C83 /* UserAccount.swift in Sources */,
+				F5A6F5311DD50A070090CC90 /* ExercisePost.swift in Sources */,
+				F57530E21DD80056007FC361 /* PresentCharityViewController.swift in Sources */,
+				F59F2E471DD94FCC0050B2E5 /* ProfileManager.swift in Sources */,
+				F57530DC1DD7EAB5007FC361 /* PresentCharityTableViewController.swift in Sources */,
 				F53E4BA21DD46FA200C14C83 /* AppDelegate.swift in Sources */,
+				F513855A1DDD97EC00C30228 /* StepCounter.swift in Sources */,
+				F59F2E431DD93A1C0050B2E5 /* RegisterViewController.swift in Sources */,
+				F53E4BC81DD4750C00C14C83 /* FriendList.swift in Sources */,
+				F5861A7B1DD5378A0061FCE7 /* PostDetailViewController.swift in Sources */,
+				F59763CA1DDB9A040070E1F9 /* ChallengeList.swift in Sources */,
+				F53E4BCA1DD4750C00C14C83 /* Post.swift in Sources */,
+				F5A6F52F1DD508F60090CC90 /* UserPost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,11 +454,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3DUA3VRL93;
+				CODE_SIGN_ENTITLEMENTS = Balance2.0/Balance2.0.entitlements;
+				DEVELOPMENT_TEAM = 4Z3EUXPG39;
 				INFOPLIST_FILE = Balance2.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.thecdm.hoanguyen.Balance2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = com.thecdm.hoanguyen.Balance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -272,11 +469,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3DUA3VRL93;
+				CODE_SIGN_ENTITLEMENTS = Balance2.0/Balance2.0.entitlements;
+				DEVELOPMENT_TEAM = 4Z3EUXPG39;
 				INFOPLIST_FILE = Balance2.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.thecdm.hoanguyen.Balance2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = com.thecdm.hoanguyen.Balance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -300,6 +499,7 @@
 				F53E4BB21DD46FA200C14C83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

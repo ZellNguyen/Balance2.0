@@ -8,15 +8,20 @@
 
 import UIKit
 
-class FriendList {
+class FriendList: NSObject, NSCoding {
     var allFriends = [UserAccount]()
-    static var myself = UserAccount(email: "hoadnguyen411@gmail.com", firstName: "hoazell")
     
-    init() {
+    override init() {
+        super.init()
         for _ in 0..<5 {
-            let user = UserAccount(email: "hoazell41195@gmail.com", firstName: "Hoa")
+            let user = UserAccount(email: "hoa4124@gmail.com", fullName: "Hoa")
             self.add(friend: user)
         }
+    }
+    
+    required convenience init(coder decoder: NSCoder){
+        self.init()
+        self.allFriends = decoder.decodeObject(forKey: "allFriends") as! [UserAccount]
     }
     
     func add(friend user: UserAccount) {
@@ -25,5 +30,9 @@ class FriendList {
     
     func getFriend(atIndex index: Int) -> UserAccount?{
         return index < allFriends.count ? allFriends[index] : nil
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(allFriends, forKey: "allFriends")
     }
 }

@@ -32,7 +32,7 @@ class CommentTableViewController: UITableViewController {
         
         let comment = commentsList.allComments[indexPath.row]
         
-        cell.userLabel.text = comment.user.firstName
+        cell.userLabel.text = comment.user.fullName
         cell.bodyLabel.text = comment.content
         let dateFormatter = DateFormatter.localizedString(from: comment.datePosted as Date, dateStyle: .short, timeStyle: .short)
         cell.dateLabel.text = dateFormatter

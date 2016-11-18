@@ -6,4 +6,14 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ExerciseCell: UITableViewCell {
+    @IBOutlet var userLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var postImage: UIImageView!
+    @IBOutlet var stepLabel: UILabel!
+    @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet var commentButton: UIButton!
+    
+}

@@ -6,4 +6,15 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ChallengeList {
+    var allChallenges: [Challenge]! = [Challenge]()
+    
+    func add(challenge: Challenge) {
+        self.allChallenges.insert(challenge, at: 0)
+    }
+    
+    static var exerciseChallengeList = ChallengeList()
+    static var mealChallengeList = ChallengeList()
+}

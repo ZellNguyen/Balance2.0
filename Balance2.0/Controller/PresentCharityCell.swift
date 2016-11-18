@@ -6,4 +6,11 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class PresentCharityCell: UITableViewCell {
+    @IBOutlet var companyLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var progressView: UIProgressView!
+    @IBOutlet var seeMoreButton: UIButton!
+}

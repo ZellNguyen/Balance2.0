@@ -10,6 +10,6 @@ import UIKit
 
 protocol Post {
     var caption: String? { get set }
-    var date: NSDate { get }
-    var comments: CommentsList { get set }
+    var date: NSDate! { get set }
+    var comments: CommentsList! { get set }
 }

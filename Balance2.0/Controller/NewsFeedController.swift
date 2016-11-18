@@ -15,15 +15,9 @@ class NewsFeedController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         postsList = PostsList()
-        
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        
-        let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
-        tableView.contentInset = insets
-        tableView.scrollIndicatorInsets = insets
-        
-        //tableView.estimatedRowHeight = 46.0
-        //tableView.rowHeight = UITableViewAutomaticDimension
+        postsList.loadData()
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 400.0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,21 +25,35 @@ class NewsFeedController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // In case Dequeue Meal Cells
         if let post = postsList.allPosts[indexPath.row] as? MealPost {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealPostCell
             
-            cell.userLabel.text = post.user.firstName
+            // Dequeue Meal Cells
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell") as! MealPostCell
             
+            // Set up user label
+            cell.userLabel.text = post.user.fullName
+            
+            
+            // Set up date label
             let dateFormatter = DateFormatter.localizedString(from: post.date as Date, dateStyle: .short, timeStyle: .short)
             cell.dateLabel.text = dateFormatter
+            
+            // Set up meal type label
             cell.mealTypeLabel.text = post.type.rawValue
+            
+            // Set up comment butotn
             cell.commentButton.tag = indexPath.row
+            let numberOfComments = post.comments.allComments.count
+            cell.commentButton.setTitle("Comments (\(numberOfComments))", for: .normal)
             
             // Set up dynamic image view's size
             if let image = post.image {
                 let aspectRatio = image.size.height / image.size.width
                 let heightConstraint = NSLayoutConstraint(item: cell.postImage, attribute: .height, relatedBy: .equal, toItem: cell.postImage, attribute: .width, multiplier: aspectRatio, constant: 1)
-                cell.addConstraint(heightConstraint)
+                cell.postImage.addConstraint(heightConstraint)
+                cell.layoutIfNeeded()
+                tableView.layoutIfNeeded()
                 cell.postImage.image = image
             }
             else {
@@ -53,22 +61,101 @@ class NewsFeedController: UITableViewController {
             }
             return cell
         }
+            
+        // In case Dequeue Exercise Cell
+        else if let post = postsList.allPosts[indexPath.row] as? ExercisePost {
+            
+            // Dequeue exercise cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseCell", for: indexPath) as! ExerciseCell
+            
+            // set up user label
+            cell.userLabel.text = post.user.fullName
+            
+            // Set up date label
+            let dateFormatter = DateFormatter.localizedString(from: post.date as Date, dateStyle: .short, timeStyle: .short)
+            cell.dateLabel.text = dateFormatter
+            
+            // Set up caption
+            if let caption = post.caption {
+                cell.captionLabel.text = caption
+            }
+
+            // Set up comment button
+            cell.commentButton.tag = indexPath.row
+            let numberOfComments = post.comments.allComments.count
+            cell.commentButton.setTitle("Comments (\(numberOfComments))", for: .normal)
+            
+            // Set up steps label
+            cell.stepLabel.text = String(post.steps)
+            
+            // Set up dynamic image view's size
+            if let image = post.image {
+                let aspectRatio = image.size.height / image.size.width
+                let heightConstraint = NSLayoutConstraint(item: cell.postImage, attribute: .height, relatedBy: .equal, toItem: cell.postImage, attribute: .width, multiplier: aspectRatio, constant: 1)
+                cell.postImage.addConstraint(heightConstraint)
+                
+                cell.postImage.image = image
+            }
+            else {
+                cell.postImage.image = nil
+            }
+            
+            return cell
+        }
+            
+        // In case Dequeue Healthy Tip Post
+        else if let post = postsList.allPosts[indexPath.row] as? HealthyTipPost {
+            
+            // Dequeue healthy tip cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HealthyTipCell", for: indexPath) as!HealthyTipCell
+            
+            // set up user label
+            cell.titleLabel.text = post.title
+            
+            // Set up date label
+            let dateFormatter = DateFormatter.localizedString(from: post.date as Date, dateStyle: .short, timeStyle: .short)
+            cell.dateLabel.text = dateFormatter
+            
+            // Set up caption
+            if let caption = post.caption {
+                cell.captionLabel.text = caption
+            }
+            
+            // Set up comment button
+            cell.commentButton.tag = indexPath.row
+            let numberOfComments = post.comments.allComments.count
+            cell.commentButton.setTitle("Comments (\(numberOfComments))", for: .normal)
+            
+            // Set up dynamic image view's size
+            if let image = post.image {
+                let aspectRatio = image.size.height / image.size.width
+                let heightConstraint = NSLayoutConstraint(item: cell.postImage, attribute: .height, relatedBy: .equal, toItem: cell.postImage, attribute: .width, multiplier: aspectRatio, constant: 0)
+                cell.postImage.addConstraint(heightConstraint)
+                cell.layoutIfNeeded()
+                cell.postImage.image = image
+            }
+            else {
+                cell.postImage.image = nil
+            }
+            
+            return cell
+            
+        }
+         
+        // In other cases
         else {
             return UITableViewCell()
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowComments" {
-            print("SEND")
-            let commentsViewController = segue.destination as! CommentViewController
-            
-            if let selectedCommentButton = sender as? UIButton {
-                print("HANOI")
-                let selectedPost = postsList.allPosts[selectedCommentButton.tag]
-                commentsViewController.commentsList = selectedPost.comments
-            }
-        }
+    /*
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 400.0
+    }
+    */
     
 }

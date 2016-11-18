@@ -6,4 +6,13 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class MealHistoryCell: UITableViewCell {
+    @IBOutlet var mealImage: UIImageView!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var mealTypeLabel: UILabel!
+    @IBOutlet var captionLabel: UILabel!
+    @IBOutlet var tagsStack: UIStackView!
+    
+}

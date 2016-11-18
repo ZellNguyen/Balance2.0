@@ -8,32 +8,40 @@
 
 import UIKit
 
-class UserAccount: NSObject {
+class UserAccount: NSObject, NSCoding {
     var email: String!
-    var firstName: String!
-    var lastName: String?
+    var fullName: String!
     var facebook: String?
+    var profile: UserProfile!
     
-    var fullName: String {
-        if let lastName = self.lastName {
-            return "\(firstName) \(lastName)"
-        }
-        else {
-            return "\(firstName)"
-        }
-    }
-    
-    init( email: String, firstName: String, lastName: String?, facebook: String? ) {
+    init( email: String, fullName: String, facebook: String?, profile: UserProfile ) {
         self.email = email
-        self.firstName = firstName
-        self.lastName = lastName
+        self.fullName = fullName
         self.facebook = facebook
+        self.profile = profile
         
         super.init()
     }
     
-    convenience init( email: String, firstName: String ){
-        self.init( email: email, firstName: firstName, lastName: nil, facebook: nil)
+    required convenience init?(coder aDecoder: NSCoder) {
+        let email = aDecoder.decodeObject(forKey: "email") as! String!
+        let fullName = aDecoder.decodeObject(forKey: "fullName") as! String!
+        let facebook = aDecoder.decodeObject(forKey: "facebook") as! String?
+        let profile = aDecoder.decodeObject(forKey: "profile") as! UserProfile!
+        self.init(email: email!, fullName: fullName!, facebook: facebook, profile: profile!)
     }
     
+    convenience init( email: String, fullName: String ){
+        let profile = UserProfile()
+        self.init( email: email, fullName: fullName, facebook: nil, profile: profile)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(email, forKey: "email")
+        aCoder.encode(fullName, forKey: "fullName")
+        if let facebook = self.facebook {
+            aCoder.encode(facebook, forKey: "facebook")
+        }
+        aCoder.encode(profile, forKey: "profile")
+    }
 }

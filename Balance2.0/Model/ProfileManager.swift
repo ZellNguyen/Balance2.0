@@ -6,4 +6,28 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ProfileManager {
+    var myself: UserAccount!
+    var friendList: FriendList!
+    var profile: UserProfile!
+    
+    func register( email: String, fullName: String ) {
+        self.myself = UserAccount(email: email, fullName: fullName)
+        self.friendList = FriendList()
+        self.profile = UserProfile()
+    }
+    
+    func login( email: String, fullName: String, friendList: FriendList, profile: UserProfile){
+        self.myself = UserAccount(email: email, fullName: fullName)
+        self.friendList = friendList
+        self.profile = profile
+    }
+    
+    func add(friend user: UserAccount){
+        self.friendList.add(friend: user)
+    }
+    
+    static var myProfile = ProfileManager()
+}

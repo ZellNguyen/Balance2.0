@@ -17,8 +17,5 @@ class CommentsList {
     }
     
     init(){
-        for _ in 0..<5 {
-            add(comment: "Hoa handsome vai ca lon ah. Va Hoa yeu Wife cua Hoa rat la nhieu. Hoa dang rat vui!")
-        }
     }
 }

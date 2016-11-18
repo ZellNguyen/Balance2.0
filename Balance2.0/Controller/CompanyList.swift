@@ -6,4 +6,19 @@
 //  Copyright © 2016 Hoa Nguyen. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+class CompanyList {
+    var allCompanies: [String:URL]!
+    
+    // Test Init
+    init(){
+        for i in 0..<10 {
+            let url = URL(fileURLWithPath: "http://www.telus.ca")
+            let name = "Telus \(String(i))"
+            allCompanies["\(name)"] = url
+        }
+    }
+    
+}
