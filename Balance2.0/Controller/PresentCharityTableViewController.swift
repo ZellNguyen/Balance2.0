@@ -8,45 +8,27 @@
 
 import UIKit
 
-class PresentCharityTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate{
+class PresentCharityTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate{
     var charityList: CharityList!
     var filteredCharity = [Charity]()
-    
-    var searchController = UISearchController(searchResultsController: nil)
-    
-    @IBOutlet var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.charityList = CharityList.main
-        
-        searchController.isActive = true
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        //definesPresentationContext = true
-        searchController.searchBar.placeholder = "Search charity"
-        tableView.tableHeaderView = searchController.searchBar
-
-        searchController.searchBar.delegate = self
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchActive {
-            return self.filteredCharity.count
-        }
         return self.charityList.launchedCharites.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "PresentCharityCell", for: indexPath) as! PresentCharityCell
         
-        let launchedCharity = searchActive ? self.filteredCharity[indexPath.row] : charityList.launchedCharites[indexPath.row]
+        let launchedCharity = charityList.launchedCharites[indexPath.row]
         
         // Set up Cell
-        cell.companyLabel.text = launchedCharity.company
         cell.titleLabel.text = launchedCharity.title
         cell.seeMoreButton.tag = indexPath.row
-        cell.progressView.progress = Float(launchedCharity.currentSteps / launchedCharity.goalSteps * 100)
         cell.seeMoreButton.addTarget(self, action: #selector(seeMore(_:)), for: .touchUpInside)
         
         return cell
@@ -61,11 +43,10 @@ class PresentCharityTableViewController: UITableViewController, UIPopoverPresent
         
         singleCharityViewController.modalPresentationStyle = .popover
         singleCharityViewController.preferredContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.8)
-        singleCharityViewController.charityTitle = charity.title
         singleCharityViewController.company = charity.company
         singleCharityViewController.caption = charity.caption
         singleCharityViewController.image = charity.image
-        singleCharityViewController.goalSteps = charity.goalSteps
+        singleCharityViewController.charityTitle = charity.title
         
         // Pass index to pop over view
         singleCharityViewController.tag = sender.tag
@@ -83,50 +64,33 @@ class PresentCharityTableViewController: UITableViewController, UIPopoverPresent
         charityList.update()
         tableView.reloadData()
     }
-    
-    func searchCharity(byString string: String!) {
-        self.filteredCharity = self.charityList.launchedCharites.filter({(charity: Charity) in
-            let title = charity.title.range(of: string)
-            let company = charity.company.range(of: string)
-            
-            return ((title != nil) || (company != nil))
-        })
-        tableView.reloadData()
-    }
-    
-    @IBOutlet var charitySearchBar: UISearchBar!
-    var searchActive: Bool = false
-    
-    // MARK: Search
-    func updateSearchResults(for searchController: UISearchController) {
-        self.searchActive = true
-        searchCharity(byString: searchController.searchBar.text!)
-    }
-    
 }
 
 class SingleCharityViewController: UIViewController {
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var companyLabel: UILabel!
     @IBOutlet var charityImage: UIImageView!
-    @IBOutlet var goalStepsLabel: UILabel!
     @IBOutlet var captionLabel: UILabel!
+    @IBOutlet var donateButton: UIButton!
     
-    var charityTitle: String!
     var company: String!
     var image: UIImage!
-    var goalSteps: Int!
     var caption: String!
+    var charityTitle: String!
     var tag: Int! = 0
     
+    var isDonated: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = charityTitle
         companyLabel.text = company
         charityImage.image = image
-        goalStepsLabel.text = String(goalSteps)
         captionLabel.text = caption
+        
+        // Rounded Button 
+        donateButton.layer.cornerRadius = 20
+        
+        // Hide share Button
+        shareButton.isHidden = true
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -147,13 +111,41 @@ class SingleCharityViewController: UIViewController {
             let donatedSteps = ProfileManager.myProfile.profile.currentSteps
             ProfileManager.myProfile.profile.donate(steps: donatedSteps!, for: charity)
             CharityList.main.update()
-            self.dismiss(animated: true, completion: nil)
+            self.isDonated = true
+            self.shareButton.isHidden = false
+            self.changeCaptionAfterDonated(donatedSteps!)
+            //self.dismiss(animated: true, completion: nil)
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         confirmBox.addAction(cancelAction)
         confirmBox.addAction(okAction)
         
         present(confirmBox, animated: true, completion: nil)
+    }
+    
+    // Change Caption After Donate
+    func changeCaptionAfterDonated(_ amount: Int) {
+        let money = Float(amount) / 10000
+        let moneyInString = String(format: "%.2f", money)
+        let caption = "\(self.company!) donated \(moneyInString) for \(self.charityTitle!) project. \n\n Thank you for your donation!"
+        
+        self.captionLabel.text = caption
+        self.donateButton.isHidden = true
+    }
+    
+    @IBOutlet var shareButton: UIButton!
+    
+    @IBAction func share(_ sender: UIButton){
+        
+        if !isDonated {
+            return
+        }
+        let charity = CharityList.main.launchedCharites[self.tag]
+        let post = CharityPost(charity: charity)
+        
+        PostsList.main.add(post)
+        
+        dismiss(animated: true, completion: nil)
     }
 }
 

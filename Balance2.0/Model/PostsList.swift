@@ -9,10 +9,10 @@
 import UIKit
 
 class PostsList {
-    var allPosts: [Post]!
+    var allPosts: [Post] = [Post]()
     
     init(){
-        allPosts = [Post]()
+        self.loadData()
     }
     
     func add(_ post: Post){
@@ -47,4 +47,6 @@ class PostsList {
             self.add(post)
         }
     }
+    
+    static var main = PostsList()
 }

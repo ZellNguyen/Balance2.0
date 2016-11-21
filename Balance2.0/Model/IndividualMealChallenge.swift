@@ -25,16 +25,17 @@ class IndividualMealChallenge: NSObject, Challenge {
     var image: UIImage!
     var status: ChallengeStatus!
     var deadline: NSDate!
+    var sender: UserAccount
     var receiver: UserAccount?
     var isWinner: Bool! = false
     var option: MealChallengeOption!
     var likes: [UserAccount]!
     
-    init(title: String!, message: String!, image: UIImage!, receiver: UserAccount?, status: ChallengeStatus, date: NSDate!, deadline: NSDate!, isWinner: Bool!, option: MealChallengeOption, likes: [UserAccount]!) {
-        super.init()
+    init(title: String!, message: String!, image: UIImage!, sender: UserAccount, receiver: UserAccount?, status: ChallengeStatus, date: NSDate!, deadline: NSDate!, isWinner: Bool!, option: MealChallengeOption, likes: [UserAccount]!) {
         self.title = title
         self.message = message
         self.image = image
+        self.sender = sender
         if let receiver = receiver {
             self.receiver = receiver
         }
@@ -47,6 +48,8 @@ class IndividualMealChallenge: NSObject, Challenge {
         self.isWinner = isWinner
         self.option = option
         self.likes = likes
+        
+        super.init()
     }
     
     convenience init(title: String!, message: String!, image: UIImage!, receiver: UserAccount?, deadline: NSDate!, option: MealChallengeOption){
@@ -55,7 +58,7 @@ class IndividualMealChallenge: NSObject, Challenge {
         let status = ChallengeStatus.pending
         let likes = [UserAccount]()
         
-        self.init(title: title, message: message, image: image, receiver: receiver, status: status, date: date, deadline: deadline, isWinner: isWinner, option: option, likes: likes)
+        self.init(title: title, message: message, image: image, sender: ProfileManager.myProfile.myself, receiver: receiver, status: status, date: date, deadline: deadline, isWinner: isWinner, option: option, likes: likes)
     }
     
     convenience init(title: String!, image: UIImage!, deadline: NSDate!, option: MealChallengeOption){
@@ -66,6 +69,7 @@ class IndividualMealChallenge: NSObject, Challenge {
         aCoder.encode(title, forKey: "title")
         aCoder.encode(date, forKey: "date")
         aCoder.encode(image, forKey: "image")
+        aCoder.encode(sender, forKey: "sender")
         if let _ = receiver {
             aCoder.encode(receiver, forKey: "receiver")
         }
@@ -81,6 +85,7 @@ class IndividualMealChallenge: NSObject, Challenge {
         let title = aDecoder.decodeObject(forKey: "title") as! String
         let date = aDecoder.decodeObject(forKey: "date") as! NSDate
         let image = aDecoder.decodeObject(forKey: "image") as! UIImage
+        let sender = aDecoder.decodeObject(forKey: "sender") as! UserAccount
         let receiver = aDecoder.decodeObject(forKey: "receiver") as! UserAccount
         let status = ChallengeStatus(rawValue: aDecoder.decodeObject(forKey: "status") as! String)
         let deadline = aDecoder.decodeObject(forKey: "deadline") as! NSDate
@@ -89,6 +94,18 @@ class IndividualMealChallenge: NSObject, Challenge {
         let option = aDecoder.decodeObject(forKey: "option") as! MealChallengeOption
         let likes = aDecoder.decodeObject(forKey: "likes") as! [UserAccount]
         
-        self.init(title: title, message: message, image: image, receiver: receiver, status: status!, date: date, deadline: deadline, isWinner: isWinner, option: option, likes: likes)
+        self.init(title: title, message: message, image: image, sender: sender, receiver: receiver, status: status!, date: date, deadline: deadline, isWinner: isWinner, option: option, likes: likes)
+    }
+    
+    // MARK: Like & Unlike
+    func like() {
+        self.likes.append(ProfileManager.myProfile.myself)
+    }
+    
+    func unlike(){
+        let index = self.likes.index(of: ProfileManager.myProfile.myself)
+        if let _ = index {
+            self.likes.remove(at: index!)
+        }
     }
 }

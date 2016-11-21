@@ -13,7 +13,7 @@ enum CharityStatus: String {
     case finished = "finished"
 }
 
-class Charity: NSObject, NSCoding {
+class Charity: NSObject, NSCoding, NSCopying {
     var company: String!
     var title: String!
     var caption: String!
@@ -75,5 +75,18 @@ class Charity: NSObject, NSCoding {
         aCoder.encode(self.expiredDate, forKey: "expiredDate")
         aCoder.encode(self.status.rawValue, forKey: "status")
         aCoder.encode(self.image, forKey: "image")
+    }
+
+    var donatedDate: Date? = nil
+    var donatedSteps: Int = 0
+    
+    override func copy() -> Any {
+        let charity = Charity(heldBy: company, title: title, caption: caption, goalSteps: goalSteps, currentSteps: currentSteps, expiredDate: expiredDate, image: image, status: status)
+        return charity
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let charity = Charity(heldBy: company, title: title, caption: caption, goalSteps: goalSteps, currentSteps: currentSteps, expiredDate: expiredDate, image: image, status: status)
+        return charity
     }
 }

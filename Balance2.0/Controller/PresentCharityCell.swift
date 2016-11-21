@@ -9,8 +9,6 @@
 import UIKit
 
 class PresentCharityCell: UITableViewCell {
-    @IBOutlet var companyLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var progressView: UIProgressView!
     @IBOutlet var seeMoreButton: UIButton!
 }

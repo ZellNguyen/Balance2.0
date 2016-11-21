@@ -21,6 +21,7 @@ protocol Challenge: class, NSCoding {
     var date: NSDate! { get }
     var message: String! { get set }
     var image: UIImage! { get set }
+    var sender: UserAccount { get set }
     var receiver: UserAccount? { get set }
     var status: ChallengeStatus! { get set }
     var deadline: NSDate! { get set }

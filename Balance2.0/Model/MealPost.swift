@@ -23,29 +23,45 @@ class MealPost: NSObject, UserPost {
     var type: MealType
     var user: UserAccount!
     var date: NSDate!
+    var likes: [UserAccount]
+    var tags: FoodTagList
     
-    init( image: UIImage?, caption: String?, type: MealType, user: UserAccount, comments: CommentsList, date: NSDate ){
+    init( image: UIImage?, caption: String?, type: MealType, tags: FoodTagList, user: UserAccount, comments: CommentsList, date: NSDate, likes: [UserAccount]){
         self.image = image
         self.caption = caption
         self.type = type
         self.user = user
         self.comments = comments
         self.date = date
+        self.likes = likes
+        self.tags = tags
         
         super.init()
     }
     
-    convenience init(image: UIImage?, caption: String?, type: MealType, user: UserAccount, comments: CommentsList) {
-        self.init(image: image, caption: caption, type: type, user: user, comments: comments, date: NSDate())
+    convenience init(image: UIImage?, caption: String?, type: MealType, tags: FoodTagList, user: UserAccount, comments: CommentsList, likes: [UserAccount]) {
+        self.init(image: image, caption: caption, type: type, tags: tags, user: user, comments: comments, date: NSDate(), likes: likes)
     }
     
-    convenience init( image: UIImage?, caption: String?, type: MealType, user: UserAccount ){
+    convenience init( image: UIImage?, caption: String?, type: MealType, tags: FoodTagList, user: UserAccount ){
         let comments = CommentsList()
-        self.init( image: image, caption: caption, type: type, user: user, comments: comments)
+        let likes = [UserAccount]()
+        self.init( image: image, caption: caption, type: type, tags: tags, user: user, comments: comments, likes: likes)
     }
     
-    convenience init( image: UIImage?, caption: String?, type: MealType) {
+    convenience init( image: UIImage?, caption: String?, type: MealType, tags: FoodTagList) {
         let user = ProfileManager.myProfile.myself
-        self.init( image: image, caption: caption, type: type, user: user!)
+        self.init( image: image, caption: caption, type: type, tags: tags, user: user!)
+    }
+    
+    func like() {
+        self.likes.append(ProfileManager.myProfile.myself)
+    }
+    
+    func unlike() {
+        let index = self.likes.index(of: ProfileManager.myProfile.myself)
+        if let _ = index {
+            self.likes.remove(at: index!)
+        }
     }
 }

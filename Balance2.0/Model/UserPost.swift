@@ -14,4 +14,5 @@ protocol UserPost: Post {
     var date: NSDate! { get set }
     var comments: CommentsList! { get set }
     var user: UserAccount! { get }
+    var likes: [UserAccount] { get set }
 }

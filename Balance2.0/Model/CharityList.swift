@@ -10,6 +10,7 @@ import UIKit
 
 class CharityList {
     static var main = CharityList()
+    static var donated = [Charity]()
     var allCharities: [Charity]! = [Charity]()
     var launchedCharites: [Charity]! = [Charity]()
     
@@ -30,6 +31,7 @@ class CharityList {
         }
         update()
     }
+
     
     func add(charity: Charity) {
         self.allCharities.insert(charity, at: 0)

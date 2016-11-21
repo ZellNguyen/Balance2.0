@@ -20,6 +20,8 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
     
     var delegate: PostDetailEnteredDelegate? = nil
     
+    @IBOutlet var saveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,17 +33,24 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         for button in mealTypeButtons {
             button.titleLabel?.minimumScaleFactor = 0.2
             button.titleLabel?.adjustsFontSizeToFitWidth = true
-            
+            button.backgroundColor = UIColor.clear
+            button.layer.cornerRadius = 9
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1).cgColor
             //
             button.addTarget(self, action: #selector(chooseMealType(_:)), for: .touchUpInside)
         }
         
         // Initialize meal type
-        mealTypeButtons[0].backgroundColor = UIColor.blue
+        mealTypeButtons[0].backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1)
+        mealTypeButtons[0].setTitleColor(UIColor.white, for: .normal)
         mealType = MealType.breakfast
         
         // Text Field Delegation
         captionTextField.delegate = self
+        
+        //Rounded Button 
+        self.saveButton.layer.cornerRadius = 20
     }
     
     @IBOutlet var captionTextField: UITextField!
@@ -49,10 +58,12 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
     
     
     func chooseMealType(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.blue
+        sender.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1)
+        sender.setTitleColor(UIColor.white, for: .normal)
         
         for button in mealTypeButtons where button != sender{
             button.backgroundColor = UIColor.clear
+            button.setTitleColor(UIColor.black, for: .normal)
         }
         
         if let index = mealTypeButtons.index(of: sender) {
@@ -100,6 +111,21 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func dismissKeyboard(_ sender: Any) {
-        captionTextField.resignFirstResponder()
+        view.endEditing(true)
+    }
+    
+    
+    // MARK: Implement food tags view
+    @IBOutlet var foodTagsView: UIStackView!
+    
+    func loadTags() {
+        for view in self.foodTagsView.subviews as [UIView] {
+            if let stackView = view as? UIStackView {
+                stackView.alignment = .center
+                stackView.distribution = .fillProportionally
+                
+                stackView.addSubview(<#T##view: UIView##UIView#>)
+            }
+        }
     }
 }

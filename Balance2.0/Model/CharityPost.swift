@@ -18,26 +18,30 @@ class CharityPost: NSObject, UserPost {
     
     var charity: Charity!
     
-    init(user: UserAccount, charity: Charity, image: UIImage, caption: String?, comments: CommentsList, date: NSDate){
-        super.init()
-        
+    var likes: [UserAccount]
+    
+    init(user: UserAccount, charity: Charity, image: UIImage, caption: String?, comments: CommentsList, date: NSDate, likes: [UserAccount]){
         self.user = user
         self.charity = charity
         self.image = image
         self.caption = caption
         self.comments = comments
         self.date = date
+        self.likes = likes
+        
+        super.init()
     }
     
-    convenience init(user: UserAccount, charity: Charity, image: UIImage, caption: String?, comments: CommentsList) {
-        self.init(user: user, charity: charity, image: image, caption: caption, comments: comments, date: NSDate())
+    convenience init(user: UserAccount, charity: Charity, image: UIImage, caption: String?, comments: CommentsList, likes: [UserAccount]) {
+        self.init(user: user, charity: charity, image: image, caption: caption, comments: comments, date: NSDate(), likes: likes)
     }
     
     convenience init(charity: Charity, image: UIImage, caption: String?){
         let friend = UserAccount(email: "hoazell41195@gmail.com", fullName: "Hoa")
         let comments = CommentsList()
+        let likes = [UserAccount]()
         
-        self.init(user: friend, charity: charity, image: image, caption: caption, comments: comments)
+        self.init(user: friend, charity: charity, image: image, caption: caption, comments: comments, likes: likes)
     }
     
     convenience init(charity: Charity, image: UIImage){
@@ -48,5 +52,16 @@ class CharityPost: NSObject, UserPost {
     convenience init(charity: Charity){
         let image = charity.image
         self.init(charity: charity, image: image!)
+    }
+    
+    func like() {
+        self.likes.append(ProfileManager.myProfile.myself)
+    }
+    
+    func unlike() {
+        let index = self.likes.index(of: ProfileManager.myProfile.myself)
+        if let _ = index {
+            self.likes.remove(at: index!)
+        }
     }
 }

@@ -30,6 +30,7 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var blurEffectView = UIView()
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var toolBarForPicker: UIToolbar!
+    @IBOutlet var nextButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,14 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         // Profile Image
         self.view.sendSubview(toBack: profileImage)
+        
+        // Crop rounded profile picture
+        let layer = profileImage.layer
+        layer.masksToBounds = true
+        layer.cornerRadius = CGFloat(50.0)
+        
+        self.nextButton.layer.cornerRadius = 9.0
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -346,7 +355,12 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         alertBox.addAction(cancelAction)
         alertBox.addAction(okAction)
         
-        if genderButton.title(for: .normal) == "Select" || heightButton.title(for: .normal) == "Select" || weightButton.title(for: .normal) == "Select" || birthdateButton.title(for: .normal) == "Select" {
+        let genderCheck = genderButton.title(for: .normal)?.range(of: "Select")
+        let heightCheck = heightButton.title(for: .normal)?.range(of: "Select")
+        let weightCheck = weightButton.title(for: .normal)?.range(of: "Select")
+        let birthdateCheck = birthdateButton.title(for: .normal)?.range(of: "Select")
+        
+        if genderCheck != nil || heightCheck != nil || weightCheck != nil || birthdateCheck != nil {
             present(alertBox, animated: true, completion: nil)
             return
         }
@@ -354,6 +368,10 @@ class ProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         performSegue(withIdentifier: "showNewsFeedFromRegistration", sender: self)
     }
     
+    // MARK: Choose Image when tapping the profile pic
+    @IBAction func chooseImage(_ sender: Any) {
+        
+    }
 }
 
 class SpecialDietTableView: UITableViewController {

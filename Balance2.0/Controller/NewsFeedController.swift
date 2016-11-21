@@ -10,12 +10,11 @@ import UIKit
 
 class NewsFeedController: UITableViewController {
     
-    var postsList: PostsList!
+    var postsList: PostsList! = PostsList.main
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        postsList = PostsList()
-        postsList.loadData()
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 400.0
     }

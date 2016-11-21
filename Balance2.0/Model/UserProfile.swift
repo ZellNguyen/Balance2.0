@@ -22,8 +22,8 @@ class UserProfile: NSObject, NSCoding {
     
     override init(){
         super.init()
-        self.totalSteps = 0
-        self.currentSteps = 0
+        self.totalSteps = 25000
+        self.currentSteps = 25000
         self.gender = Gender.none
         heightInCm = 0
         weightInKg = 0
@@ -54,12 +54,12 @@ class UserProfile: NSObject, NSCoding {
     func donate(steps: Int, for charity: Charity){
         if charity.status == CharityStatus.lauching {
             charity.currentSteps = charity.currentSteps + steps
+            let charityCopy = charity.copy() as! Charity
+            charityCopy.donatedDate = Date()
+            charityCopy.donatedSteps = currentSteps
+            CharityList.donated.insert(charityCopy, at: 0)
         }
         self.currentSteps = self.currentSteps - steps
-        //charity.status = CharityStatus.registered
-        //self.currentCharity? = charity
-        //let index = CharityList.main.launchedCharites.index(of: charity)
-        //CharityList.main.launchedCharites.remove(at: index!)
     }
     
     func encode(with aCoder: NSCoder) {

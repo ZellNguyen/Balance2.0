@@ -22,6 +22,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Balance would like to access your camera</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Balance would like to access your photo library</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Balance would like to access to Health Kit</string>
 	<key>UILaunchStoryboardName</key>

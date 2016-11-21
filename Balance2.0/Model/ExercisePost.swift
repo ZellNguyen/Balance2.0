@@ -15,24 +15,28 @@ class ExercisePost: NSObject, UserPost {
     var user: UserAccount!
     var comments: CommentsList!
     var steps: Int
+    var likes: [UserAccount]
     
-    init(by user: UserAccount, image: UIImage?, caption: String?, comments: CommentsList, steps: Int, date: NSDate){
+    init(by user: UserAccount, image: UIImage?, caption: String?, comments: CommentsList, steps: Int, date: NSDate, likes: [UserAccount]){
         self.image = image
         self.caption = caption
         self.user = user
         self.comments = comments
         self.steps = steps
         self.date = date
+        self.likes = likes
+        
         super.init()
     }
     
-    convenience init(by user: UserAccount, image: UIImage?, caption: String?, comments: CommentsList, steps: Int) {
-        self.init(by: user, image: image, caption: caption , comments: comments, steps: steps, date: NSDate())
+    convenience init(by user: UserAccount, image: UIImage?, caption: String?, comments: CommentsList, steps: Int, likes: [UserAccount]) {
+        self.init(by: user, image: image, caption: caption , comments: comments, steps: steps, date: NSDate(), likes: likes)
     }
     
     convenience init(by user: UserAccount, image: UIImage?, caption: String?, steps: Int){
         let comments = CommentsList()
-        self.init(by: user, image: image, caption: caption, comments: comments, steps: steps)
+        let likes = [UserAccount]()
+        self.init(by: user, image: image, caption: caption, comments: comments, steps: steps, likes: likes)
     }
     
     convenience init(image: UIImage?, caption: String?, steps: Int){
@@ -45,4 +49,14 @@ class ExercisePost: NSObject, UserPost {
         self.init(image: image, caption: caption, steps: steps)
     }
     
+    func like() {
+        self.likes.append(ProfileManager.myProfile.myself)
+    }
+    
+    func unlike() {
+        let index = self.likes.index(of: ProfileManager.myProfile.myself)
+        if let _ = index {
+            self.likes.remove(at: index!)
+        }
+    }
 }
