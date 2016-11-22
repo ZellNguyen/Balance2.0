@@ -9,9 +9,11 @@
 import UIKit
 
 class HealthyTipCell: UITableViewCell {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var postImage: UIImageView!
-    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet var likeButton: UIButton!
+    
+    @IBOutlet var parentView: UIView!
+
+    @IBOutlet var commentButton: UIButton!
 }

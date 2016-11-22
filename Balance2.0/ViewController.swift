@@ -38,6 +38,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         
         ProfileManager.myProfile.login(email: email!, fullName: fullName!, friendList: friendList, profile: profile)
+        
+        // Style Bar Buttons
+        self.plusMeal.layer.borderColor = UIColor.darkGray.cgColor
+        self.plusMeal.layer.borderWidth = 0.5
+        
+        self.plusMealChallenge.layer.borderColor = UIColor.darkGray.cgColor
+        self.plusMealChallenge.layer.borderWidth = 0.5
+        
+        self.plusStepChallenge.layer.borderColor = UIColor.darkGray.cgColor
+        self.plusStepChallenge.layer.borderWidth = 0.5
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,5 +108,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.meal = meal
     }
 
+
+    // MARK: Style Buttons
+    
+    @IBOutlet var plusMeal: UIButton!
+    @IBOutlet var plusMealChallenge: UIButton!
+    @IBOutlet var plusStepChallenge: UIButton!
+    
 }
 

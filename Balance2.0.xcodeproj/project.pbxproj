@@ -53,7 +53,7 @@
 		F59F2E491DD95B0A0050B2E5 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59F2E481DD95B0A0050B2E5 /* MoreViewController.swift */; };
 		F5A6F52F1DD508F60090CC90 /* UserPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F52E1DD508F60090CC90 /* UserPost.swift */; };
 		F5A6F5311DD50A070090CC90 /* ExercisePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5301DD50A070090CC90 /* ExercisePost.swift */; };
-		F5A6F5331DD50E5C0090CC90 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5321DD50E5C0090CC90 /* ExerciseCell.swift */; };
+		F5A6F5331DD50E5C0090CC90 /* CharityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5321DD50E5C0090CC90 /* CharityCell.swift */; };
 		F5A6F5371DD521030090CC90 /* HealthyTipPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5361DD521030090CC90 /* HealthyTipPost.swift */; };
 		F5A6F5391DD524C30090CC90 /* HealthyTipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */; };
 		F5E3D4061DDC4DDD00905F47 /* ExerciseChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */; };
@@ -112,7 +112,7 @@
 		F59F2E481DD95B0A0050B2E5 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreViewController.swift; path = Controller/MoreViewController.swift; sourceTree = "<group>"; };
 		F5A6F52E1DD508F60090CC90 /* UserPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPost.swift; path = Model/UserPost.swift; sourceTree = "<group>"; };
 		F5A6F5301DD50A070090CC90 /* ExercisePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExercisePost.swift; path = Model/ExercisePost.swift; sourceTree = "<group>"; };
-		F5A6F5321DD50E5C0090CC90 /* ExerciseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExerciseCell.swift; path = Controller/ExerciseCell.swift; sourceTree = "<group>"; };
+		F5A6F5321DD50E5C0090CC90 /* CharityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharityCell.swift; path = Controller/CharityCell.swift; sourceTree = "<group>"; };
 		F5A6F5361DD521030090CC90 /* HealthyTipPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthyTipPost.swift; path = Model/HealthyTipPost.swift; sourceTree = "<group>"; };
 		F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthyTipCell.swift; path = Controller/HealthyTipCell.swift; sourceTree = "<group>"; };
 		F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExerciseChallengeViewController.swift; path = Controller/ExerciseChallengeViewController.swift; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 				F53E4BBA1DD4750100C14C83 /* MealPostCell.swift */,
 				F53E4BBB1DD4750100C14C83 /* NewsFeedController.swift */,
 				F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */,
-				F5A6F5321DD50E5C0090CC90 /* ExerciseCell.swift */,
+				F5A6F5321DD50E5C0090CC90 /* CharityCell.swift */,
 				F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */,
 				F5861A7A1DD5378A0061FCE7 /* PostDetailViewController.swift */,
 				F52FE3521DD6F6020046A984 /* MealHistoryCell.swift */,
@@ -373,7 +373,7 @@
 			files = (
 				F52FE3531DD6F6020046A984 /* MealHistoryCell.swift in Sources */,
 				F53E4BD01DD48B6C00C14C83 /* CommentViewController.swift in Sources */,
-				F5A6F5331DD50E5C0090CC90 /* ExerciseCell.swift in Sources */,
+				F5A6F5331DD50E5C0090CC90 /* CharityCell.swift in Sources */,
 				F53E4BA41DD46FA200C14C83 /* ViewController.swift in Sources */,
 				F5A6F5391DD524C30090CC90 /* HealthyTipCell.swift in Sources */,
 				F53E4BCE1DD4754000C14C83 /* CommentTableViewController.swift in Sources */,

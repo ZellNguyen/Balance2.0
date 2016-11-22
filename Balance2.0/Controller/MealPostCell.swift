@@ -9,12 +9,14 @@
 import UIKit
 
 class MealPostCell: UITableViewCell {
+    @IBOutlet var userImage: UIImageView!
     @IBOutlet var userLabel: UILabel!
     @IBOutlet var postImage: UIImageView!
     @IBOutlet var commentButton: UIButton!
-    @IBOutlet var tagsStackView: UIStackView!
-
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var mealTypeLabel: UILabel!
+    @IBOutlet var captionLabel: UILabel!
+    @IBOutlet var likeButton: UIButton!
     
+    @IBOutlet var parentView: UIView!
+    
+    @IBOutlet var tagsStackView: UIStackView!
 }

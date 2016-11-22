@@ -8,12 +8,13 @@
 
 import UIKit
 
-class ExerciseCell: UITableViewCell {
+class CharityCell: UITableViewCell {
     @IBOutlet var userLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
     @IBOutlet var postImage: UIImageView!
-    @IBOutlet var stepLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet var commentButton: UIButton!
     
+    @IBOutlet var parentView: UIView!
+    
+    @IBOutlet var likeButton: UIButton!
 }

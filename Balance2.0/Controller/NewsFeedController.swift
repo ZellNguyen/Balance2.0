@@ -17,6 +17,8 @@ class NewsFeedController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 400.0
+        
+        tableView.separatorStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,21 +35,35 @@ class NewsFeedController: UITableViewController {
             // Set up user label
             cell.userLabel.text = post.user.fullName
             
+            // Set up user image
+            cell.userImage.image = UIImage.init(named: "default-image-post")
+            cell.userImage.layer.masksToBounds = true
+            cell.layer.cornerRadius = 9
             
-            // Set up date label
-            let dateFormatter = DateFormatter.localizedString(from: post.date as Date, dateStyle: .short, timeStyle: .short)
-            cell.dateLabel.text = dateFormatter
-            
-            // Set up meal type label
-            cell.mealTypeLabel.text = post.type.rawValue
+            // Set up caption label
+            cell.captionLabel.text = post.caption
             
             // Set up comment butotn
             cell.commentButton.tag = indexPath.row
-            let numberOfComments = post.comments.allComments.count
-            cell.commentButton.setTitle("Comments (\(numberOfComments))", for: .normal)
+            
+            // Set up like button 
+            cell.likeButton.tag = indexPath.row
+            cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+            
+            // Set up meal tags
+            for tag in post.tags.foodTags {
+                let label = UILabel()
+                label.layer.cornerRadius = 9
+                label.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1)
+                label.adjustsFontSizeToFitWidth = true
+                label.textColor = UIColor.white
+                label.text = tag.name
+                
+                cell.tagsStackView.addArrangedSubview(label)
+            }
             
             // Set up dynamic image view's size
-            if let image = post.image {
+            /*if let image = post.image {
                 let aspectRatio = image.size.height / image.size.width
                 let heightConstraint = NSLayoutConstraint(item: cell.postImage, attribute: .height, relatedBy: .equal, toItem: cell.postImage, attribute: .width, multiplier: aspectRatio, constant: 1)
                 cell.postImage.addConstraint(heightConstraint)
@@ -57,38 +73,41 @@ class NewsFeedController: UITableViewController {
             }
             else {
                 cell.postImage.image = nil
-            }
+            }*/
+            
+            cell.postImage.image = post.image
+            
+            cell.parentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            cell.parentView.layer.shadowColor = UIColor.black.cgColor
+            cell.parentView.layer.shadowOpacity = 0.3
+            cell.parentView.layer.shadowOffset = CGSize(width: -2, height: 5)
+            cell.parentView.layer.shadowRadius = 2
+            
             return cell
         }
             
-        // In case Dequeue Exercise Cell
-        else if let post = postsList.allPosts[indexPath.row] as? ExercisePost {
+        // In case Dequeue Charity Cell
+        else if let post = postsList.allPosts[indexPath.row] as? CharityPost {
             
             // Dequeue exercise cell
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseCell", for: indexPath) as! ExerciseCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CharityCell", for: indexPath) as! CharityCell
             
             // set up user label
             cell.userLabel.text = post.user.fullName
-            
-            // Set up date label
-            let dateFormatter = DateFormatter.localizedString(from: post.date as Date, dateStyle: .short, timeStyle: .short)
-            cell.dateLabel.text = dateFormatter
             
             // Set up caption
             if let caption = post.caption {
                 cell.captionLabel.text = caption
             }
 
-            // Set up comment button
+            // Set up buttons
             cell.commentButton.tag = indexPath.row
-            let numberOfComments = post.comments.allComments.count
-            cell.commentButton.setTitle("Comments (\(numberOfComments))", for: .normal)
             
-            // Set up steps label
-            cell.stepLabel.text = String(post.steps)
+            cell.likeButton.tag = indexPath.row
+            cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             
             // Set up dynamic image view's size
-            if let image = post.image {
+            /*if let image = post.image {
                 let aspectRatio = image.size.height / image.size.width
                 let heightConstraint = NSLayoutConstraint(item: cell.postImage, attribute: .height, relatedBy: .equal, toItem: cell.postImage, attribute: .width, multiplier: aspectRatio, constant: 1)
                 cell.postImage.addConstraint(heightConstraint)
@@ -97,7 +116,15 @@ class NewsFeedController: UITableViewController {
             }
             else {
                 cell.postImage.image = nil
-            }
+            }*/
+            
+            cell.postImage.image = post.image
+            
+            cell.parentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            cell.parentView.layer.shadowColor = UIColor.black.cgColor
+            cell.parentView.layer.shadowOpacity = 0.3
+            cell.parentView.layer.shadowOffset = CGSize(width: -2, height: 5)
+            cell.parentView.layer.shadowRadius = 2
             
             return cell
         }
@@ -108,25 +135,19 @@ class NewsFeedController: UITableViewController {
             // Dequeue healthy tip cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "HealthyTipCell", for: indexPath) as!HealthyTipCell
             
-            // set up user label
-            cell.titleLabel.text = post.title
-            
-            // Set up date label
-            let dateFormatter = DateFormatter.localizedString(from: post.date as Date, dateStyle: .short, timeStyle: .short)
-            cell.dateLabel.text = dateFormatter
-            
             // Set up caption
             if let caption = post.caption {
                 cell.captionLabel.text = caption
             }
             
-            // Set up comment button
+            // Set up buttons
             cell.commentButton.tag = indexPath.row
-            let numberOfComments = post.comments.allComments.count
-            cell.commentButton.setTitle("Comments (\(numberOfComments))", for: .normal)
             
+            cell.likeButton.tag = indexPath.row
+            cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+
             // Set up dynamic image view's size
-            if let image = post.image {
+            /*if let image = post.image {
                 let aspectRatio = image.size.height / image.size.width
                 let heightConstraint = NSLayoutConstraint(item: cell.postImage, attribute: .height, relatedBy: .equal, toItem: cell.postImage, attribute: .width, multiplier: aspectRatio, constant: 0)
                 cell.postImage.addConstraint(heightConstraint)
@@ -135,7 +156,15 @@ class NewsFeedController: UITableViewController {
             }
             else {
                 cell.postImage.image = nil
-            }
+            }*/
+            
+            cell.postImage.image = post.image
+            
+            cell.parentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            cell.parentView.layer.shadowColor = UIColor.black.cgColor
+            cell.parentView.layer.shadowOpacity = 0.3
+            cell.parentView.layer.shadowOffset = CGSize(width: -2, height: 5)
+            cell.parentView.layer.shadowRadius = 2
             
             return cell
             
@@ -146,15 +175,42 @@ class NewsFeedController: UITableViewController {
             return UITableViewCell()
         }
     }
+
     
-    /*
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+    func like(_ sender: UIButton){
+        // Change button image
+        if let post = postsList.allPosts[sender.tag] as? HealthyTipPost {
+            sender.setImage(UIImage.init(named: "liked_Health"), for: .normal)
+            if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
+                self.postsList.unlike(atPost: sender.tag)
+            }
+            else {
+                self.postsList.like(atPost: sender.tag)
+            }
+            return
+        }
+        
+        if let post = postsList.allPosts[sender.tag] as? CharityPost {
+            sender.setImage(UIImage.init(named: "liked_Charity"), for: .normal)
+            if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
+                self.postsList.unlike(atPost: sender.tag)
+            }
+            else {
+                self.postsList.like(atPost: sender.tag)
+            }
+            return
+        }
+        
+        if let post = postsList.allPosts[sender.tag] as? MealPost {
+            sender.setImage(UIImage.init(named: "liked_Food"), for: .normal)
+            if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
+                self.postsList.unlike(atPost: sender.tag)
+            }
+            else {
+                self.postsList.like(atPost: sender.tag)
+            }
+            return
+        }
     }
-    
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400.0
-    }
-    */
     
 }

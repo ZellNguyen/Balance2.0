@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         pageController.currentPageIndicatorTintColor = UIColor.black
         pageController.backgroundColor = UIColor.white
         
+        let navigationBar = UINavigationBar.appearance()
+        navigationBar.barTintColor = UIColor(red: 68/255, green: 211/255, blue: 174/255, alpha: 1)
+        //navigationBar.isTranslucent = false
+        
+        
         IQKeyboardManager.sharedManager().enable = true
         
         self.countStep()
