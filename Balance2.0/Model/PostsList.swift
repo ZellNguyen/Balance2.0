@@ -23,7 +23,9 @@ class PostsList {
         for _ in 0..<5 {
             let image = UIImage(named: "default-image-post")
             let friend = UserAccount(email: "hoazell41195@gmail.com", fullName: "Hoa")
-            let post = MealPost(image: image, caption: "ABC", type: .breakfast, tags: FoodTagList.main, user: friend)
+            let tags = FoodTagList()
+            tags.add(tag: FoodTagList.main.foodTags[2].instantiate())
+            let post = MealPost(image: image, caption: "ABC", type: .breakfast, tags: tags, user: friend)
             
             self.add(post)
         }
@@ -45,13 +47,29 @@ class PostsList {
     }
     
     static var main = PostsList()
+    
+    static var meals: PostsList {
+        let posts = PostsList()
+        posts.allPosts = self.main.allPosts.filter({ (post: Post) in
+            return ((post as? MealPost) != nil)
+        })
+        return posts
+    }
+    
+    static var charities: PostsList {
+        let posts = PostsList()
+        posts.allPosts = self.main.allPosts.filter({ (post: Post) in
+            return ((post as? CharityPost) != nil)
+        })
+        return posts
+    }
 
     func like(atPost index: Int) {
         if let post = self.allPosts[index] as? MealPost {
             post.like()
             return
         }
-        if let post = self.allPosts[index] as? ExercisePost {
+        if let post = self.allPosts[index] as? CharityPost {
             post.like()
         }
         if let post = self.allPosts[index] as? HealthyTipPost {
@@ -64,11 +82,12 @@ class PostsList {
             post.unlike()
             return
         }
-        if let post = self.allPosts[index] as? ExercisePost {
+        if let post = self.allPosts[index] as? CharityPost {
             post.unlike()
         }
         if let post = self.allPosts[index] as? HealthyTipPost {
             post.unlike()
         }
     }
+
 }

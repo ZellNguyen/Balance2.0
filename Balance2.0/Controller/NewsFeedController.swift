@@ -51,15 +51,26 @@ class NewsFeedController: UITableViewController {
             cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             
             // Set up meal tags
-            for tag in post.tags.foodTags {
-                let label = UILabel()
-                label.layer.cornerRadius = 9
-                label.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1)
-                label.adjustsFontSizeToFitWidth = true
-                label.textColor = UIColor.white
-                label.text = tag.name
+            if post.tags.foodTags.count > 0 {
+                for view in cell.tagsStackView.subviews {
+                    view.removeFromSuperview()
+                }
                 
-                cell.tagsStackView.addArrangedSubview(label)
+                for tag in post.tags.foodTags {
+                    let label = UILabel()
+                    label.text = ("   \(tag.name!)   ")
+                    label.layer.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1).cgColor
+                    label.layer.cornerRadius = 9
+                    label.adjustsFontSizeToFitWidth = true
+                    label.textColor = UIColor.white
+                    label.font = UIFont.preferredFont(forTextStyle: .caption1)
+                    
+                    cell.tagsStackView.addArrangedSubview(label)
+                }
+            }
+                
+            else {
+                cell.tagsStackView.isHidden = true
             }
             
             // Set up dynamic image view's size
@@ -180,34 +191,38 @@ class NewsFeedController: UITableViewController {
     func like(_ sender: UIButton){
         // Change button image
         if let post = postsList.allPosts[sender.tag] as? HealthyTipPost {
-            sender.setImage(UIImage.init(named: "liked_Health"), for: .normal)
             if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
+                sender.setImage(UIImage.init(named: "unlike_Health"), for: .normal)
                 self.postsList.unlike(atPost: sender.tag)
             }
             else {
                 self.postsList.like(atPost: sender.tag)
+                sender.setImage(UIImage.init(named: "liked_Health"), for: .normal)
             }
             return
         }
         
         if let post = postsList.allPosts[sender.tag] as? CharityPost {
-            sender.setImage(UIImage.init(named: "liked_Charity"), for: .normal)
             if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
+                sender.setImage(UIImage.init(named: "unlike_Charity"), for: .normal)
                 self.postsList.unlike(atPost: sender.tag)
             }
             else {
                 self.postsList.like(atPost: sender.tag)
+                sender.setImage(UIImage.init(named: "liked_Charity"), for: .normal)
             }
+            print(post.likes.count)
             return
         }
         
         if let post = postsList.allPosts[sender.tag] as? MealPost {
-            sender.setImage(UIImage.init(named: "liked_Food"), for: .normal)
             if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
                 self.postsList.unlike(atPost: sender.tag)
+                sender.setImage(UIImage.init(named: "unlike_Food"), for: .normal)
             }
             else {
                 self.postsList.like(atPost: sender.tag)
+                sender.setImage(UIImage.init(named: "liked_Food"), for: .normal)
             }
             return
         }

@@ -10,11 +10,13 @@ import UIKit
 
 class MealHistoryController: UITableViewController {
     
-    var mealPostsList: PostsList! 
+    var mealPostsList: PostsList = PostsList.meals
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMealPost()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 300.0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,34 +27,36 @@ class MealHistoryController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealHistoryCell
         let mealPost = mealPostsList.allPosts[indexPath.row] as! MealPost
         
-        cell.dateLabel.text = DateFormatter.localizedString(from: mealPost.date as Date, dateStyle: .short, timeStyle: .short)
-        cell.mealTypeLabel.text = mealPost.type.rawValue
-        cell.captionLabel.text = mealPost.caption
+        cell.dateLabel.text = DateFormatter.localizedString(from: mealPost.date as Date, dateStyle: .medium, timeStyle: .none)
+        
         cell.mealImage.image = mealPost.image
+        
+        if mealPost.tags.foodTags.count > 0 {
+            for view in cell.tagStackView.subviews {
+                view.removeFromSuperview()
+            }
+            
+            for tag in mealPost.tags.foodTags {
+                let label = UILabel()
+                label.text = ("   \(tag.name!)   ")
+                label.layer.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1).cgColor
+                label.layer.cornerRadius = 9
+                label.adjustsFontSizeToFitWidth = true
+                label.textColor = UIColor.white
+                label.font = UIFont.preferredFont(forTextStyle: .caption1)
+                
+                cell.tagStackView.addArrangedSubview(label)
+            }
+        }
+        
+        else {
+            cell.tagStackView.isHidden = true
+        }
         
         return cell
     }
     
-    func loadMealPost() {
-        let posts = PostsList()
-        posts.loadData()
-        
-        // Initialize meal post list
-        mealPostsList = PostsList()
-        
-        // Filter meal posts
-        for post in posts.allPosts{
-            if let mealPost = post as? MealPost{
-                if mealPost.user == ProfileManager.myProfile.myself {
-                    mealPostsList.add(mealPost)
-                }
-            }
-        }
-        
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        loadMealPost()
         tableView.reloadData()
     }
 }

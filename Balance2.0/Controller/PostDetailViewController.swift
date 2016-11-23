@@ -95,8 +95,9 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
             
             print("DONE")
             
-            let tags = self.chosenTagList
+            let tags = self.mealTagList
             let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
+            self.loggedList.add(tags: tags)
             
             delegate!.userDidEnterMeal(post)
             
@@ -153,19 +154,18 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    var chosenTagList = FoodTagList.logged
+    var loggedList = FoodTagList.logged
     var mealTagList = FoodTagList()
     func chooseTag(_ sender: UIButton) {
+        let tag = foodTagList.foodTags[sender.tag].instantiate()
         if sender.titleColor(for: .normal) == UIColor.black {
             sender.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1)
             sender.setTitleColor(UIColor.white, for: .normal)
-            chosenTagList.add(tag: foodTagList.foodTags[sender.tag])
-            mealTagList.add(tag: foodTagList.foodTags[sender.tag])
+            mealTagList.add(tag: tag)
             return
         }
         sender.backgroundColor = UIColor.clear
         sender.setTitleColor(UIColor.black, for: .normal)
-        chosenTagList.remove(tag: foodTagList.foodTags[sender.tag])
-        mealTagList.remove(tag: foodTagList.foodTags[sender.tag])
+        mealTagList.remove(tag: tag)
     }
 }

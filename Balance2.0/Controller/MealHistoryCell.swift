@@ -11,8 +11,6 @@ import UIKit
 class MealHistoryCell: UITableViewCell {
     @IBOutlet var mealImage: UIImageView!
     @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var mealTypeLabel: UILabel!
-    @IBOutlet var captionLabel: UILabel!
-    @IBOutlet var tagsStack: UIStackView!
+    @IBOutlet var tagStackView: UIStackView!
     
 }

@@ -38,6 +38,7 @@
 		F53E4BD01DD48B6C00C14C83 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */; };
 		F54B6D3C1DD7CA1A00908D28 /* CharityPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54B6D3B1DD7CA1A00908D28 /* CharityPost.swift */; };
 		F5532D151DDFC985004DDB8B /* SpecialDietList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5532D141DDFC985004DDB8B /* SpecialDietList.swift */; };
+		F57084F91DE4DB1B00DE4732 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57084F81DE4DB1B00DE4732 /* DashboardViewController.swift */; };
 		F57530D81DD7E36E007FC361 /* PresentCharityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530D71DD7E36E007FC361 /* PresentCharityCell.swift */; };
 		F57530DA1DD7E946007FC361 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530D91DD7E946007FC361 /* UserProfile.swift */; };
 		F57530DC1DD7EAB5007FC361 /* PresentCharityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530DB1DD7EAB5007FC361 /* PresentCharityTableViewController.swift */; };
@@ -97,6 +98,7 @@
 		F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = Controller/CommentViewController.swift; sourceTree = "<group>"; };
 		F54B6D3B1DD7CA1A00908D28 /* CharityPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharityPost.swift; path = Model/CharityPost.swift; sourceTree = "<group>"; };
 		F5532D141DDFC985004DDB8B /* SpecialDietList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialDietList.swift; sourceTree = "<group>"; };
+		F57084F81DE4DB1B00DE4732 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Controller/DashboardViewController.swift; sourceTree = "<group>"; };
 		F57530D71DD7E36E007FC361 /* PresentCharityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCharityCell.swift; path = Controller/PresentCharityCell.swift; sourceTree = "<group>"; };
 		F57530D91DD7E946007FC361 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfile.swift; path = Model/UserProfile.swift; sourceTree = "<group>"; };
 		F57530DB1DD7EAB5007FC361 /* PresentCharityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCharityTableViewController.swift; path = Controller/PresentCharityTableViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				F59763C71DDAEFD20070E1F9 /* NewExerciseChallengeViewController.swift */,
 				F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */,
 				F5255D3E1DDF7E0500602C93 /* ProfileViewController.swift */,
+				F57084F81DE4DB1B00DE4732 /* DashboardViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				F53E4BD01DD48B6C00C14C83 /* CommentViewController.swift in Sources */,
 				F5A6F5331DD50E5C0090CC90 /* CharityCell.swift in Sources */,
 				F53E4BA41DD46FA200C14C83 /* ViewController.swift in Sources */,
+				F57084F91DE4DB1B00DE4732 /* DashboardViewController.swift in Sources */,
 				F5A6F5391DD524C30090CC90 /* HealthyTipCell.swift in Sources */,
 				F53E4BCE1DD4754000C14C83 /* CommentTableViewController.swift in Sources */,
 				F5A6F5371DD521030090CC90 /* HealthyTipPost.swift in Sources */,

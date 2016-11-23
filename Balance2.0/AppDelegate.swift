@@ -26,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         pageController.backgroundColor = UIColor.white
         
         let navigationBar = UINavigationBar.appearance()
-        navigationBar.barTintColor = UIColor(red: 68/255, green: 211/255, blue: 174/255, alpha: 1)
+        navigationBar.barTintColor = UIColor.white
+        navigationBar.tintColor = UIColor.darkGray
         //navigationBar.isTranslucent = false
         
         
@@ -73,19 +74,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         StepCounter.main.authorizeHealthKit(completion: { (success, error) -> Void in
             if success {
                 print("HealthKit authorization succeeded")
-                if StepCounter.startTime != nil {
-                    StepCounter.main.recentSteps(StepCounter.startTime as Date, completion: { (steps, error) -> Void in
-                        StepCounter.main.steps = StepCounter.main.steps + Int(steps)
-                        print(StepCounter.main.steps)
-                        if error != nil {
-                            print("CANNOT AUTHORIZE")
-                        }
-                    })
-                }
-                else {
-                    StepCounter.startTime = NSDate()
-                    print("FAILED")
-                }
+                let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+                StepCounter.main.recentSteps(yesterday!, completion: { (steps, error) -> Void in
+                    StepCounter.main.steps = StepCounter.main.steps + Int(steps)
+                    print(StepCounter.main.steps)
+                    if error != nil {
+                        print("CANNOT AUTHORIZE")
+                    }
+                })
             }
             else {
                 if error != nil {

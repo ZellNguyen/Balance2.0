@@ -20,6 +20,8 @@ class UserProfile: NSObject, NSCoding {
     var weightInKg: Float!
     var dob: Date!
     
+    var picture: UIImage!
+    
     override init(){
         super.init()
         self.totalSteps = 25000
@@ -36,6 +38,9 @@ class UserProfile: NSObject, NSCoding {
         
         // Get NSDate given the above date components
         dob = NSCalendar(identifier: NSCalendar.Identifier.gregorian)?.date(from: c as DateComponents)
+        
+        // Default profile pic
+        self.picture = UIImage.init(named: "default-image-post")
 
     }
     
@@ -47,6 +52,7 @@ class UserProfile: NSObject, NSCoding {
         self.heightInCm = aDecoder.decodeObject(forKey: "heightInCm") as! Float!
         self.weightInKg = aDecoder.decodeObject(forKey: "weightInKg") as! Float!
         self.dob = aDecoder.decodeObject(forKey: "dob") as! Date!
+        self.picture = aDecoder.decodeObject(forKey: "picture") as! UIImage!
     }
     
 
@@ -69,6 +75,7 @@ class UserProfile: NSObject, NSCoding {
         aCoder.encode(heightInCm, forKey: "heightInCm")
         aCoder.encode(weightInKg, forKey: "weightInKg")
         aCoder.encode(dob, forKey: "dob")
+        aCoder.encode(picture, forKey: "picture")
     }
     
 }

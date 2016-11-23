@@ -10,6 +10,22 @@ import UIKit
 
 struct FoodTag {
     var name: String!
+    var date: Date? = nil
+    
+    init(name: String) {
+        self.name = name
+        self.date = nil
+    }
+    
+    init(name: String, date: Date){
+        self.name = name
+        self.date = date
+    }
+    
+    func instantiate() -> FoodTag {
+        let date = Date()
+        return FoodTag(name: self.name, date: date)
+    }
 }
 
 class FoodTagList {
@@ -38,4 +54,11 @@ class FoodTagList {
             self.foodTags.remove(at: index!)
         }
     }
+    
+    func add(tags: FoodTagList){
+        for tag in tags.foodTags {
+            self.foodTags.append(tag)
+        }
+    }
+
 }

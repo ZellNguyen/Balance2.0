@@ -51,6 +51,25 @@ class StepCounter {
         
         storage.execute(query)
     }
+    
+    func countSteps(from startDate: Date, to endDate: Date, completion: ((Double, NSError?) -> Void)! ) {
+        let type = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+        
+        let predicate  = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        
+        let query  = HKSampleQuery(sampleType: type!, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil, resultsHandler: { query, results, error in
+            var steps: Double = 0
+            
+            if (results?.count)! > 0 {
+                for result in results as! [HKQuantitySample] {
+                    steps += result.quantity.doubleValue(for: HKUnit.count())
+                }
+            }
+            completion(steps, error as NSError?)
+        })
+        
+        storage.execute(query)
+    }
 
     static var startTime: NSDate!
     static var main = StepCounter()
