@@ -101,6 +101,7 @@ class ExerciseChallengeTableViewController: UITableViewController {
             self.filterChallenge(byStatus: .pending)
         case 1:
             self.filterChallenge(byStatus: .active)
+            challenges.loadProgress()
         case 2:
             self.filterChallenge(byStatus: .finished)
         default:
@@ -116,6 +117,8 @@ class ExerciseChallengeTableViewController: UITableViewController {
         self.categoryLabel.text = category
         
         self.tableView.reloadData()
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 200.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,14 +136,113 @@ class ExerciseChallengeTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "challengeCell")! as UITableViewCell
-        
-        let challenge = challenges.allChallenges[indexPath.row]
-        
-        cell.textLabel?.text = challenge.title
-        cell.detailTextLabel?.text = challenge.receiver?.fullName
-    
-        return cell
+        switch pageIndex {
+        case 0:
+            let challenge = challenges.allChallenges[indexPath.row] as! IndividualExerciseChallenge
+            
+            // In case the challenge is sent by user
+            if challenge.sender == ProfileManager.myProfile.myself {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseChallengeSentCell")! as! ExerciseChallengeSentCell
+                
+                cell.receiverImage.image = challenge.receiver?.profile.picture ?? UIImage.init(named: "default-image-post")
+                cell.receiverImage.layer.masksToBounds = true
+                cell.receiverImage.layer.cornerRadius = CGFloat(21.5)
+                
+                cell.receiverNameLabel.text = challenge.receiver?.fullName
+                cell.messageLabel.text = challenge.message
+                let fromDateString = DateFormatter.localizedString(from: challenge.fromDate, dateStyle: .medium, timeStyle: .none)
+                let toDateString = DateFormatter.localizedString(from: challenge.toDate, dateStyle: .medium, timeStyle: .none)
+                
+                cell.dateLabel.text = ("\(fromDateString) - \(toDateString)")
+                return cell
+            }
+            
+                
+            // In case the challenge is received by user
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseChallengeReceivedCell")! as! ExerciseChallengeReceivedCell
+                
+                cell.senderImage.image = challenge.sender.profile.picture ?? UIImage.init(named: "default-image-post")
+                cell.senderImage.layer.masksToBounds = true
+                cell.senderImage.layer.cornerRadius = CGFloat(21.5)
+                
+                cell.senderNameLabel.text = challenge.sender.fullName
+                cell.messageLabel.text = challenge.message
+                let fromDateString = DateFormatter.localizedString(from: challenge.fromDate, dateStyle: .medium, timeStyle: .none)
+                let toDateString = DateFormatter.localizedString(from: challenge.toDate, dateStyle: .medium, timeStyle: .none)
+                
+                cell.dateLabel.text = ("\(fromDateString) - \(toDateString)")
+                cell.acceptButton.tag = indexPath.row
+                cell.ignoreButton.tag = indexPath.row
+                cell.acceptButton.addTarget(self, action: #selector(acceptChallenge(_:)), for: .touchUpInside)
+                cell.ignoreButton.addTarget(self, action: #selector(ignoreChallenge(_:)), for: .touchUpInside)
+                
+                return cell
+            }
+            
+        case 1, 2:
+            let challenge = challenges.allChallenges[indexPath.row] as! IndividualExerciseChallenge
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseActiveChallengeCell") as! ExerciseActiveChallengeCell
+            if challenge.sender == ProfileManager.myProfile.myself {
+                cell.friendNameLabel.text = challenge.receiver?.fullName
+                cell.friendImage.image = challenge.receiver?.profile.picture
+            }
+            else {
+                cell.friendNameLabel.text = challenge.sender.fullName
+                cell.friendImage.image = challenge.sender.profile.picture
+            }
+            cell.friendImage.layer.masksToBounds = true
+            cell.friendImage.layer.cornerRadius = CGFloat(21.5)
+            cell.userStepBar.progress = Float(challenge.myCurrentSteps)/100000 + 0.01
+            cell.friendStepBar.progress = Float(challenge.friendCurrentSteps)/100000 + 0.01
+            
+            let fromDateString = DateFormatter.localizedString(from: challenge.fromDate, dateStyle: .medium, timeStyle: .none)
+            let toDateString = DateFormatter.localizedString(from: challenge.toDate, dateStyle: .medium, timeStyle: .none)
+            
+            cell.dateLabel.text = ("\(fromDateString) - \(toDateString)")
+            
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
     
+    func acceptChallenge(_ sender: UIButton){
+        let challenge = self.challenges.allChallenges[sender.tag]
+        challenge.status = ChallengeStatus.active
+        self.tableView.reloadData()
+    }
+    
+    func ignoreChallenge(_ sender: UIButton){
+        let challenge = self.challenges.allChallenges[sender.tag]
+        challenge.status = ChallengeStatus.expired
+        self.tableView.reloadData()
+    }
+}
+
+class ExerciseChallengeSentCell: UITableViewCell {
+    @IBOutlet var receiverImage: UIImageView!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var receiverNameLabel: UILabel!
+    @IBOutlet var messageLabel: UILabel!
+}
+
+class ExerciseChallengeReceivedCell: UITableViewCell {
+    @IBOutlet var senderImage: UIImageView!
+    @IBOutlet var senderNameLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var messageLabel: UILabel!
+    @IBOutlet var ignoreButton: UIButton!
+    @IBOutlet var acceptButton: UIButton!
+   
+}
+
+class ExerciseActiveChallengeCell: UITableViewCell {
+    @IBOutlet var friendImage: UIImageView!
+    @IBOutlet var userImage: UIImageView!
+    
+    @IBOutlet var friendStepBar: UIProgressView!
+    @IBOutlet var userStepBar: UIProgressView!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var friendNameLabel: UILabel!
 }

@@ -16,14 +16,11 @@ enum ChallengeStatus: String {
     case finishedVoting
 }
 
-protocol Challenge: class, NSCoding {
-    var title: String! { get set }
-    var date: NSDate! { get }
+protocol Challenge: class {
     var message: String! { get set }
-    var image: UIImage! { get set }
     var sender: UserAccount { get set }
     var receiver: UserAccount? { get set }
     var status: ChallengeStatus! { get set }
-    var deadline: NSDate! { get set }
-    var isWinner: Bool! { get set }
+    var fromDate: Date! { get set }
+    var toDate: Date! { get set }
 }

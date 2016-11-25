@@ -10,25 +10,20 @@ import UIKit
 
 class IndividualExerciseChallenge: NSObject, Challenge {
     
-    var title: String!
-    var date: NSDate!
-    var image: UIImage!
     var sender: UserAccount
     var receiver: UserAccount?
     var status: ChallengeStatus!
-    var deadline: NSDate!
-    var isWinner: Bool! = false
+    var fromDate: Date!
+    var toDate: Date!
+    
+    var myCurrentSteps: Int! = 0
+    var friendCurrentSteps: Int! = 0
     
     var message: String!
-    var goalSteps: Int!
-    var currentSteps: Int!
     
-    init(title: String!, image: UIImage!, message: String!, goalSteps: Int!, currentSteps: Int!, sender: UserAccount, receiver: UserAccount?, status: ChallengeStatus, date: NSDate!, deadline: NSDate, isWinner: Bool) {
-        self.title = title
-        self.image = image
+    init(message: String!, sender: UserAccount, receiver: UserAccount?, status: ChallengeStatus, fromDate: Date!, toDate: Date, myCurrentSteps: Int, friendCurrentSteps: Int) {
         self.message = message
-        self.goalSteps = goalSteps
-        self.currentSteps = currentSteps
+
         self.sender = sender
         if let receiver = receiver {
             self.receiver = receiver
@@ -37,71 +32,15 @@ class IndividualExerciseChallenge: NSObject, Challenge {
             self.receiver = nil
         }
         self.status = status
-        self.date = date
-        self.deadline = deadline
-        self.isWinner = isWinner
+        self.fromDate = fromDate
+        self.toDate = toDate
+        self.myCurrentSteps = myCurrentSteps
+        self.friendCurrentSteps = friendCurrentSteps
         
         super.init()
     }
     
-    convenience init(title: String!, image: UIImage!, message: String!, goalSteps: Int!, currentSteps: Int!, sender: UserAccount, receiver: UserAccount?, status: ChallengeStatus, deadline: NSDate, isWinner: Bool) {
-        let date = NSDate()
-        self.init(title: title, image: image, message: message, goalSteps: goalSteps, currentSteps: currentSteps, sender: sender, receiver: receiver, status: status, date: date, deadline: deadline, isWinner: isWinner)
-    }
-    
-    convenience init(title: String!, image: UIImage!, message: String!, goalSteps: Int!, currentSteps: Int!, sender: UserAccount, receiver: UserAccount?, status: ChallengeStatus, deadline: NSDate){
-        self.init(title: title, image: image, message: message, goalSteps: goalSteps, currentSteps: currentSteps, sender: sender, receiver: receiver, status: status, deadline: deadline, isWinner: false)
-    }
-    
-    convenience init(title: String!, image: UIImage!, message: String!, goalSteps: Int!, receiver: UserAccount?, deadline: NSDate){
-        self.init(title: title, image: image, message: message, goalSteps: goalSteps, currentSteps: 0, sender: ProfileManager.myProfile.myself, receiver: receiver, status: ChallengeStatus.pending, deadline: deadline)
-    }
-    
-    convenience init(title: String!, image: UIImage, goalSteps: Int!, deadline: NSDate){
-        self.init(title: title, image: image, message: "", goalSteps: goalSteps, receiver: nil, deadline: deadline)
-    }
-    
-    convenience init(title: String!, goalSteps: Int!, deadline: NSDate){
-        let image = UIImage.init(named: "default-image-post")
-        self.init(title: title, image: image!, goalSteps: goalSteps, deadline: deadline)
-    }
-    
-    convenience init(title: String!, message: String!, goalSteps: Int!, receiver: UserAccount!, deadline: NSDate!) {
-        let image = UIImage.init(named: "default-image-post")
-        self.init(title: title, image: image, message: message, goalSteps: goalSteps, receiver: receiver, deadline: deadline)
-    }
-    
-    // MARK: Encoding
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(title, forKey: "title")
-        aCoder.encode(date, forKey: "date")
-        aCoder.encode(image, forKey: "image")
-        aCoder.encode(sender, forKey: "sender")
-        if let _ = receiver {
-            aCoder.encode(receiver, forKey: "receiver")
-        }
-        aCoder.encode(status.rawValue, forKey: "status")
-        aCoder.encode(deadline, forKey: "deadline")
-        aCoder.encode(isWinner, forKey: "isWinner")
-        aCoder.encode(message, forKey: "message")
-        aCoder.encode(goalSteps, forKey: "goalSteps")
-        aCoder.encode(currentSteps, forKey: "currentSteps")
-    }
-    
-    // MARK: Decoding
-    convenience required init?(coder aDecoder: NSCoder) {
-        let title = aDecoder.decodeObject(forKey: "title") as! String
-        let date = aDecoder.decodeObject(forKey: "date") as! NSDate
-        let image = aDecoder.decodeObject(forKey: "image") as! UIImage
-        let sender = aDecoder.decodeObject(forKey: "sender") as! UserAccount
-        let receiver = aDecoder.decodeObject(forKey: "receiver") as! UserAccount
-        let status = ChallengeStatus(rawValue: aDecoder.decodeObject(forKey: "status") as! String)
-        let deadline = aDecoder.decodeObject(forKey: "deadline") as! NSDate
-        let isWinner = aDecoder.decodeObject(forKey: "isWinner") as! Bool
-        let message = aDecoder.decodeObject(forKey: "message") as! String
-        let goalSteps = aDecoder.decodeObject(forKey: "goalSteps") as! Int
-        let currentSteps = aDecoder.decodeObject(forKey: "currentSteps") as! Int
-        
-        self.init(title: title, image: image, message: message, goalSteps: goalSteps, currentSteps: currentSteps, sender: sender, receiver: receiver, status: status!, date: date, deadline: deadline, isWinner: isWinner)
+    convenience init(message: String, sender: UserAccount, receiver: UserAccount?, fromDate: Date, toDate: Date) {
+        self.init(message: message, sender: sender, receiver: receiver, status: ChallengeStatus.pending, fromDate: fromDate, toDate: toDate, myCurrentSteps: 0, friendCurrentSteps: 0)
     }
 }

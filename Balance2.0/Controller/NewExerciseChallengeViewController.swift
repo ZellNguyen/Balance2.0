@@ -8,12 +8,16 @@
 
 import UIKit
 
-class NewExerciseChallengeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class NewExerciseChallengeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITextFieldDelegate {
     @IBOutlet var friendTableView: UITableView!
-    @IBOutlet var friendsStackView: UIStackView!
     
     var friendList = ProfileManager.myProfile.friendList
     var filteredFriend = [UserAccount]()
+    
+    @IBOutlet var toolBarPicker: UIToolbar!
+    @IBOutlet var senderLabel: UILabel!
+    @IBOutlet var senderImage: UIImageView!
+    @IBOutlet var friendImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,25 +25,36 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         self.friendTableView.dataSource = self
         self.friendTableView.reloadData()
         
-        // Hide UIPickerView
-        self.durationPicker.isHidden = true
-        self.durationPicker.delegate = self
-        self.durationPicker.dataSource = self
-        let x = durationButton.frame.origin.x
-        let y = durationButton.frame.origin.y
-        self.durationPicker.frame = CGRect(x: x, y: y, width: 100, height: 70)
-        self.durationPicker.center.y = self.durationButton.center.y
-        self.durationPicker.backgroundColor = UIColor.white
-
-        self.view.addSubview(durationPicker)
-        
         // TextField Delegate
         self.messageTextField.delegate = self
-        self.stepTextField.delegate = self
+        
+        // Hide elements
+        self.fromDatePicker.isHidden = true
+        self.fromDatePicker.backgroundColor = UIColor.white
+        self.toDatePicker.isHidden = true
+        self.toDatePicker.backgroundColor = UIColor.white
+        self.toolBarPicker.isHidden = true
+        self.friendNameLabel.isHidden = true
+        
+        // Initialize image
+        self.senderImage.image = ProfileManager.myProfile.profile.picture
+        self.senderImage.layer.masksToBounds = true
+        self.senderImage.layer.cornerRadius = CGFloat(43)
+        self.senderLabel.text = ProfileManager.myProfile.myself.fullName
+        
+        self.friendImage.layer.masksToBounds = true
+        self.friendImage.layer.cornerRadius = CGFloat(43)
+        
+        // Date Picker
+        self.fromDatePicker.minimumDate = Date()
+        self.toDatePicker.minimumDate = Date()
+        self.fromDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())
+        self.toDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 30, to: Date())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.friendTableView.isHidden = true
+        self.friendSearchBar.isHidden = true
     }
     
     // MARK: Table View
@@ -64,28 +79,36 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         }
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        self.friendTableView.isHidden = true
+    // Choose friend to challenge
+    @IBOutlet var friendSearchBar: UISearchBar!
+    
+    
+    @IBOutlet var friendNameLabel: UILabel!
+    
+    @IBAction func findFriend(_ sender: UITapGestureRecognizer) {
+        print("TAP")
+        self.friendSearchBar.isHidden = false
+        self.friendTableView.isHidden = false
     }
     
-    
-    // Choose friend to challenge
-    
-    var selectedFriends = [UserAccount]()
+    var receiver: UserAccount? = nil
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let friend = filteredFriend[indexPath.row]
         print("Click")
-        selectedFriends.append(friend)
-        
-        let friendLabel = UILabel()
-        friendLabel.textAlignment = .center
-        friendLabel.adjustsFontSizeToFitWidth = true
-        friendLabel.attributedText = NSAttributedString(string: friend.fullName)
-        friendsStackView.addArrangedSubview(friendLabel)
-        print(selectedFriends.count)
-        
+        receiver = friend
+
+        self.friendImage.image = friend.profile.picture
+        self.friendNameLabel.text = friend.fullName
+        self.friendNameLabel.isHidden = false
         self.friendTableView.isHidden = true
+        self.searchDisplayController?.isActive = false
+        self.friendSearchBar.isHidden = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.friendTableView.isHidden = true
+        self.friendSearchBar.isHidden = true
     }
     
     // MARK: Search 
@@ -94,7 +117,7 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         self.filteredFriend = (self.friendList?.allFriends.filter( {(friend: UserAccount) -> Bool in
             let nameMatch = friend.fullName.range(of: searchText)
             let emailMatch = friend.email.range(of: searchText)
-            let isSelected = selectedFriends.contains(friend)
+            let isSelected = receiver == friend
             
             return (((nameMatch != nil) || (emailMatch != nil)) && !isSelected)
         }))!
@@ -107,81 +130,14 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         return true
     }
     
-    // MARK: Picker
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return durationOptions.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return 72.0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 36.0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let picker = UILabel()
-        
-        picker.textAlignment = .center
-        picker.adjustsFontSizeToFitWidth = true
-        
-        picker.attributedText = NSAttributedString(string: "\(durationOptions[row]) days")
-        
-        return picker
-    }
-    
-    @IBOutlet var durationButton: UIButton!
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let title = "\(durationOptions[row]) days"
-        durationButton.setTitle(title, for: .normal)
-        self.duration = durationOptions[row]
-    }
-    
-    // Duration Options
-    var durationOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     @IBOutlet var messageTextField: UITextField!
-    @IBOutlet var titleTextField: UITextField!
-    @IBOutlet var stepTextField: UITextField!
-    var duration: Int! = 7
-    var durationPicker: UIPickerView = UIPickerView()
-    @IBAction func chooseDuration(_ sender: Any) {
-        self.durationPicker.isHidden = false
-        
-    }
-    
-    @IBAction func save(_ sender: Any) {
-        let alertBox = UIAlertController(title: "Failed", message: "All fields must be filled", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        
-        alertBox.addAction(okAction)
-        
-        let message = messageTextField.text ?? ""
-        let steps = stepTextField.text ?? ""
-        let title = titleTextField.text ?? ""
-        
-        if message.isEmpty || steps.isEmpty || title.isEmpty {
-            present(alertBox, animated: true, completion: nil)
-            return
-        }
-        
-        let deadline = NSDate(timeInterval: Double(duration * 86400), since: NSDate() as Date)
-        
-        for friend in selectedFriends {
-            let newChallenge = IndividualExerciseChallenge(title: title, image: UIImage.init(named: "default-image-post"), message: message, goalSteps: Int(steps), receiver: friend, deadline: deadline)
-            
-            ChallengeList.exerciseChallengeList.add(challenge: newChallenge)
-        }
-        self.navigationController?.popViewController(animated: true)
-    }
     
     @IBAction func endEditing(_ sender: Any) {
         dismissKeyboard()
-        self.durationPicker.isHidden = true
+        
+        self.toolBarPicker.isHidden = true
+        self.toDatePicker.isHidden = true
+        self.fromDatePicker.isHidden = true
     }
     
     
@@ -195,9 +151,72 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         return true
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentString = textField.text ?? ""
-        let newString = (currentString as NSString).replacingCharacters(in: range, with: string)
-        return newString.characters.count <= 6
+    // MARK: Date Picker
+    @IBOutlet var fromDatePicker: UIDatePicker!
+    @IBOutlet var toDatePicker: UIDatePicker!
+    
+    @IBOutlet var fromDateLabel: UILabel!
+    @IBOutlet var toDateLabel: UILabel!
+    
+    var fromDate: Date? = nil
+    var toDate: Date? = nil
+    
+    @IBAction func showFromDatePicker(_ sender: Any) {
+        self.toolBarPicker.isHidden = false
+        fromDatePicker.isHidden = false
+    }
+    @IBAction func showToDatePicker(_ sender: Any) {
+        self.toolBarPicker.isHidden = false
+        toDatePicker.isHidden = false
+    }
+    
+    @IBAction func chooseFromDate(_ sender: UIDatePicker) {
+        let fromDate = sender.date
+        self.fromDateLabel.text = DateFormatter.localizedString(from: fromDate, dateStyle: .medium, timeStyle: .none)
+        self.fromDate = fromDate
+    }
+    
+    @IBAction func chooseToDate(_ sender: UIDatePicker) {
+        let toDate = sender.date
+        self.toDateLabel.text = DateFormatter.localizedString(from: toDate, dateStyle: .medium, timeStyle: .none)
+        self.toDate = toDate
+    }
+    
+    @IBAction func endDatePicker(_ sender: UIBarButtonItem) {
+        self.fromDateLabel.text = DateFormatter.localizedString(from: self.fromDatePicker.date, dateStyle: .medium, timeStyle: .none)
+        fromDatePicker.isHidden = true
+        self.toDateLabel.text = DateFormatter.localizedString(from: self.toDatePicker.date, dateStyle: .medium, timeStyle: .none)
+        toDatePicker.isHidden = true
+        toolBarPicker.isHidden = true
+    }
+    
+    // MARK: Save the challenge
+    @IBAction func save(_ sender: Any) {
+        let alertBox = UIAlertController(title: "Failed", message: "All fields must be filled", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        alertBox.addAction(okAction)
+        
+        let message = messageTextField.text ?? ""
+        
+        if message.isEmpty || fromDate == nil || toDate == nil {
+            present(alertBox, animated: true, completion: nil)
+            return
+        }
+        
+        let dateAlertBox = UIAlertController(title: "Invalid date", message: "Invalid start and end dates", preferredStyle: .alert)
+        dateAlertBox.addAction(okAction)
+        
+        if self.fromDate! > self.toDate! {
+            present(dateAlertBox, animated: true, completion: nil)
+            return
+        }
+        
+        
+        let newChallenge = IndividualExerciseChallenge(message: message, sender: ProfileManager.myProfile.myself, receiver: receiver, fromDate: fromDate!, toDate: toDate!)
+        
+        ChallengeList.exerciseChallengeList.add(challenge: newChallenge)
+        
+        self.navigationController?.popViewController(animated: true)
     }
 }
