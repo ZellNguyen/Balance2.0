@@ -9,6 +9,7 @@
 import UIKit
 
 class NewExerciseChallengeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITextFieldDelegate {
+    
     @IBOutlet var friendTableView: UITableView!
     
     var friendList = ProfileManager.myProfile.friendList
@@ -19,6 +20,7 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
     @IBOutlet var senderImage: UIImageView!
     @IBOutlet var friendImage: UIImageView!
     
+    @IBOutlet var sendButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.friendTableView.delegate = self
@@ -27,6 +29,44 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         
         // TextField Delegate
         self.messageTextField.delegate = self
+        self.messageTextField.backgroundColor = UIColor.white
+        self.messageTextField.clipsToBounds = false
+        let lowerBorder = CALayer()
+        lowerBorder.backgroundColor = UIColor.lightGray.cgColor
+        lowerBorder.frame = CGRect(x: 0, y: messageTextField.frame.height, width: messageTextField.frame.width, height: 1.0)
+        let rightBorder = CALayer()
+        rightBorder.backgroundColor = UIColor.lightGray.cgColor
+        rightBorder.frame = CGRect(x: messageTextField.frame.width, y: 0, width: 1.0, height: messageTextField.frame.height)
+        self.messageTextField.layer.addSublayer(lowerBorder)
+        self.messageTextField.layer.addSublayer(rightBorder)
+        // Date label
+        self.toDateLabel.backgroundColor = UIColor.white
+        let lowerBorder1 = CALayer()
+        lowerBorder1.backgroundColor = UIColor.lightGray.cgColor
+        lowerBorder1.frame = CGRect(x: 0, y: toDateLabel.frame.height, width: toDateLabel.frame.width, height: 1.0)
+        let rightBorder1 = CALayer()
+        rightBorder1.backgroundColor = UIColor.lightGray.cgColor
+        rightBorder1.frame = CGRect(x: toDateLabel.frame.width, y: 0, width: 1.0, height: toDateLabel.frame.height)
+        self.toDateLabel.layer.addSublayer(lowerBorder1)
+        self.toDateLabel.layer.addSublayer(rightBorder1)
+        
+        self.fromDateLabel.backgroundColor = UIColor.white
+        let lowerBorder2 = CALayer()
+        lowerBorder2.backgroundColor = UIColor.lightGray.cgColor
+        lowerBorder2.frame = CGRect(x: 0, y: fromDateLabel.frame.height, width: fromDateLabel.frame.width, height: 1.0)
+        let rightBorder2 = CALayer()
+        rightBorder2.backgroundColor = UIColor.lightGray.cgColor
+        rightBorder2.frame = CGRect(x: fromDateLabel.frame.width, y: 0, width: 1.0, height: fromDateLabel.frame.height)
+        
+        self.fromDateLabel.layer.addSublayer(lowerBorder2)
+        self.fromDateLabel.layer.addSublayer(rightBorder2)
+        
+        // Send Button 
+        self.sendButton.layer.shadowColor = UIColor.black.cgColor
+        self.sendButton.layer.shadowOpacity = 0.5
+        self.sendButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        self.sendButton.layer.shadowRadius = 4
+        self.sendButton.layer.cornerRadius = 20
         
         // Hide elements
         self.fromDatePicker.isHidden = true
@@ -45,11 +85,17 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         self.friendImage.layer.masksToBounds = true
         self.friendImage.layer.cornerRadius = CGFloat(43)
         
+        if self.receiver != nil {
+            self.friendImage.image = receiver?.profile.picture
+            self.friendNameLabel.text = receiver?.fullName
+            self.friendNameLabel.isHidden = false
+        }
+        
         // Date Picker
         self.fromDatePicker.minimumDate = Date()
         self.toDatePicker.minimumDate = Date()
-        self.fromDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())
-        self.toDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 30, to: Date())
+        self.fromDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 30, to: Date())
+        self.toDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 90, to: Date())
     }
     
     override func viewWillAppear(_ animated: Bool) {

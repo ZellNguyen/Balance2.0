@@ -11,13 +11,13 @@ import UIKit
 class ExercisePost: NSObject, UserPost {
     var image: UIImage!
     var caption: String?
-    var date: NSDate!
+    var date: Date!
     var user: UserAccount!
     var comments: CommentsList!
     var steps: Int
     var likes: [UserAccount]
     
-    init(by user: UserAccount, image: UIImage?, caption: String?, comments: CommentsList, steps: Int, date: NSDate, likes: [UserAccount]){
+    init(by user: UserAccount, image: UIImage?, caption: String?, comments: CommentsList, steps: Int, date: Date, likes: [UserAccount]){
         self.image = image
         self.caption = caption
         self.user = user
@@ -30,7 +30,7 @@ class ExercisePost: NSObject, UserPost {
     }
     
     convenience init(by user: UserAccount, image: UIImage?, caption: String?, comments: CommentsList, steps: Int, likes: [UserAccount]) {
-        self.init(by: user, image: image, caption: caption , comments: comments, steps: steps, date: NSDate(), likes: likes)
+        self.init(by: user, image: image, caption: caption , comments: comments, steps: steps, date: Date(), likes: likes)
     }
     
     convenience init(by user: UserAccount, image: UIImage?, caption: String?, steps: Int){

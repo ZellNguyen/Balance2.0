@@ -34,7 +34,7 @@ class FoodTagList {
 
     convenience init(force: Bool) {
         self.init()
-        foodTags = [FoodTag(name: "Processed"), FoodTag(name: "Unprocessed"), FoodTag(name: "Junk food"), FoodTag(name: "Carbohydrate"), FoodTag(name: "Grain"), FoodTag(name: "Vegetables"), FoodTag(name: "Proteins"), FoodTag(name: "Fruits"), FoodTag(name: "Organic"), FoodTag(name: "Fish"), FoodTag(name: "Red meat"), FoodTag(name: "White meat"), FoodTag(name: "No meat"), FoodTag(name: "Dessert"), FoodTag(name: "Alcohol"), FoodTag(name: "Dairy"), FoodTag(name: "Sugar free"), FoodTag(name: "Fibre"), FoodTag(name: "Low sodium"), FoodTag(name: "Trans fat free"), FoodTag(name: "Gluten free"), FoodTag(name: "Low fat"), FoodTag(name: "Fatfree")]
+        foodTags = [FoodTag(name: "Processed"), FoodTag(name: "Unprocessed"), FoodTag(name: "Junk food"), FoodTag(name: "Grain"), FoodTag(name: "Carbohydrate"), FoodTag(name: "Vegetables"), FoodTag(name: "Proteins"), FoodTag(name: "Fruits"), FoodTag(name: "Organic"), FoodTag(name: "Fish"), FoodTag(name: "Red meat"), FoodTag(name: "White meat"), FoodTag(name: "No meat"), FoodTag(name: "Dessert"), FoodTag(name: "Alcohol"), FoodTag(name: "Dairy"), FoodTag(name: "Sugar free"), FoodTag(name: "Fibre"), FoodTag(name: "Low sodium"), FoodTag(name: "Trans fat free"), FoodTag(name: "Gluten free"), FoodTag(name: "Low fat"), FoodTag(name: "Fatfree")]
     }
     
     static var main = FoodTagList(force: true)

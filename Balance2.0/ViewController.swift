@@ -40,6 +40,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         ProfileManager.myProfile.login(email: email!, fullName: fullName!, friendList: friendList, profile: profile)
         
         // Style Bar Buttons
+        self.plusMeal.backgroundColor = UIColor.white
         self.plusMeal.layer.borderColor = UIColor.darkGray.cgColor
         self.plusMeal.layer.borderWidth = 0.5
         
@@ -54,8 +55,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.plusMeal.backgroundColor = UIColor.white
+        self.plusMeal.setTitleColor(UIColor.blue, for: .normal)
+    }
 
     @IBAction func takePhoto(_ sender: Any) {
+        let button = sender as! UIButton
+        button.backgroundColor = UIColor(red: 68/255, green: 211/255, blue: 174/255, alpha: 1)
+        //button.titleLabel?.textColor = UIColor.white
         let imagePicker = UIImagePickerController()
         
         // If the device has a camera, take a picture; otherwise,

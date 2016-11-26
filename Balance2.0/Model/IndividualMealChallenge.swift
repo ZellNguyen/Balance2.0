@@ -18,39 +18,40 @@ struct MealChallengeOption {
 
 }
 
-class IndividualMealChallenge: NSObject, Challenge {
+class IndividualMealChallenge: NSObject, Challenge, NSCopying {
+    var title: String!
     var message: String!
-    var image: UIImage!
     var status: ChallengeStatus!
     var fromDate: Date!
     var toDate: Date!
     var sender: UserAccount
     var receiver: UserAccount?
     var option: MealChallengeOption!
-    var likes: [UserAccount]!
+    var post: MealPost? = nil
     
-    init(message: String, image: UIImage, fromDate: Date, toDate: Date, sender: UserAccount, receiver: UserAccount, option: MealChallengeOption, likes: [UserAccount]) {
+    init(title: String, message: String, post: MealPost, fromDate: Date, toDate: Date, sender: UserAccount, receiver: UserAccount, option: MealChallengeOption, status: ChallengeStatus) {
+        self.title = title
         self.message = message
-        self.image = image
+        self.post = post
         self.fromDate = fromDate
         self.toDate = toDate
         self.sender = sender
         self.receiver = receiver
         self.option = option
-        self.likes = likes
-        
+        self.status = status
         super.init()
     }
     
-    // MARK: Like & Unlike
-    func like() {
-        self.likes.append(ProfileManager.myProfile.myself)
+    convenience init(title: String, message: String, fromDate: Date, toDate: Date, receiver: UserAccount, option: MealChallengeOption){
+        let post = MealPost()
+        self.init(title: title, message: message, post: post, fromDate: fromDate, toDate: toDate, sender: ProfileManager.myProfile.myself, receiver: receiver, option: option, status: .pending)
     }
     
-    func unlike(){
-        let index = self.likes.index(of: ProfileManager.myProfile.myself)
-        if let _ = index {
-            self.likes.remove(at: index!)
-        }
+    override func copy() -> Any {
+        return IndividualMealChallenge(title: self.title, message: self.message, fromDate: self.fromDate, toDate: self.toDate, receiver: self.receiver!, option: self.option)
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        return IndividualMealChallenge(title: self.title, message: self.message, fromDate: self.fromDate, toDate: self.toDate, receiver: self.receiver!, option: self.option)
     }
 }

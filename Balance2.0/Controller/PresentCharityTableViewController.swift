@@ -88,6 +88,10 @@ class SingleCharityViewController: UIViewController {
         
         // Rounded Button 
         donateButton.layer.cornerRadius = 20
+        donateButton.layer.shadowColor = UIColor.black.cgColor
+        donateButton.layer.shadowOpacity = 0.3
+        donateButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        donateButton.layer.shadowRadius = 4
         
         // Hide share Button
         shareButton.isHidden = true

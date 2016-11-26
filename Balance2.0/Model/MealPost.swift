@@ -22,11 +22,11 @@ class MealPost: NSObject, UserPost {
     var comments: CommentsList!
     var type: MealType
     var user: UserAccount!
-    var date: NSDate!
+    var date: Date!
     var likes: [UserAccount]
     var tags: FoodTagList
     
-    init( image: UIImage?, caption: String?, type: MealType, tags: FoodTagList, user: UserAccount, comments: CommentsList, date: NSDate, likes: [UserAccount]){
+    init( image: UIImage?, caption: String?, type: MealType, tags: FoodTagList, user: UserAccount, comments: CommentsList, date: Date, likes: [UserAccount]){
         self.image = image
         self.caption = caption
         self.type = type
@@ -40,7 +40,7 @@ class MealPost: NSObject, UserPost {
     }
     
     convenience init(image: UIImage?, caption: String?, type: MealType, tags: FoodTagList, user: UserAccount, comments: CommentsList, likes: [UserAccount]) {
-        self.init(image: image, caption: caption, type: type, tags: tags, user: user, comments: comments, date: NSDate(), likes: likes)
+        self.init(image: image, caption: caption, type: type, tags: tags, user: user, comments: comments, date: Date(), likes: likes)
     }
     
     convenience init( image: UIImage?, caption: String?, type: MealType, tags: FoodTagList, user: UserAccount ){
@@ -54,6 +54,10 @@ class MealPost: NSObject, UserPost {
         self.init( image: image, caption: caption, type: type, tags: tags, user: user!)
     }
     
+    convenience override init(){
+        self.init( image: UIImage(), caption: "", type: .snack, tags: FoodTagList() )
+    }
+
     func like() {
         self.likes.append(ProfileManager.myProfile.myself)
     }

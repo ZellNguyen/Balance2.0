@@ -125,6 +125,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Jan."
             let money = String(format: "%.2f", Float(monthlyReport[0])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[0]) steps"
             
             let ratio = Float(monthlyReport[0]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -133,6 +134,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Feb."
             let money = String(format: "%.2f", Float(monthlyReport[1])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[1]) steps"
 
             let ratio = Float(monthlyReport[1]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -141,6 +143,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Mar."
             let money = String(format: "%.2f", Float(monthlyReport[2])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[2]) steps"
             
             let ratio = Float(monthlyReport[2]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -149,6 +152,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Apr."
             let money = String(format: "%.2f", Float(monthlyReport[3])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[3]) steps"
             
             let ratio = Float(monthlyReport[3]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -157,6 +161,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "May."
             let money = String(format: "%.2f", Float(monthlyReport[4])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[4]) steps"
             
             let ratio = Float(monthlyReport[4]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -165,6 +170,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Jun."
             let money = String(format: "%.2f", Float(monthlyReport[5])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[5]) steps"
             
             let ratio = Float(monthlyReport[5]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -173,6 +179,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Jul."
             let money = String(format: "%.2f", Float(monthlyReport[6])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[6]) steps"
             
             let ratio = Float(monthlyReport[6]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -181,6 +188,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Aug."
             let money = String(format: "%.2f", Float(monthlyReport[7])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[7]) steps"
             
             let ratio = Float(monthlyReport[7]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -189,6 +197,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Sep."
             let money = String(format: "%.2f", Float(monthlyReport[8])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[8]) steps"
             
             let ratio = Float(monthlyReport[8]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -197,6 +206,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Oct."
             let money = String(format: "%.2f", Float(monthlyReport[9])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[9]) steps"
             
             let ratio = Float(monthlyReport[9]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -205,6 +215,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Nov."
             let money = String(format: "%.2f", Float(monthlyReport[10])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[10]) steps"
             
             let ratio = Float(monthlyReport[10]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -213,6 +224,7 @@ class AnualCharityTableViewController: UITableViewController {
             cell.monthLabel.text = "Dec."
             let money = String(format: "%.2f", Float(monthlyReport[11])/10000)
             cell.moneyLabel.text = "$\(money)"
+            cell.stepLabel.text = "\(monthlyReport[11]) steps"
             
             let ratio = Float(monthlyReport[11]/10000) / max + 0.01
             cell.progressView.progress = ratio
@@ -221,7 +233,10 @@ class AnualCharityTableViewController: UITableViewController {
             break
         }
         
-        cell.progressView.transform = CGAffineTransform(scaleX: 1.0, y: 3.0)
+        cell.progressView.transform = CGAffineTransform(scaleX: 1.0, y: 7.0)
+        if indexPath.row != 1 {
+            cell.progressView.progressTintColor = UIColor(red: 145/255, green: 145/255, blue: 145/255, alpha: 1)
+        }
         
         return cell
     }
@@ -237,6 +252,8 @@ class MonthlyCharityReportCell: UITableViewCell {
     @IBOutlet var monthLabel: UILabel!
     @IBOutlet var moneyLabel: UILabel!
     @IBOutlet var progressView: UIProgressView!
+    
+    @IBOutlet var stepLabel: UILabel!
 }
 
 // MARK: Table View for single program report

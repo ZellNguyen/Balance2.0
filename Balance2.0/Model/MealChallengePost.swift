@@ -10,30 +10,16 @@ import UIKit
 
 class MealChallengePost: NSObject, Post {
     var caption: String?
-    var date: NSDate!
+    var date: Date!
     var comments: CommentsList!
+    var isReady: Bool
     var mealChallenge: [IndividualMealChallenge]
     
-    init(caption: String, date: NSDate, mealChallenge: [IndividualMealChallenge]){
+    init(caption: String, date: Date, isReady: Bool, mealChallenge: [IndividualMealChallenge]){
         self.caption = caption
         self.date = date
+        self.isReady = isReady
         self.mealChallenge = mealChallenge
         super.init()
-    }
-    
-    func like(forPostIndex index: Int) {
-        if mealChallenge.count == 0 {
-            return
-        }
-        
-        mealChallenge[index].like()
-    }
-    
-    func unlike(forPostIndex index: Int) {
-        if mealChallenge.count == 0 {
-            return
-        }
-        
-        mealChallenge[index].unlike()
     }
 }

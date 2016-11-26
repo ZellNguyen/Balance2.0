@@ -10,12 +10,12 @@ import UIKit
 
 class ExerciseChallengePost: NSObject, Post {
     var caption: String?
-    var date: NSDate!
+    var date: Date!
     var comments: CommentsList!
     var image: UIImage
     var likes: [UserAccount]
 
-    init(caption: String, image: UIImage, date: NSDate, comments: CommentsList, likes: [UserAccount]) {
+    init(caption: String, image: UIImage, date: Date, comments: CommentsList, likes: [UserAccount]) {
         self.caption = caption
         self.image = image
         self.date = date

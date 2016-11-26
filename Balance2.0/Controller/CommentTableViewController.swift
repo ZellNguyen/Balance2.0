@@ -8,10 +8,14 @@
 
 import UIKit
 
-class CommentTableViewController: UITableViewController {
+class CommentTableViewController: UITableViewController, UITextFieldDelegate {
     var commentsList: CommentsList!
     
+    @IBOutlet var commentTextField: UITextField!
+    @IBOutlet var sendButton: UIButton!
+    
     override func viewDidLoad() {
+        print(commentsList.allComments.count)
         super.viewDidLoad()
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         
@@ -21,6 +25,7 @@ class CommentTableViewController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 46.0
+        self.title = "Comments"
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,9 +39,30 @@ class CommentTableViewController: UITableViewController {
         
         cell.userLabel.text = comment.user.fullName
         cell.bodyLabel.text = comment.content
-        let dateFormatter = DateFormatter.localizedString(from: comment.datePosted as Date, dateStyle: .short, timeStyle: .short)
-        cell.dateLabel.text = dateFormatter
+        cell.userImage.image = comment.user.profile.picture
+        cell.userImage.layer.masksToBounds = true
+        cell.userImage.layer.cornerRadius = CGFloat(21.5)
         
         return cell
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let comment = commentTextField.text
+        self.commentsList.add(comment: comment!)
+        
+        self.commentTextField.resignFirstResponder()
+        self.commentTextField.text = ""
+        self.tableView.reloadData()
+        return true
+    }
+    
+    @IBAction func send(_ sender: UIButton) {
+        let comment = commentTextField.text
+        self.commentsList.add(comment: comment!)
+        
+        self.commentTextField.resignFirstResponder()
+        self.commentTextField.text = ""
+        self.tableView.reloadData()
+    }
+    
 }

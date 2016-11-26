@@ -16,6 +16,10 @@ class CommentsList {
         allComments.append(comment)
     }
     
+    func add(comment: Comment){
+        allComments.append(comment)
+    }
+    
     init(){
     }
 }

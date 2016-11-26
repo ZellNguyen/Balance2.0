@@ -33,13 +33,13 @@ class MealDashboardViewController: UIViewController {
         
         // Upscale the progress view
         for progressView in tagProgressViews {
-            progressView.transform = CGAffineTransform(scaleX: 1.0, y: 1.5)
+            progressView.transform = CGAffineTransform(scaleX: 1.0, y: 1.3)
             
             // Shadow of progress views
             progressView.layer.shadowColor = UIColor.black.cgColor
             progressView.layer.shadowOpacity = 0.3
-            progressView.layer.shadowOffset = CGSize(width: -2, height: 2)
-            progressView.layer.shadowRadius = 2
+            progressView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            progressView.layer.shadowRadius = 3
         }
         
         // Shadow of segmented Control
@@ -49,6 +49,8 @@ class MealDashboardViewController: UIViewController {
         segmentedControl.layer.shadowRadius = 2
         segmentedControl.layer.cornerRadius = 8
         segmentedControl.layer.masksToBounds = true
+        segmentedControl.selectedSegmentIndex = 0
+        self.report(inDuration: 7)
         
         // Shadows of buttons
         addMealButton.layer.shadowColor = UIColor.black.cgColor
@@ -136,9 +138,9 @@ class MealDashboardViewController: UIViewController {
             }
         }
         
-        // Render 6 top tags
+        // Render 4 top tags
         let max = sortedTagCounts[0] == 0 ? 1 : sortedTagCounts[0]
-        for i in 0..<6 {
+        for i in 0..<4 {
             tagLabels[i].adjustsFontSizeToFitWidth = true
             tagLabels[i].text = sortedTagNames[i]
             tagProgressViews[i].progress = Float(sortedTagCounts[i])/Float(max) + 0.01

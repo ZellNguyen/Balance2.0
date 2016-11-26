@@ -14,13 +14,13 @@ class CharityPost: NSObject, UserPost {
     var comments: CommentsList! 
     var user: UserAccount!
     
-    var date: NSDate!
+    var date: Date!
     
     var charity: Charity!
     
     var likes: [UserAccount]
     
-    init(user: UserAccount, charity: Charity, image: UIImage, caption: String?, comments: CommentsList, date: NSDate, likes: [UserAccount]){
+    init(user: UserAccount, charity: Charity, image: UIImage, caption: String?, comments: CommentsList, date: Date, likes: [UserAccount]){
         self.user = user
         self.charity = charity
         self.image = image
@@ -33,15 +33,21 @@ class CharityPost: NSObject, UserPost {
     }
     
     convenience init(user: UserAccount, charity: Charity, image: UIImage, caption: String?, comments: CommentsList, likes: [UserAccount]) {
-        self.init(user: user, charity: charity, image: image, caption: caption, comments: comments, date: NSDate(), likes: likes)
+        self.init(user: user, charity: charity, image: image, caption: caption, comments: comments, date: Date(), likes: likes)
+    }
+    
+    convenience init(user: UserAccount, charity: Charity, image: UIImage, caption: String?) {
+        let comments = CommentsList()
+        let likes = [UserAccount]()
+        self.init(user: user, charity: charity, image: image, caption: caption, comments: comments, likes: likes)
     }
     
     convenience init(charity: Charity, image: UIImage, caption: String?){
-        let friend = UserAccount(email: "hoazell41195@gmail.com", fullName: "Hoa")
+        let friend = ProfileManager.myProfile.myself
         let comments = CommentsList()
         let likes = [UserAccount]()
         
-        self.init(user: friend, charity: charity, image: image, caption: caption, comments: comments, likes: likes)
+        self.init(user: friend!, charity: charity, image: image, caption: caption, comments: comments, likes: likes)
     }
     
     convenience init(charity: Charity, image: UIImage){

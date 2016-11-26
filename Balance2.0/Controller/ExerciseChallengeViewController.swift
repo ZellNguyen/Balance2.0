@@ -173,7 +173,9 @@ class ExerciseChallengeTableViewController: UITableViewController {
                 
                 cell.dateLabel.text = ("\(fromDateString) - \(toDateString)")
                 cell.acceptButton.tag = indexPath.row
+                cell.acceptButton.layer.cornerRadius = 9
                 cell.ignoreButton.tag = indexPath.row
+                cell.ignoreButton.layer.cornerRadius = 9
                 cell.acceptButton.addTarget(self, action: #selector(acceptChallenge(_:)), for: .touchUpInside)
                 cell.ignoreButton.addTarget(self, action: #selector(ignoreChallenge(_:)), for: .touchUpInside)
                 
@@ -186,15 +188,21 @@ class ExerciseChallengeTableViewController: UITableViewController {
             if challenge.sender == ProfileManager.myProfile.myself {
                 cell.friendNameLabel.text = challenge.receiver?.fullName
                 cell.friendImage.image = challenge.receiver?.profile.picture
+                cell.userImage.image = challenge.sender.profile.picture
             }
             else {
                 cell.friendNameLabel.text = challenge.sender.fullName
                 cell.friendImage.image = challenge.sender.profile.picture
+                cell.userImage.image = challenge.receiver?.profile.picture
             }
             cell.friendImage.layer.masksToBounds = true
-            cell.friendImage.layer.cornerRadius = CGFloat(21.5)
-            cell.userStepBar.progress = Float(challenge.myCurrentSteps)/100000 + 0.01
-            cell.friendStepBar.progress = Float(challenge.friendCurrentSteps)/100000 + 0.01
+            cell.friendImage.layer.cornerRadius = CGFloat(12)
+            cell.userImage.layer.masksToBounds = true
+            cell.userImage.layer.cornerRadius = CGFloat(12)
+            cell.userStepBar.progress = Float(challenge.myCurrentSteps)/50000 + 0.01
+            cell.userStepBar.transform = CGAffineTransform(scaleX: 1.0, y: 7)
+            cell.friendStepBar.progress = Float(challenge.friendCurrentSteps)/50000 + 0.01
+            cell.friendStepBar.transform = CGAffineTransform(scaleX: 1.0, y: 7)
             
             let fromDateString = DateFormatter.localizedString(from: challenge.fromDate, dateStyle: .medium, timeStyle: .none)
             let toDateString = DateFormatter.localizedString(from: challenge.toDate, dateStyle: .medium, timeStyle: .none)
@@ -210,12 +218,14 @@ class ExerciseChallengeTableViewController: UITableViewController {
     func acceptChallenge(_ sender: UIButton){
         let challenge = self.challenges.allChallenges[sender.tag]
         challenge.status = ChallengeStatus.active
+        self.filterChallenge(byIndex: pageIndex)
         self.tableView.reloadData()
     }
     
     func ignoreChallenge(_ sender: UIButton){
         let challenge = self.challenges.allChallenges[sender.tag]
         challenge.status = ChallengeStatus.expired
+        self.filterChallenge(byIndex: pageIndex)
         self.tableView.reloadData()
     }
 }

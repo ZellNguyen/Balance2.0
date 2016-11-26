@@ -11,7 +11,7 @@ import UIKit
 protocol UserPost: Post {
     var image: UIImage! { get set }
     var caption: String? { get set }
-    var date: NSDate! { get set }
+    var date: Date! { get set }
     var comments: CommentsList! { get set }
     var user: UserAccount! { get }
     var likes: [UserAccount] { get set }

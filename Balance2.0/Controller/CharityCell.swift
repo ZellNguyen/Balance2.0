@@ -10,6 +10,7 @@ import UIKit
 
 class CharityCell: UITableViewCell {
     @IBOutlet var userLabel: UILabel!
+    @IBOutlet var userImage: UIImageView!
     @IBOutlet var postImage: UIImageView!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet var commentButton: UIButton!

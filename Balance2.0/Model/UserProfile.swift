@@ -20,12 +20,20 @@ class UserProfile: NSObject, NSCoding {
     var weightInKg: Float!
     var dob: Date!
     
+    var dailySteps: Int! = 0
+    var weeklySteps: Int! = 0
+    var monthlySteps: Int! = 0
+    
     var picture: UIImage!
     
     override init(){
         super.init()
         self.totalSteps = 25000
         self.currentSteps = 25000
+        self.dailySteps = 25000
+        self.weeklySteps = 100456
+        self.monthlySteps = 300234
+        
         self.gender = Gender.none
         heightInCm = 0
         weightInKg = 0
@@ -40,7 +48,7 @@ class UserProfile: NSObject, NSCoding {
         dob = NSCalendar(identifier: NSCalendar.Identifier.gregorian)?.date(from: c as DateComponents)
         
         // Default profile pic
-        self.picture = UIImage.init(named: "default-image-post")
+        self.picture = UIImage.init(named: "Alice 1")
 
     }
     
@@ -53,6 +61,9 @@ class UserProfile: NSObject, NSCoding {
         self.weightInKg = aDecoder.decodeObject(forKey: "weightInKg") as! Float!
         self.dob = aDecoder.decodeObject(forKey: "dob") as! Date!
         self.picture = aDecoder.decodeObject(forKey: "picture") as! UIImage!
+        self.dailySteps = aDecoder.decodeObject(forKey: "dailySteps") as! Int!
+        self.weeklySteps = aDecoder.decodeObject(forKey: "weeklySteps") as! Int!
+        self.monthlySteps = aDecoder.decodeObject(forKey: "monthlySteps") as! Int!
     }
     
 
@@ -76,6 +87,8 @@ class UserProfile: NSObject, NSCoding {
         aCoder.encode(weightInKg, forKey: "weightInKg")
         aCoder.encode(dob, forKey: "dob")
         aCoder.encode(picture, forKey: "picture")
+        aCoder.encode(dailySteps, forKey: "dailySteps")
+        aCoder.encode(weeklySteps, forKey: "weeklySteps")
+        aCoder.encode(monthlySteps, forKey: "monthlySteps")
     }
-    
 }

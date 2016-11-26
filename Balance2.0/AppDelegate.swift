@@ -26,10 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         pageController.backgroundColor = UIColor.white
         
         let navigationBar = UINavigationBar.appearance()
-        navigationBar.barTintColor = UIColor.white
+        navigationBar.barTintColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
         navigationBar.tintColor = UIColor.darkGray
+        //navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Seravek-Medium", size: 18)! ]
+        
         //navigationBar.isTranslucent = false
         
+        
+        // UITabBar
+        UITabBar.appearance().tintColor = UIColor.black
+        UITabBar.appearance().backgroundColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
+        
+        // Segmented Controller
+        let attr = NSDictionary(object: UIFont(name: "Seravek", size: 16.0)!, forKey: NSFontAttributeName as NSCopying)
+        UISegmentedControl.appearance().setTitleTextAttributes(attr as! [AnyHashable : Any], for: .normal)
         
         IQKeyboardManager.sharedManager().enable = true
         

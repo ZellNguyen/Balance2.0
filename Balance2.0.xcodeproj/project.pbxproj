@@ -36,8 +36,10 @@
 		F53E4BCC1DD4750C00C14C83 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BC51DD4750C00C14C83 /* UserAccount.swift */; };
 		F53E4BCE1DD4754000C14C83 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BCD1DD4754000C14C83 /* CommentTableViewController.swift */; };
 		F53E4BD01DD48B6C00C14C83 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */; };
+		F54AB5A81DE833330062FCC9 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AB5A71DE833330062FCC9 /* RankingViewController.swift */; };
 		F54B6D3C1DD7CA1A00908D28 /* CharityPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54B6D3B1DD7CA1A00908D28 /* CharityPost.swift */; };
 		F5532D151DDFC985004DDB8B /* SpecialDietList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5532D141DDFC985004DDB8B /* SpecialDietList.swift */; };
+		F565CF5C1DE924B2002118B4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565CF5B1DE924B2002118B4 /* WebViewController.swift */; };
 		F57084F91DE4DB1B00DE4732 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57084F81DE4DB1B00DE4732 /* DashboardViewController.swift */; };
 		F57530D81DD7E36E007FC361 /* PresentCharityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530D71DD7E36E007FC361 /* PresentCharityCell.swift */; };
 		F57530DA1DD7E946007FC361 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57530D91DD7E946007FC361 /* UserProfile.swift */; };
@@ -58,6 +60,9 @@
 		F5A6F5371DD521030090CC90 /* HealthyTipPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5361DD521030090CC90 /* HealthyTipPost.swift */; };
 		F5A6F5391DD524C30090CC90 /* HealthyTipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */; };
 		F5E3D4061DDC4DDD00905F47 /* ExerciseChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */; };
+		F5F362411DE98C3B00D1D971 /* MealChallengeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F362401DE98C3B00D1D971 /* MealChallengeCell.swift */; };
+		F5F66EF81DE8BE8200A32BD2 /* NewMealChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F66EF71DE8BE8200A32BD2 /* NewMealChallengeController.swift */; };
+		F5F8C4EF1DE8596B0071B034 /* MealChallengeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F8C4EE1DE8596B0071B034 /* MealChallengeTableViewController.swift */; };
 		F5FC97691DE381F50054AF51 /* FoodTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC97681DE381F50054AF51 /* FoodTag.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,8 +101,10 @@
 		F53E4BC51DD4750C00C14C83 /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAccount.swift; path = Model/UserAccount.swift; sourceTree = "<group>"; };
 		F53E4BCD1DD4754000C14C83 /* CommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentTableViewController.swift; path = Controller/CommentTableViewController.swift; sourceTree = "<group>"; };
 		F53E4BCF1DD48B6C00C14C83 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = Controller/CommentViewController.swift; sourceTree = "<group>"; };
+		F54AB5A71DE833330062FCC9 /* RankingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RankingViewController.swift; path = Controller/RankingViewController.swift; sourceTree = "<group>"; };
 		F54B6D3B1DD7CA1A00908D28 /* CharityPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharityPost.swift; path = Model/CharityPost.swift; sourceTree = "<group>"; };
 		F5532D141DDFC985004DDB8B /* SpecialDietList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialDietList.swift; sourceTree = "<group>"; };
+		F565CF5B1DE924B2002118B4 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = Controller/WebViewController.swift; sourceTree = "<group>"; };
 		F57084F81DE4DB1B00DE4732 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Controller/DashboardViewController.swift; sourceTree = "<group>"; };
 		F57530D71DD7E36E007FC361 /* PresentCharityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentCharityCell.swift; path = Controller/PresentCharityCell.swift; sourceTree = "<group>"; };
 		F57530D91DD7E946007FC361 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfile.swift; path = Model/UserProfile.swift; sourceTree = "<group>"; };
@@ -118,6 +125,9 @@
 		F5A6F5361DD521030090CC90 /* HealthyTipPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthyTipPost.swift; path = Model/HealthyTipPost.swift; sourceTree = "<group>"; };
 		F5A6F5381DD524C30090CC90 /* HealthyTipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthyTipCell.swift; path = Controller/HealthyTipCell.swift; sourceTree = "<group>"; };
 		F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExerciseChallengeViewController.swift; path = Controller/ExerciseChallengeViewController.swift; sourceTree = "<group>"; };
+		F5F362401DE98C3B00D1D971 /* MealChallengeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MealChallengeCell.swift; path = Controller/MealChallengeCell.swift; sourceTree = "<group>"; };
+		F5F66EF71DE8BE8200A32BD2 /* NewMealChallengeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewMealChallengeController.swift; path = Controller/NewMealChallengeController.swift; sourceTree = "<group>"; };
+		F5F8C4EE1DE8596B0071B034 /* MealChallengeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MealChallengeTableViewController.swift; path = Controller/MealChallengeTableViewController.swift; sourceTree = "<group>"; };
 		F5FC97681DE381F50054AF51 /* FoodTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodTag.swift; path = Model/FoodTag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +219,11 @@
 				F5E3D4051DDC4DDD00905F47 /* ExerciseChallengeViewController.swift */,
 				F5255D3E1DDF7E0500602C93 /* ProfileViewController.swift */,
 				F57084F81DE4DB1B00DE4732 /* DashboardViewController.swift */,
+				F54AB5A71DE833330062FCC9 /* RankingViewController.swift */,
+				F5F8C4EE1DE8596B0071B034 /* MealChallengeTableViewController.swift */,
+				F5F66EF71DE8BE8200A32BD2 /* NewMealChallengeController.swift */,
+				F565CF5B1DE924B2002118B4 /* WebViewController.swift */,
+				F5F362401DE98C3B00D1D971 /* MealChallengeCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -383,6 +398,7 @@
 				F53E4BCE1DD4754000C14C83 /* CommentTableViewController.swift in Sources */,
 				F5A6F5371DD521030090CC90 /* HealthyTipPost.swift in Sources */,
 				F50633A61DD7133B008A586F /* CharityList.swift in Sources */,
+				F565CF5C1DE924B2002118B4 /* WebViewController.swift in Sources */,
 				F50633A41DD712E8008A586F /* CompanyList.swift in Sources */,
 				F53E4BC91DD4750C00C14C83 /* MealPost.swift in Sources */,
 				F54B6D3C1DD7CA1A00908D28 /* CharityPost.swift in Sources */,
@@ -404,6 +420,7 @@
 				F59F2E491DD95B0A0050B2E5 /* MoreViewController.swift in Sources */,
 				F53E4BC71DD4750C00C14C83 /* CommentsList.swift in Sources */,
 				F58CA7BB1DE03E5B00E4F739 /* MealChallengePost.swift in Sources */,
+				F5F66EF81DE8BE8200A32BD2 /* NewMealChallengeController.swift in Sources */,
 				F50633A21DD711A5008A586F /* Charity.swift in Sources */,
 				F53E4BBE1DD4750100C14C83 /* NewsFeedController.swift in Sources */,
 				F5E3D4061DDC4DDD00905F47 /* ExerciseChallengeViewController.swift in Sources */,
@@ -412,15 +429,18 @@
 				F5A6F5311DD50A070090CC90 /* ExercisePost.swift in Sources */,
 				F57530E21DD80056007FC361 /* PresentCharityViewController.swift in Sources */,
 				F59F2E471DD94FCC0050B2E5 /* ProfileManager.swift in Sources */,
+				F5F8C4EF1DE8596B0071B034 /* MealChallengeTableViewController.swift in Sources */,
 				F57530DC1DD7EAB5007FC361 /* PresentCharityTableViewController.swift in Sources */,
 				F53E4BA21DD46FA200C14C83 /* AppDelegate.swift in Sources */,
 				F513855A1DDD97EC00C30228 /* StepCounter.swift in Sources */,
+				F5F362411DE98C3B00D1D971 /* MealChallengeCell.swift in Sources */,
 				F59F2E431DD93A1C0050B2E5 /* RegisterViewController.swift in Sources */,
 				F53E4BC81DD4750C00C14C83 /* FriendList.swift in Sources */,
 				F5861A7B1DD5378A0061FCE7 /* PostDetailViewController.swift in Sources */,
 				F59763CA1DDB9A040070E1F9 /* ChallengeList.swift in Sources */,
 				F53E4BCA1DD4750C00C14C83 /* Post.swift in Sources */,
 				F5A6F52F1DD508F60090CC90 /* UserPost.swift in Sources */,
+				F54AB5A81DE833330062FCC9 /* RankingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +565,7 @@
 				CODE_SIGN_ENTITLEMENTS = Balance2.0/Balance2.0.entitlements;
 				DEVELOPMENT_TEAM = 4Z3EUXPG39;
 				INFOPLIST_FILE = Balance2.0/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thecdm.hoanguyen.Balance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -561,6 +582,7 @@
 				CODE_SIGN_ENTITLEMENTS = Balance2.0/Balance2.0.entitlements;
 				DEVELOPMENT_TEAM = 4Z3EUXPG39;
 				INFOPLIST_FILE = Balance2.0/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thecdm.hoanguyen.Balance;
 				PRODUCT_NAME = "$(TARGET_NAME)";

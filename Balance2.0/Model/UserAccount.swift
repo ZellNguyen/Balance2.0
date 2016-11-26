@@ -44,4 +44,5 @@ class UserAccount: NSObject, NSCoding {
         }
         aCoder.encode(profile, forKey: "profile")
     }
+
 }

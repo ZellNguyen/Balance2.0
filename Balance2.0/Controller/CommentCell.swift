@@ -11,6 +11,7 @@ import UIKit
 class CommentCell: UITableViewCell {
     @IBOutlet var userLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var userImage: UIImageView!
+    
     
 }

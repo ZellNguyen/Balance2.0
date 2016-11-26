@@ -18,7 +18,11 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
     var image: UIImage!
     var mealType: MealType!
     
+    var isChallenge = false
+    var challengIndex: Int!
+    
     var delegate: PostDetailEnteredDelegate? = nil
+    @IBOutlet var saveButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,7 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         
         
         // Dynamically fit button text size
+        var index = 0
         for button in self.mealTypeButtons {
             button.titleLabel?.minimumScaleFactor = 0.2
             button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -38,6 +43,8 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
             button.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
             
             button.addTarget(self, action: #selector(chooseMealType(_:)), for: .touchUpInside)
+            button.tag = index
+            index += 1
         }
         
         // Initialize meal type
@@ -50,6 +57,13 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         
         // ADd food tags into view
         self.loadTags()
+        
+        // Save Button
+        saveButton.layer.cornerRadius = 20
+        saveButton.layer.shadowColor = UIColor.black.cgColor
+        saveButton.layer.shadowOpacity = 0.5
+        saveButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        saveButton.layer.shadowRadius = 4
     }
     
     @IBOutlet var captionTextField: UITextField!
@@ -58,11 +72,13 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
     
     func chooseMealType(_ sender: UIButton) {
         sender.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1)
-        sender.setTitleColor(UIColor.white, for: .normal)
+        sender.titleLabel?.textColor = UIColor.white
         
-        for button in mealTypeButtons where button != sender{
-            button.backgroundColor = UIColor.clear
-            button.setTitleColor(UIColor.black, for: .normal)
+        for button in mealTypeButtons{
+            if button.tag != sender.tag {
+                button.backgroundColor = UIColor.clear
+                button.setTitleColor(UIColor.black, for: .normal)
+            }
         }
         
         if let index = mealTypeButtons.index(of: sender) {
@@ -83,6 +99,45 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func save(_ sender: UIButton) {
+        let postImage = self.image
+        var caption = ""
+        if captionTextField.text != nil {
+            caption = captionTextField.text!
+        }
+        let type = mealType
+        if !isChallenge {
+            if (delegate != nil) {
+                
+                print("DONE")
+                
+                let tags = self.mealTagList
+                let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
+                self.loggedList.add(tags: tags)
+                
+                delegate!.userDidEnterMeal(post)
+                
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        else {
+            let tags = self.mealTagList
+            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
+            
+            let challenge = ChallengeList.mealChallengeList.allChallenges[challengIndex] as! IndividualMealChallenge
+            challenge.post = post
+            challenge.status = ChallengeStatus.finishedVoting
+            
+            let challengePost = PostsList.mealChallenges.allPosts[challengIndex] as! MealChallengePost
+            challengePost.mealChallenge.append(challenge)
+            if challengePost.mealChallenge.count == 2 {
+                challengePost.isReady = true
+                PostsList.main.allPosts.insert(challengePost, at: 0)
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     // After press post
     @IBAction func postMeal(_ sender: Any) {
         let postImage = self.image
@@ -91,16 +146,33 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
             caption = captionTextField.text!
         }
         let type = mealType
-        if (delegate != nil) {
-            
-            print("DONE")
-            
+        if !isChallenge {
+            if (delegate != nil) {
+                
+                print("DONE")
+                
+                let tags = self.mealTagList
+                let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
+                self.loggedList.add(tags: tags)
+                
+                delegate!.userDidEnterMeal(post)
+                
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        else {
             let tags = self.mealTagList
             let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
-            self.loggedList.add(tags: tags)
             
-            delegate!.userDidEnterMeal(post)
+            let challenge = ChallengeList.mealChallengeList.allChallenges[challengIndex] as! IndividualMealChallenge
+            challenge.post = post
+            challenge.status = ChallengeStatus.finished
             
+            let challengePost = PostsList.mealChallenges.allPosts[challengIndex] as! MealChallengePost
+            challengePost.mealChallenge.append(challenge)
+            if challengePost.mealChallenge.count == 2 {
+                challengePost.isReady = true
+            }
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -134,8 +206,9 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
                 if index + i < numberOfTags {
                     let tagButton = UIButton()
                     tagButton.setTitle(foodTagList.foodTags[index+i].name, for: .normal)
+                    tagButton.titleLabel?.font = UIFont(name: "Seravek", size: 14)
                     tagButton.titleLabel?.minimumScaleFactor = 0.5
-                    tagButton.titleLabel?.adjustsFontSizeToFitWidth = true
+                    //tagButton.titleLabel?.adjustsFontSizeToFitWidth = true
                     tagButton.tag = index + i
                     tagButton.layer.cornerRadius = 9
                     tagButton.layer.borderColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1).cgColor
