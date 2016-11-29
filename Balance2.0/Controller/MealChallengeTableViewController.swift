@@ -10,11 +10,11 @@ import UIKit
 
 class MealChallengeTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    var challengeList = ChallengeList.mealChallengeList
+    var challengeList: ChallengeList? = ChallengeList.mealChallengeList
     
-    var activeChallenges = [Challenge]()
-    var pendingChallenges = [Challenge]()
-    var pastChallenges = [Challenge]()
+    var activeChallenges: [Challenge]? = [Challenge]()
+    var pendingChallenges: [Challenge]? = [Challenge]()
+    var pastChallenges: [Challenge]? = [Challenge]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        self.challengeList = ChallengeList.mealChallengeList
         self.activeChallenges = self.filterChallenge(byStatus: .active)
         self.pendingChallenges = self.filterChallenge(byStatus: .pending)
         self.pastChallenges = self.filterChallenge(byStatus: .finishedVoting)
@@ -61,11 +62,11 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
         // #warning Incomplete implementation, return the number of rows
         switch section {
         case 0:
-            return activeChallenges.count
+            return activeChallenges!.count
         case 1:
-            return pendingChallenges.count
+            return pendingChallenges!.count
         case 2:
-            return pastChallenges.count
+            return pastChallenges!.count
         default:
             return 0
         }
@@ -74,7 +75,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let challenge = activeChallenges[indexPath.row] as! IndividualMealChallenge
+            let challenge = activeChallenges?[indexPath.row] as! IndividualMealChallenge
             let cell = tableView.dequeueReusableCell(withIdentifier: "MealActiveCell", for: indexPath) as! ActiveMealChallengeCell
             
             cell.titleLabel.text = challenge.title
@@ -97,10 +98,11 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
             cell.friendImage.layer.cornerRadius = CGFloat(21.5)
             cell.takePhotoButton.tag = indexPath.row
             cell.takePhotoButton.addTarget(self, action: #selector(takePhoto(_:)), for: .touchUpInside)
+            cell.selectionStyle = .none
             return cell
         
         case 1:
-            let challenge = pendingChallenges[indexPath.row] as! IndividualMealChallenge
+            let challenge = pendingChallenges?[indexPath.row] as! IndividualMealChallenge
             if challenge.sender == ProfileManager.myProfile.myself {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MealPendingSentCell", for: indexPath) as! PendingMealSentChallengeCell
                 cell.titleLabel.text = challenge.title
@@ -112,7 +114,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
                 cell.friendImage.layer.masksToBounds = true
                 cell.friendImage.layer.cornerRadius = CGFloat(21.5)
                 cell.friendNameLabel.text = challenge.receiver?.fullName
-                
+                cell.selectionStyle = .none
                 return cell
             }
             else {
@@ -129,6 +131,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
                 cell.ignoreButton.tag = indexPath.row
                 
                 cell.acceptButton.tag = indexPath.row
+                cell.selectionStyle = .none
                 
                 return cell
             }
@@ -160,6 +163,35 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60.0
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            let post = activeChallenges?[indexPath.row] as! IndividualMealChallenge
+            if post.link != nil {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                vc.link = post.link
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        case 1:
+            let post = pendingChallenges?[indexPath.row] as! IndividualMealChallenge
+            if post.link != nil {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                vc.link = post.link
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        case 2:
+            let post = pastChallenges?[indexPath.row] as! IndividualMealChallenge
+            if post.link != nil {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                vc.link = post.link
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        default:
+            break
+        }
     }
 
     /*
@@ -244,6 +276,13 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
                 viewController.image = image
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        challengeList = nil
+        activeChallenges = nil
+        pendingChallenges = nil
+        pastChallenges = nil
     }
 
 }

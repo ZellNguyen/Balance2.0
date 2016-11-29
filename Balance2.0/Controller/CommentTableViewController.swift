@@ -9,13 +9,13 @@
 import UIKit
 
 class CommentTableViewController: UITableViewController, UITextFieldDelegate {
-    var commentsList: CommentsList!
+    var commentsList: CommentsList?
     
     @IBOutlet var commentTextField: UITextField!
     @IBOutlet var sendButton: UIButton!
     
     override func viewDidLoad() {
-        print(commentsList.allComments.count)
+        print(commentsList?.allComments.count)
         super.viewDidLoad()
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         
@@ -29,17 +29,17 @@ class CommentTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentsList.allComments.count
+        return commentsList!.allComments.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
         
-        let comment = commentsList.allComments[indexPath.row]
+        let comment = commentsList?.allComments[indexPath.row]
         
-        cell.userLabel.text = comment.user.fullName
-        cell.bodyLabel.text = comment.content
-        cell.userImage.image = comment.user.profile.picture
+        cell.userLabel.text = comment?.user.fullName
+        cell.bodyLabel.text = comment?.content
+        cell.userImage.image = comment?.user.profile.picture
         cell.userImage.layer.masksToBounds = true
         cell.userImage.layer.cornerRadius = CGFloat(21.5)
         
@@ -48,21 +48,31 @@ class CommentTableViewController: UITableViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let comment = commentTextField.text
-        self.commentsList.add(comment: comment!)
+        if !(comment?.isEmpty)!{
+            self.commentsList?.add(comment: comment!)
+        }
         
         self.commentTextField.resignFirstResponder()
-        self.commentTextField.text = ""
+        self.commentTextField.text = nil
         self.tableView.reloadData()
         return true
     }
     
     @IBAction func send(_ sender: UIButton) {
         let comment = commentTextField.text
-        self.commentsList.add(comment: comment!)
+        if !(comment?.isEmpty)!{
+            self.commentsList?.add(comment: comment!)
+        }
         
         self.commentTextField.resignFirstResponder()
-        self.commentTextField.text = ""
+        self.commentTextField.text = nil
         self.tableView.reloadData()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        commentsList = nil
+    }
+    
+    
     
 }

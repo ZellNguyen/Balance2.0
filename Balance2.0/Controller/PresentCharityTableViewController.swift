@@ -9,8 +9,8 @@
 import UIKit
 
 class PresentCharityTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate{
-    var charityList: CharityList!
-    var filteredCharity = [Charity]()
+    var charityList: CharityList?
+    var filteredCharity: [Charity]? = [Charity]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,16 +18,16 @@ class PresentCharityTableViewController: UITableViewController, UIPopoverPresent
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.charityList.launchedCharites.count
+        return self.charityList!.launchedCharites.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "PresentCharityCell", for: indexPath) as! PresentCharityCell
         
-        let launchedCharity = charityList.launchedCharites[indexPath.row]
+        let launchedCharity = charityList?.launchedCharites[indexPath.row]
         
         // Set up Cell
-        cell.titleLabel.text = launchedCharity.title
+        cell.titleLabel.text = launchedCharity?.title
         cell.seeMoreButton.tag = indexPath.row
         cell.seeMoreButton.addTarget(self, action: #selector(seeMore(_:)), for: .touchUpInside)
         
@@ -36,33 +36,34 @@ class PresentCharityTableViewController: UITableViewController, UIPopoverPresent
 
     // See PopUp after touching See more button
     func seeMore(_ sender: UIButton) {
-        let charity = charityList.launchedCharites[sender.tag]
+        let charity = charityList?.launchedCharites[sender.tag]
         
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let singleCharityViewController: SingleCharityViewController = storyboard.instantiateViewController(withIdentifier: "SingleCharityViewController") as! SingleCharityViewController
-        
-        singleCharityViewController.modalPresentationStyle = .popover
-        singleCharityViewController.preferredContentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.8)
-        singleCharityViewController.company = charity.company
-        singleCharityViewController.caption = charity.caption
-        singleCharityViewController.image = charity.image
-        singleCharityViewController.charityTitle = charity.title
+
+        singleCharityViewController.company = charity?.company
+        singleCharityViewController.caption = charity?.caption
+        singleCharityViewController.image = charity?.image
+        singleCharityViewController.charityTitle = charity?.title
         
         // Pass index to pop over view
         singleCharityViewController.tag = sender.tag
         
-        let popOverViewController = singleCharityViewController.popoverPresentationController
-        popOverViewController?.permittedArrowDirections = .any
-        popOverViewController?.delegate = self
-        popOverViewController?.sourceView = sender
-        popOverViewController?.sourceRect = CGRect(x: 100, y: 100, width: 1, height: 1)
-        present(singleCharityViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(singleCharityViewController, animated: true)
     }
     
     // Reload Data 
     override func viewWillAppear(_ animated: Bool) {
-        charityList.update()
+        charityList = CharityList.main
+        filteredCharity = [Charity]()
+        
+        charityList?.update()
         tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        charityList = nil
+        filteredCharity = nil
     }
 }
 
@@ -97,9 +98,6 @@ class SingleCharityViewController: UIViewController {
         shareButton.isHidden = true
     }
     
-    @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
     @IBAction func donate(_ sender: UIButton) {
         if ProfileManager.myProfile.profile.currentSteps == 0 {
             let alertBox = UIAlertController(title: "Donation failed", message: "Sorry you don't have any step to donate", preferredStyle: .alert)

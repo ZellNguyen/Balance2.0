@@ -31,4 +31,6 @@ class MealChallengeCell: UITableViewCell {
     @IBOutlet var like1Button: UIButton!
     @IBOutlet var like2Button: UIButton!
     @IBOutlet var commentButton: UIButton!
+    @IBOutlet var parentView: UIView!
+    @IBOutlet var numberOfComments: UILabel!
 }

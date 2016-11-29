@@ -16,4 +16,6 @@ class HealthyTipCell: UITableViewCell {
     @IBOutlet var parentView: UIView!
 
     @IBOutlet var commentButton: UIButton!
+    @IBOutlet var numberOfLikes: UILabel!
+    @IBOutlet var numberOfComments: UILabel!
 }

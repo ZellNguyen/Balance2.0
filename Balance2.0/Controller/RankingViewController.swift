@@ -17,8 +17,8 @@ class RankingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var dailyButton: UIButton!
     @IBOutlet var weeklyButton: UIButton!
     @IBOutlet var monthlyButton: UIButton!
-    var friendList = ProfileManager.myProfile.friendList.allFriends
-    var filterfriendList = [UserAccount]()
+    var friendList: [UserAccount]? = ProfileManager.myProfile.friendList.allFriends
+    var filterfriendList: [UserAccount]? = [UserAccount]()
     
     var isSearchActive = false
     
@@ -33,7 +33,7 @@ class RankingViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.sizeToFit()
+        //searchController.searchBar.sizeToFit()
         searchController.searchBar.delegate = self
         searchController.delegate = self
         
@@ -41,14 +41,14 @@ class RankingViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         self.profileImage.image = ProfileManager.myProfile.profile.picture
         
-        self.friendList.append(ProfileManager.myProfile.myself)
-        self.friendList.sort(by: {
-            return $0.profile.totalSteps > $1.profile.totalSteps
+        self.friendList?.append(ProfileManager.myProfile.myself)
+        self.friendList?.sort(by: {
+            return $0.profile.dailySteps > $1.profile.dailySteps
         })
         
         // User Info
-        self.userPositionLabel.text = String(self.friendList.index(of: ProfileManager.myProfile.myself)! + 1)
-        self.userStepLabel.text = String(ProfileManager.myProfile.profile.totalSteps)
+        self.userPositionLabel.text = String((self.friendList?.index(of: ProfileManager.myProfile.myself)!)! + 1)
+        self.userStepLabel.text = String(ProfileManager.myProfile.profile.dailySteps)
         
         //Button Style
         self.dailyButton.layer.cornerRadius = 9
@@ -60,7 +60,7 @@ class RankingViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.rankingTableView.reloadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -84,15 +84,15 @@ class RankingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearchActive ? filterfriendList.count : friendList.count
+        return isSearchActive ? filterfriendList!.count : friendList!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let friend = isSearchActive ? filterfriendList[indexPath.row] : friendList[indexPath.row]
+        let friend = isSearchActive ? filterfriendList?[indexPath.row] : friendList?[indexPath.row]
         let cell = self.rankingTableView.dequeueReusableCell(withIdentifier: "FriendRankingCell", for: indexPath) as! FriendRankingCell
         
-        cell.friendLabel.text = friend.fullName
-        cell.stepLabel.text = String(friend.profile.totalSteps)
+        cell.friendLabel.text = friend?.fullName
+        cell.stepLabel.text = String(friend!.profile.dailySteps)
         cell.challengButton.tag = indexPath.row
         cell.challengButton.addTarget(self, action: #selector(challenge(_:)), for: .touchUpInside)
         
@@ -101,19 +101,25 @@ class RankingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func challenge(_ sender: UIButton){
         performSegue(withIdentifier: "ShowChallengeFromRanking", sender: sender)
+        self.searchController.isActive = false;
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? NewExerciseChallengeViewController {
             if let sender = sender as? UIButton {
-                vc.receiver = friendList[sender.tag]
+                if !isSearchActive {
+                    vc.receiver = friendList?[sender.tag]
+                }
+                else {
+                    vc.receiver = filterfriendList?[sender.tag]
+                }
             }
         }
     }
     
     // MARK: SEARCH
     func searchFriend(by string: String) {
-        self.filterfriendList = self.friendList.filter({ (friend: UserAccount) in
+        self.filterfriendList = self.friendList?.filter({ (friend: UserAccount) in
             let isNameContained = friend.fullName.range(of: string)
             let isEmailContained = friend.email.range(of: string)
             return (isNameContained != nil) || (isEmailContained != nil)
@@ -135,6 +141,16 @@ class RankingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.rankingTableView.reloadData()
         print(isSearchActive)
     }*/
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.friendList = nil
+        self.filterfriendList = nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.friendList = ProfileManager.myProfile.friendList.allFriends
+        self.filterfriendList = [UserAccount]()
+    }
 
 }
 

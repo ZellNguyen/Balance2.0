@@ -13,7 +13,7 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet var friendTableView: UITableView!
     
     var friendList = ProfileManager.myProfile.friendList
-    var filteredFriend = [UserAccount]()
+    var filteredFriend: [UserAccount]? = [UserAccount]()
     
     @IBOutlet var toolBarPicker: UIToolbar!
     @IBOutlet var senderLabel: UILabel!
@@ -108,6 +108,9 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         self.sendButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         self.sendButton.layer.shadowOpacity = 0.5
         self.sendButton.layer.shadowRadius = 4
+        
+        // Search Bar
+        self.friendSearchBar.setValue("Done", forKey: "_cancelButtonText")
     }
 
     override func didReceiveMemoryWarning() {
@@ -127,6 +130,8 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
     */
     
     override func viewWillAppear(_ animated: Bool) {
+        self.friendList = ProfileManager.myProfile.friendList
+        self.filteredFriend = [UserAccount]()
         self.friendTableView.isHidden = true
         self.friendSearchBar.isHidden = true
     }
@@ -134,15 +139,15 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
     // MARK: Table View
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredFriend.count
+        return self.filteredFriend!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = isSearchActive ? self.friendTableView.dequeueReusableCell(withIdentifier: "mealFriendCell")! as UITableViewCell : UITableViewCell()
-        let friend = self.filteredFriend[indexPath.row]
+        let friend = self.filteredFriend?[indexPath.row]
         
-        cell.textLabel?.text = friend.fullName
+        cell.textLabel?.text = friend?.fullName
         
         return cell
     }
@@ -162,14 +167,15 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
     var receiver: UserAccount? = nil
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let friend = filteredFriend[indexPath.row]
+        let friend = filteredFriend?[indexPath.row]
         print("Click")
         receiver = friend
         self.isSearchActive = false
-        self.friendImage.image = friend.profile.picture
-        self.friendNameLabel.text = friend.fullName
+        self.friendImage.image = friend?.profile.picture
+        self.friendNameLabel.text = friend?.fullName
         self.friendNameLabel.isHidden = false
         self.friendTableView.isHidden = true
+        self.searchDisplayController?.isActive = false
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -286,7 +292,7 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         }
         
         
-        let newChallenge = IndividualMealChallenge(title: title, message: message, fromDate: fromDate!, toDate: toDate!, receiver: receiver!, option: MealChallengeOption.no_meat)
+        let newChallenge = IndividualMealChallenge(title: title, message: message, fromDate: fromDate!, toDate: toDate!, receiver: receiver!, option: MealChallengeOption.no_meat, link: nil)
     
         ChallengeList.mealChallengeList.add(challenge: newChallenge)
         
@@ -296,5 +302,9 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         self.navigationController?.popViewController(animated: true)
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        self.friendList = nil
+        self.filteredFriend = nil
+    }
     
 }

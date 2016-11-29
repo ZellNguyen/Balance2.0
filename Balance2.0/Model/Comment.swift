@@ -26,7 +26,7 @@ class Comment: NSObject {
     }
     
     convenience init(withContent content: String){
-        let friend = UserAccount(email: "hoazell41195@gmail.com", fullName: "Hoa")
-        self.init(by: friend, withContent: content)
+        let friend = ProfileManager.myProfile.myself
+        self.init(by: friend!, withContent: content)
     }
 }

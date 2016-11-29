@@ -10,7 +10,7 @@ import UIKit
 
 class NewsFeedController: UITableViewController {
     
-    var postsList: PostsList! = PostsList()
+    var postsList: PostsList? = PostsList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,15 +26,15 @@ class NewsFeedController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (postsList.allPosts.count)
+        return (postsList!.allPosts.count)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // In case Dequeue Meal Cells
-        if let post = postsList.allPosts[indexPath.row] as? MealPost {
+        if let post = postsList?.allPosts[indexPath.row] as? MealPost {
             
             // Dequeue Meal Cells
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell") as! MealPostCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealPostCell
             
             // Set up user label
             cell.userLabel.text = post.user.fullName
@@ -50,10 +50,12 @@ class NewsFeedController: UITableViewController {
             // Set up comment butotn
             cell.commentButton.tag = indexPath.row
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
+            cell.numberOfComments.text = String(post.comments.allComments.count)
             
             // Set up like button 
             cell.likeButton.tag = indexPath.row
             cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+            cell.numberOfLikes.text = String(post.likes.count)
             
             // Set up meal tags
             if post.tags.foodTags.count > 0 {
@@ -104,7 +106,7 @@ class NewsFeedController: UITableViewController {
         }
             
         // In case Dequeue Charity Cell
-        else if let post = postsList.allPosts[indexPath.row] as? CharityPost {
+        else if let post = postsList?.allPosts[indexPath.row] as? CharityPost {
             
             // Dequeue exercise cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharityCell", for: indexPath) as! CharityCell
@@ -123,9 +125,11 @@ class NewsFeedController: UITableViewController {
             // Set up buttons
             cell.commentButton.tag = indexPath.row
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
+            cell.numberOfComments.text = String(post.comments.allComments.count)
             
             cell.likeButton.tag = indexPath.row
             cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+            cell.numberOfLikes.text = String(post.likes.count)
             
             // Set up dynamic image view's size
             /*if let image = post.image {
@@ -152,7 +156,7 @@ class NewsFeedController: UITableViewController {
         }
             
         // In case Dequeue Healthy Tip Post
-        else if let post = postsList.allPosts[indexPath.row] as? HealthyTipPost {
+        else if let post = postsList?.allPosts[indexPath.row] as? HealthyTipPost {
             
             // Dequeue healthy tip cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "HealthyTipCell", for: indexPath) as!HealthyTipCell
@@ -163,9 +167,11 @@ class NewsFeedController: UITableViewController {
             // Set up buttons
             cell.commentButton.tag = indexPath.row
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
+            cell.numberOfComments.text = String(post.comments.allComments.count)
             
             cell.likeButton.tag = indexPath.row
             cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+            cell.numberOfLikes.text = String(post.likes.count)
 
             // Set up dynamic image view's size
             /*if let image = post.image {
@@ -192,15 +198,19 @@ class NewsFeedController: UITableViewController {
             
         }
             
-        else if let post = postsList.allPosts[indexPath.row] as? MealChallengePost {
+        else if let post = postsList?.allPosts[indexPath.row] as? MealChallengePost {
             
             //Dequeue challenge cell
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MealChallengeCell") as! MealChallengeCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MealChallengeCell", for: indexPath) as! MealChallengeCell
             
             cell.user1Image.image = post.mealChallenge[0].sender.profile.picture
+            cell.user1Image.layer.masksToBounds = true
+            cell.user1Image.layer.cornerRadius = CGFloat(21.5)
             cell.user1Label.text = post.mealChallenge[0].sender.fullName
             
             cell.user2Image.image = post.mealChallenge[0].receiver?.profile.picture
+            cell.user2Image.layer.masksToBounds = true
+            cell.user2Image.layer.cornerRadius = CGFloat(21.5)
             cell.user2Label.text = post.mealChallenge[0].receiver?.fullName
             
             cell.captionLabel.text = post.caption
@@ -214,6 +224,13 @@ class NewsFeedController: UITableViewController {
             
             cell.commentButton.tag = indexPath.row
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
+            cell.numberOfComments.text = String(post.comments.allComments.count)
+            
+            cell.parentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            cell.parentView.layer.shadowColor = UIColor.black.cgColor
+            cell.parentView.layer.shadowOpacity = 0.3
+            cell.parentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            cell.parentView.layer.shadowRadius = 3
             
             cell.selectionStyle = .none
             return cell
@@ -228,59 +245,77 @@ class NewsFeedController: UITableViewController {
     
     func like(_ sender: UIButton){
         // Change button image
-        if let post = postsList.allPosts[sender.tag] as? HealthyTipPost {
+        if let post = postsList?.allPosts[sender.tag] as? HealthyTipPost {
             if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
                 sender.setImage(UIImage.init(named: "unlike_Health"), for: .normal)
-                self.postsList.unlike(atPost: sender.tag)
+                self.postsList?.unlike(atPost: sender.tag)
+                //self.tableView.reloadData()
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! HealthyTipCell
+                cell.numberOfLikes.text = String(post.likes.count)
             }
             else {
-                self.postsList.like(atPost: sender.tag)
+                self.postsList?.like(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "liked_Health"), for: .normal)
+                //self.tableView.reloadData()
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! HealthyTipCell
+                cell.numberOfLikes.text = String(post.likes.count)
             }
             return
         }
         
-        if let post = postsList.allPosts[sender.tag] as? CharityPost {
+        if let post = postsList?.allPosts[sender.tag] as? CharityPost {
             if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
                 sender.setImage(UIImage.init(named: "unlike_Charity"), for: .normal)
-                self.postsList.unlike(atPost: sender.tag)
+                self.postsList?.unlike(atPost: sender.tag)
+                //self.tableView.reloadData()
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! CharityCell
+                cell.numberOfLikes.text = String(post.likes.count)
             }
             else {
-                self.postsList.like(atPost: sender.tag)
+                self.postsList?.like(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "liked_Charity"), for: .normal)
+                //self.tableView.reloadData()
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! CharityCell
+                cell.numberOfLikes.text = String(post.likes.count)
             }
-            print(post.likes.count)
+            
+            //print(post.likes.count)
             return
         }
         
-        if let post = postsList.allPosts[sender.tag] as? MealPost {
+        if let post = postsList?.allPosts[sender.tag] as? MealPost {
             if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
-                self.postsList.unlike(atPost: sender.tag)
+                self.postsList?.unlike(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "unlike_Food"), for: .normal)
+                //self.tableView.reloadData()
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MealPostCell
+                cell.numberOfLikes.text = String(post.likes.count)
             }
             else {
-                self.postsList.like(atPost: sender.tag)
+                self.postsList?.like(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "liked_Food"), for: .normal)
+                //self.tableView.reloadData()
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MealPostCell
+                cell.numberOfLikes.text = String(post.likes.count)
             }
             return
         }
-        /*
-        if let post = postsList.allPosts[sender.tag] as? MealChallengePost {
-            if let _ = post.likes.index(of: ProfileManager.myProfile.myself) {
-                self.postsList.unlike(atPost: sender.tag)
-                sender.setImage(UIImage.init(named: "unlike_Food"), for: .normal)
-            }
-            else {
-                self.postsList.like(atPost: sender.tag)
+
+        if let _ = postsList?.allPosts[sender.tag] as? MealChallengePost {
+            sender.isSelected = !sender.isSelected
+            
+            if sender.isSelected{
                 sender.setImage(UIImage.init(named: "liked_Food"), for: .normal)
             }
-            return
-        }*/
+            else {
+                sender.setImage(UIImage.init(named: "unliked_Food"), for: .normal)
+            }
+        }
     }
     
     func comment(_ sender: UIButton){
         let commentView = self.storyboard?.instantiateViewController(withIdentifier: "CommentTableViewController") as! CommentTableViewController
-        commentView.commentsList = self.postsList.allPosts[sender.tag].comments
+        commentView.commentsList = self.postsList?.allPosts[sender.tag].comments
         self.navigationController?.pushViewController(commentView, animated: true)
     }
     
@@ -293,7 +328,11 @@ class NewsFeedController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.postsList = PostsList.main
         self.tableView.reloadData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.postsList = nil
+    }
 }

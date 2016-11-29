@@ -8,20 +8,15 @@
 
 import UIKit
 
-protocol PostDetailEnteredDelegate {
-    func userDidEnterMeal(_ meal: MealPost)
-}
-
 class PostDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var imageTaken: UIImageView!
     
-    var image: UIImage!
-    var mealType: MealType!
+    var image: UIImage?
+    var mealType: MealType?
     
     var isChallenge = false
     var challengIndex: Int!
-    
-    var delegate: PostDetailEnteredDelegate? = nil
+
     @IBOutlet var saveButton: UIButton!
     
     override func viewDidLoad() {
@@ -107,34 +102,32 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         }
         let type = mealType
         if !isChallenge {
-            if (delegate != nil) {
-                
-                print("DONE")
-                
-                let tags = self.mealTagList
-                let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
-                self.loggedList.add(tags: tags)
-                
-                delegate!.userDidEnterMeal(post)
-                
-                self.navigationController?.popViewController(animated: true)
-            }
+            print("DONE")
+            
+            let tags = self.mealTagList
+            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags!)
+            self.loggedList?.add(tags: tags!)
+            PostsList.main.add(post)
+            print(PostsList.main.allPosts.count)
+            self.navigationController?.popViewController(animated: true)
         }
         else {
             let tags = self.mealTagList
-            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
+            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags!)
             
             let challenge = ChallengeList.mealChallengeList.allChallenges[challengIndex] as! IndividualMealChallenge
-            challenge.post = post
-            challenge.status = ChallengeStatus.finishedVoting
+            let challengeCopy = challenge.copy() as! IndividualMealChallenge
+            challengeCopy.post = post
+            //challenge.status = ChallengeStatus.finished
             
             let challengePost = PostsList.mealChallenges.allPosts[challengIndex] as! MealChallengePost
-            challengePost.mealChallenge.append(challenge)
+            challengePost.mealChallenge.append(challengeCopy)
             if challengePost.mealChallenge.count == 2 {
                 challengePost.isReady = true
-                PostsList.main.allPosts.insert(challengePost, at: 0)
+                PostsList.main.add(challengePost)
             }
-            self.navigationController?.popViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.selectedIndex = 0
         }
     }
     
@@ -147,33 +140,32 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         }
         let type = mealType
         if !isChallenge {
-            if (delegate != nil) {
-                
-                print("DONE")
-                
-                let tags = self.mealTagList
-                let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
-                self.loggedList.add(tags: tags)
-                
-                delegate!.userDidEnterMeal(post)
-                
-                self.navigationController?.popViewController(animated: true)
-            }
+            print("DONE")
+            
+            let tags = self.mealTagList
+            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags!)
+            self.loggedList?.add(tags: tags!)
+            PostsList.main.add(post)
+            
+            self.navigationController?.popViewController(animated: true)
         }
         else {
             let tags = self.mealTagList
-            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags)
+            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags!)
             
             let challenge = ChallengeList.mealChallengeList.allChallenges[challengIndex] as! IndividualMealChallenge
-            challenge.post = post
-            challenge.status = ChallengeStatus.finished
+            let challengeCopy = challenge.copy() as! IndividualMealChallenge
+            challengeCopy.post = post
+            //challenge.status = ChallengeStatus.finished
             
             let challengePost = PostsList.mealChallenges.allPosts[challengIndex] as! MealChallengePost
-            challengePost.mealChallenge.append(challenge)
+            challengePost.mealChallenge.append(challengeCopy)
             if challengePost.mealChallenge.count == 2 {
                 challengePost.isReady = true
+                PostsList.main.add(challengePost)
             }
-            self.navigationController?.popViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.selectedIndex = 0
         }
     }
     
@@ -189,7 +181,7 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Implement food tags view
     @IBOutlet var foodTagsView: UIStackView!
-    var foodTagList = FoodTagList.main
+    var foodTagList: FoodTagList? = FoodTagList.main
     
     func loadTags() {
         let numberOfTags = FoodTagList.main.foodTags.count
@@ -205,7 +197,7 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
             for i in 0..<4 {
                 if index + i < numberOfTags {
                     let tagButton = UIButton()
-                    tagButton.setTitle(foodTagList.foodTags[index+i].name, for: .normal)
+                    tagButton.setTitle(foodTagList?.foodTags[index+i].name, for: .normal)
                     tagButton.titleLabel?.font = UIFont(name: "Seravek", size: 14)
                     tagButton.titleLabel?.minimumScaleFactor = 0.5
                     //tagButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -227,18 +219,32 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    var loggedList = FoodTagList.logged
-    var mealTagList = FoodTagList()
+    var loggedList: FoodTagList? = FoodTagList.logged
+    var mealTagList: FoodTagList? = FoodTagList()
     func chooseTag(_ sender: UIButton) {
-        let tag = foodTagList.foodTags[sender.tag].instantiate()
+        let tag = foodTagList?.foodTags[sender.tag].instantiate()
         if sender.titleColor(for: .normal) == UIColor.black {
             sender.backgroundColor = UIColor(red: 255/255, green: 157/255, blue: 9/255, alpha: 1)
             sender.setTitleColor(UIColor.white, for: .normal)
-            mealTagList.add(tag: tag)
+            mealTagList?.add(tag: tag!)
             return
         }
         sender.backgroundColor = UIColor.clear
         sender.setTitleColor(UIColor.black, for: .normal)
-        mealTagList.remove(tag: tag)
+        mealTagList?.remove(tag: tag!)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.image = nil
+        self.mealType = nil
+        self.loggedList = nil
+        self.mealTagList = nil
+        self.foodTagList = nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.loggedList = FoodTagList.logged
+        self.mealTagList = FoodTagList()
+        self.foodTagList = FoodTagList.main
     }
 }

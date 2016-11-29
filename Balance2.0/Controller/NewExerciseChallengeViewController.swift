@@ -13,7 +13,7 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
     @IBOutlet var friendTableView: UITableView!
     
     var friendList = ProfileManager.myProfile.friendList
-    var filteredFriend = [UserAccount]()
+    var filteredFriend: [UserAccount]? = [UserAccount]()
     
     @IBOutlet var toolBarPicker: UIToolbar!
     @IBOutlet var senderLabel: UILabel!
@@ -96,9 +96,14 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         self.toDatePicker.minimumDate = Date()
         self.fromDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 30, to: Date())
         self.toDatePicker.maximumDate = Calendar.current.date(byAdding: .day, value: 90, to: Date())
+        
+        // Search Bar
+        self.friendSearchBar.setValue("Done", forKey: "_cancelButtonText")
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.friendList = ProfileManager.myProfile.friendList
+        self.filteredFriend = [UserAccount]()
         self.friendTableView.isHidden = true
         self.friendSearchBar.isHidden = true
     }
@@ -106,7 +111,7 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
     // MARK: Table View
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredFriend.count
+        return self.filteredFriend!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,7 +120,7 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         var friend: UserAccount
         
         if tableView == self.searchDisplayController?.searchResultsTableView {
-            friend = self.filteredFriend[indexPath.row]
+            friend = (self.filteredFriend?[indexPath.row])!
             cell.textLabel?.text = friend.fullName
             return cell
         }
@@ -140,12 +145,12 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
     var receiver: UserAccount? = nil
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let friend = filteredFriend[indexPath.row]
+        let friend = filteredFriend?[indexPath.row]
         print("Click")
         receiver = friend
 
-        self.friendImage.image = friend.profile.picture
-        self.friendNameLabel.text = friend.fullName
+        self.friendImage.image = friend?.profile.picture
+        self.friendNameLabel.text = friend?.fullName
         self.friendNameLabel.isHidden = false
         self.friendTableView.isHidden = true
         self.searchDisplayController?.isActive = false
@@ -230,8 +235,10 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
     
     @IBAction func endDatePicker(_ sender: UIBarButtonItem) {
         self.fromDateLabel.text = DateFormatter.localizedString(from: self.fromDatePicker.date, dateStyle: .medium, timeStyle: .none)
+        self.fromDate = fromDatePicker.date
         fromDatePicker.isHidden = true
         self.toDateLabel.text = DateFormatter.localizedString(from: self.toDatePicker.date, dateStyle: .medium, timeStyle: .none)
+        self.toDate = toDatePicker.date
         toDatePicker.isHidden = true
         toolBarPicker.isHidden = true
     }
@@ -264,5 +271,10 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         ChallengeList.exerciseChallengeList.add(challenge: newChallenge)
         
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.friendList = nil
+        self.filteredFriend = nil
     }
 }

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Balance2.0/Assets.xcassets">
+   </FileRef>
+   <FileRef
       location = "group:Balance2.0.xcodeproj">
    </FileRef>
    <FileRef

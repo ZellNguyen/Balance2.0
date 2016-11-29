@@ -8,13 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PostDetailEnteredDelegate {
-    
-    var meal: MealPost? = nil {
-        didSet {
-            
-        }
-    }
+class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,28 +89,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             if let navigator = self.navigationController {
                 navigator.pushViewController(viewController, animated: true)
                 viewController.image = image
-                viewController.delegate = self
+                //viewController.delegate = self
             }
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         let newsfeed = self.childViewControllers[0] as! NewsFeedController
-        if let _ = meal {
-            newsfeed.postsList.add(meal!)
-        }
         newsfeed.tableView.reloadData()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        // Prevent post duplication
-        self.meal = nil
-    }
-    
-    func userDidEnterMeal(_ meal: MealPost) {
-        self.meal = meal
-    }
-
 
     // MARK: Style Buttons
     

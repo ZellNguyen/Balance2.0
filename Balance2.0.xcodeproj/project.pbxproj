@@ -22,7 +22,6 @@
 		F53E4BA21DD46FA200C14C83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BA11DD46FA200C14C83 /* AppDelegate.swift */; };
 		F53E4BA41DD46FA200C14C83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BA31DD46FA200C14C83 /* ViewController.swift */; };
 		F53E4BA71DD46FA200C14C83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F53E4BA51DD46FA200C14C83 /* Main.storyboard */; };
-		F53E4BA91DD46FA200C14C83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F53E4BA81DD46FA200C14C83 /* Assets.xcassets */; };
 		F53E4BAC1DD46FA200C14C83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F53E4BAA1DD46FA200C14C83 /* LaunchScreen.storyboard */; };
 		F53E4BBC1DD4750100C14C83 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BB91DD4750100C14C83 /* CommentCell.swift */; };
 		F53E4BBD1DD4750100C14C83 /* MealPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E4BBA1DD4750100C14C83 /* MealPostCell.swift */; };
@@ -86,7 +85,6 @@
 		F53E4BA11DD46FA200C14C83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F53E4BA31DD46FA200C14C83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F53E4BA61DD46FA200C14C83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F53E4BA81DD46FA200C14C83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F53E4BAB1DD46FA200C14C83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F53E4BAD1DD46FA200C14C83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F53E4BB91DD4750100C14C83 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = Controller/CommentCell.swift; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 				F53E4BA11DD46FA200C14C83 /* AppDelegate.swift */,
 				F53E4BA31DD46FA200C14C83 /* ViewController.swift */,
 				F53E4BA51DD46FA200C14C83 /* Main.storyboard */,
-				F53E4BA81DD46FA200C14C83 /* Assets.xcassets */,
 				F53E4BAA1DD46FA200C14C83 /* LaunchScreen.storyboard */,
 				F53E4BAD1DD46FA200C14C83 /* Info.plist */,
 			);
@@ -329,7 +326,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F53E4BAC1DD46FA200C14C83 /* LaunchScreen.storyboard in Resources */,
-				F53E4BA91DD46FA200C14C83 /* Assets.xcassets in Resources */,
 				F53E4BA71DD46FA200C14C83 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

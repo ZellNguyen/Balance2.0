@@ -231,7 +231,7 @@ class ExerciseDashboardViewController: UIViewController {
                 print("HealthKit authorization succeeded")
                 StepCounter.main.countSteps(from: startPastDate, to: endPastDate!, completion: { (steps, error) -> Void in
                     self.stepLabels[days].text = String(steps)
-                    self.stepLabels[days].adjustsFontSizeToFitWidth = true
+                    //self.stepLabels[days].adjustsFontSizeToFitWidth = true
                     self.stepLabels[days].minimumScaleFactor = 0.2
                     
                     self.stepArray.append(steps)

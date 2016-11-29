@@ -20,6 +20,7 @@ class MealChallengePost: NSObject, Post {
         self.date = date
         self.isReady = isReady
         self.mealChallenge = mealChallenge
+        self.comments = CommentsList()
         super.init()
     }
 }

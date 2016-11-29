@@ -19,7 +19,7 @@ class CharityList {
         let company1 = "USA"
         let title1 = "World Food Program"
         let caption1 = "1 out of every 9 people worldwide suffers from chronic hunger.\nWorld Food Program aims to gather $650,000 to help children in Syria."
-        let goalSteps1 = 650000 * 10000
+        let goalSteps1 = 650000
         let expiredDate1 = NSDate(timeInterval: 30 * 86400, since: NSDate() as Date)
         let image1 = UIImage.init(named: "World food organization")
         
@@ -29,7 +29,7 @@ class CharityList {
         let company2 = "Non-profit organization"
         let title2 = "Charity: water"
         let caption2 = "Charity: water is a non-profit organization bringing clean and safe drinking water to people in developing nations. \n To fund new freshwater wells, rainwater catchments and sand filters for African villages, we need $1,150,000."
-        let goalSteps2 = 1150000 * 10000
+        let goalSteps2 = 1150000
         let expiredDate2 = NSDate(timeInterval: 30 * 86400, since: NSDate() as Date)
         let image2 = UIImage.init(named: "water charity")
         
@@ -39,7 +39,7 @@ class CharityList {
         let company3 = "Museum of Fine Arts, Boston"
         let title3 = "Museum of Fine Arts, Boston"
         let caption3 = "Help the Museum of Fine Arts to fund educational programs for contemporary artists who need financial assistance. \nTo develop their skills and talents, our program needs $300,000. "
-        let goalSteps3 = 300000 * 10000
+        let goalSteps3 = 300000
         let expiredDate3 = NSDate(timeInterval: 30 * 86400, since: NSDate() as Date)
         let image3 = UIImage.init(named: "Museum of fine arts")
         
@@ -49,7 +49,7 @@ class CharityList {
         let company4 = "IFAW"
         let title4 = "International fund for animal welfare"
         let caption4 = "IFAW’s mission is to rescue and protect animals around the world. \nWe rescue individuals, safeguard populations, and preserve habitat.\nYou rescue your steps and we will donate money for you."
-        let goalSteps4 = 300000 * 10000
+        let goalSteps4 = 300000
         let expiredDate4 = NSDate(timeInterval: 30 * 86400, since: NSDate() as Date)
         let image4 = UIImage.init(named: "IFAW")
         

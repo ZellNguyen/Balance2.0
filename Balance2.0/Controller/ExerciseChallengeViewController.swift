@@ -83,13 +83,13 @@ class ExerciseChallengeViewController: UIPageViewController, UIPageViewControlle
 class ExerciseChallengeTableViewController: UITableViewController {
     
     var category: String!
-    var challenges: ChallengeList! = ChallengeList()
+    var challenges: ChallengeList? = ChallengeList()
     var pageIndex: Int!
     
     @IBOutlet var categoryLabel: UILabel!
     
     func filterChallenge(byStatus filterStatus: ChallengeStatus){
-        self.challenges.allChallenges = ChallengeList.exerciseChallengeList.allChallenges.filter({ (challenge: Challenge) -> Bool in
+        self.challenges?.allChallenges = ChallengeList.exerciseChallengeList.allChallenges.filter({ (challenge: Challenge) -> Bool in
             let status = challenge.status
             return (status == filterStatus)
         })
@@ -101,7 +101,7 @@ class ExerciseChallengeTableViewController: UITableViewController {
             self.filterChallenge(byStatus: .pending)
         case 1:
             self.filterChallenge(byStatus: .active)
-            challenges.loadProgress()
+            challenges?.loadProgress()
         case 2:
             self.filterChallenge(byStatus: .finished)
         default:
@@ -122,6 +122,7 @@ class ExerciseChallengeTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.challenges = ChallengeList()
         self.filterChallenge(byIndex: pageIndex)
         self.tableView.reloadData()
     }
@@ -132,13 +133,13 @@ class ExerciseChallengeTableViewController: UITableViewController {
     
      // MARK: Challenge Table View
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return challenges.allChallenges.count
+        return challenges!.allChallenges.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch pageIndex {
         case 0:
-            let challenge = challenges.allChallenges[indexPath.row] as! IndividualExerciseChallenge
+            let challenge = challenges?.allChallenges[indexPath.row] as! IndividualExerciseChallenge
             
             // In case the challenge is sent by user
             if challenge.sender == ProfileManager.myProfile.myself {
@@ -183,7 +184,7 @@ class ExerciseChallengeTableViewController: UITableViewController {
             }
             
         case 1, 2:
-            let challenge = challenges.allChallenges[indexPath.row] as! IndividualExerciseChallenge
+            let challenge = challenges?.allChallenges[indexPath.row] as! IndividualExerciseChallenge
             let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseActiveChallengeCell") as! ExerciseActiveChallengeCell
             if challenge.sender == ProfileManager.myProfile.myself {
                 cell.friendNameLabel.text = challenge.receiver?.fullName
@@ -216,17 +217,21 @@ class ExerciseChallengeTableViewController: UITableViewController {
     }
     
     func acceptChallenge(_ sender: UIButton){
-        let challenge = self.challenges.allChallenges[sender.tag]
-        challenge.status = ChallengeStatus.active
+        let challenge = self.challenges?.allChallenges[sender.tag]
+        challenge?.status = ChallengeStatus.active
         self.filterChallenge(byIndex: pageIndex)
         self.tableView.reloadData()
     }
     
     func ignoreChallenge(_ sender: UIButton){
-        let challenge = self.challenges.allChallenges[sender.tag]
-        challenge.status = ChallengeStatus.expired
+        let challenge = self.challenges?.allChallenges[sender.tag]
+        challenge?.status = ChallengeStatus.expired
         self.filterChallenge(byIndex: pageIndex)
         self.tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.challenges = nil
     }
 }
 

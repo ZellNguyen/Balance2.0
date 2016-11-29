@@ -18,4 +18,6 @@ class CharityCell: UITableViewCell {
     @IBOutlet var parentView: UIView!
     
     @IBOutlet var likeButton: UIButton!
+    @IBOutlet var numberOfComments: UILabel!
+    @IBOutlet var numberOfLikes: UILabel!
 }

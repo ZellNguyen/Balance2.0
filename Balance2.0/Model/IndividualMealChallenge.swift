@@ -28,8 +28,9 @@ class IndividualMealChallenge: NSObject, Challenge, NSCopying {
     var receiver: UserAccount?
     var option: MealChallengeOption!
     var post: MealPost? = nil
+    var link: String? = nil
     
-    init(title: String, message: String, post: MealPost, fromDate: Date, toDate: Date, sender: UserAccount, receiver: UserAccount, option: MealChallengeOption, status: ChallengeStatus) {
+    init(title: String, message: String, post: MealPost, fromDate: Date, toDate: Date, sender: UserAccount, receiver: UserAccount, option: MealChallengeOption, status: ChallengeStatus, link: String?) {
         self.title = title
         self.message = message
         self.post = post
@@ -39,19 +40,20 @@ class IndividualMealChallenge: NSObject, Challenge, NSCopying {
         self.receiver = receiver
         self.option = option
         self.status = status
+        self.link = link
         super.init()
     }
     
-    convenience init(title: String, message: String, fromDate: Date, toDate: Date, receiver: UserAccount, option: MealChallengeOption){
+    convenience init(title: String, message: String, fromDate: Date, toDate: Date, receiver: UserAccount, option: MealChallengeOption, link: String?){
         let post = MealPost()
-        self.init(title: title, message: message, post: post, fromDate: fromDate, toDate: toDate, sender: ProfileManager.myProfile.myself, receiver: receiver, option: option, status: .pending)
+        self.init(title: title, message: message, post: post, fromDate: fromDate, toDate: toDate, sender: ProfileManager.myProfile.myself, receiver: receiver, option: option, status: .pending, link: link)
     }
     
     override func copy() -> Any {
-        return IndividualMealChallenge(title: self.title, message: self.message, fromDate: self.fromDate, toDate: self.toDate, receiver: self.receiver!, option: self.option)
+        return IndividualMealChallenge(title: self.title, message: self.message, fromDate: self.fromDate, toDate: self.toDate, receiver: self.receiver!, option: self.option, link: self.link!)
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        return IndividualMealChallenge(title: self.title, message: self.message, fromDate: self.fromDate, toDate: self.toDate, receiver: self.receiver!, option: self.option)
+        return IndividualMealChallenge(title: self.title, message: self.message, fromDate: self.fromDate, toDate: self.toDate, receiver: self.receiver!, option: self.option, link: self.link!)
     }
 }

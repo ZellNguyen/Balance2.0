@@ -10,7 +10,7 @@ import UIKit
 
 class MealHistoryController: UITableViewController {
     
-    var mealPostsList: PostsList = PostsList.meals
+    var mealPostsList: PostsList? = PostsList.meals
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +20,12 @@ class MealHistoryController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mealPostsList.allPosts.count
+        return mealPostsList!.allPosts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealHistoryCell
-        let mealPost = mealPostsList.allPosts[indexPath.row] as! MealPost
+        let mealPost = mealPostsList?.allPosts[indexPath.row] as! MealPost
         
         cell.dateLabel.text = DateFormatter.localizedString(from: mealPost.date as Date, dateStyle: .medium, timeStyle: .none)
         
@@ -57,6 +57,11 @@ class MealHistoryController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.mealPostsList = PostsList.meals
         tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.mealPostsList = nil
     }
 }

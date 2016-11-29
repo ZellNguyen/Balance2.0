@@ -66,10 +66,10 @@ class ChallengeList {
         
         let post1 = MealPost(image: UIImage.init(named: "Meal3"), caption: "Salad", type: .lunch, tags: FoodTagList())
         
-        let challenge1 = IndividualMealChallenge(title: title1, message: message1, post: post1, fromDate: fromDate1, toDate: toDate1!, sender: sender1, receiver: receiver1!, option: MealChallengeOption.no_meat, status: ChallengeStatus.active)
+        let challenge1 = IndividualMealChallenge(title: title1, message: message1, post: post1, fromDate: fromDate1, toDate: toDate1!, sender: sender1, receiver: receiver1!, option: MealChallengeOption.no_meat, status: ChallengeStatus.active, link: "http://hexagonbalance.weebly.com/no-meat-day.html")
         list.add(challenge: challenge1)
         let challengePost1 = MealChallengePost(caption: title1, date: fromDate1, isReady: false, mealChallenge: [challenge1])
-        PostsList.main.add(challengePost1)
+        PostsList.hidden.add(challengePost1)
         
         return list
     }()

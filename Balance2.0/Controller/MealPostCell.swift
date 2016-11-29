@@ -18,5 +18,7 @@ class MealPostCell: UITableViewCell {
     
     @IBOutlet var parentView: UIView!
     
+    @IBOutlet var numberOfLikes: UILabel!
+    @IBOutlet var numberOfComments: UILabel!
     @IBOutlet var tagsStackView: UIStackView!
 }

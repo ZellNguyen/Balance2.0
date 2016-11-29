@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileManager {
     var myself: UserAccount!
-    var friendList: FriendList!
+    lazy var friendList: FriendList! = FriendList()
     var profile: UserProfile!
     
     func register( email: String, fullName: String ) {
