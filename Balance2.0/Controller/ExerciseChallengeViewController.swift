@@ -83,7 +83,7 @@ class ExerciseChallengeViewController: UIPageViewController, UIPageViewControlle
 class ExerciseChallengeTableViewController: UITableViewController {
     
     var category: String!
-    var challenges: ChallengeList? = ChallengeList()
+    var challenges: ChallengeList?
     var pageIndex: Int!
     
     @IBOutlet var categoryLabel: UILabel!
@@ -111,6 +111,8 @@ class ExerciseChallengeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.challenges = ChallengeList()
         
         self.filterChallenge(byIndex: pageIndex)
         

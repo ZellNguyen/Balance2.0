@@ -19,7 +19,7 @@ class MealDashboardViewController: UIViewController {
     
     @IBOutlet var reportStackView: UIStackView!
     
-    let loggedList = FoodTagList.logged
+    var loggedList: FoodTagList? = FoodTagList.logged
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,13 +105,13 @@ class MealDashboardViewController: UIViewController {
         let today = Date()
         let timeAgo = Calendar.current.date(byAdding: .day, value: -days, to: today)
         
-        guard self.loggedList.foodTags.count > 0 else {
+        guard (self.loggedList?.foodTags.count)! > 0 else {
             return
         }
         
         var tagList = [FoodTag]()
         
-        for tag in self.loggedList.foodTags {
+        for tag in (self.loggedList?.foodTags)! {
             guard tag.date != nil else {
                 continue
             }
@@ -145,6 +145,14 @@ class MealDashboardViewController: UIViewController {
             tagLabels[i].text = sortedTagNames[i]
             tagProgressViews[i].progress = Float(sortedTagCounts[i])/Float(max) + 0.01
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.loggedList = nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.loggedList = FoodTagList.logged
     }
 }
 
@@ -205,7 +213,7 @@ class ExerciseDashboardViewController: UIViewController {
     @IBOutlet var stepLabels: [UILabel]!
     @IBOutlet var stepBarVerticalStackView: [UIStackView]!
     
-    var stepArray = [Double]()
+    var stepArray: [Double]? = [Double]()
     
     func loadOneBar(daysAgo days: Int) {
         var calendar = Calendar(identifier: .gregorian)
@@ -234,7 +242,7 @@ class ExerciseDashboardViewController: UIViewController {
                     //self.stepLabels[days].adjustsFontSizeToFitWidth = true
                     self.stepLabels[days].minimumScaleFactor = 0.2
                     
-                    self.stepArray.append(steps)
+                    self.stepArray!.append(steps)
                     
                     let ratio = Float(steps/15000.0) > 1.0 ? 1.0 : Float(steps/15000.0)
                     let maxHeight = Float(200.0)
@@ -259,6 +267,14 @@ class ExerciseDashboardViewController: UIViewController {
         view.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
         view.layer.masksToBounds = false
         self.stepBarVerticalStackView[days].insertArrangedSubview(view, at: 1)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.stepArray = nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.stepArray = [Double]()
     }
     
 }
