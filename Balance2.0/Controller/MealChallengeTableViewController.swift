@@ -173,7 +173,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
         case 0:
             let post = activeChallenges?[indexPath.row] as! IndividualMealChallenge
             if post.link != nil {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChallengeWebViewController") as! ChallengeWebViewController
                 vc.link = post.link
                 vc.challenge = post
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -182,7 +182,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
         case 1:
             let post = pendingChallenges?[indexPath.row] as! IndividualMealChallenge
             if post.link != nil {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChallengeWebViewController") as! ChallengeWebViewController
                 vc.link = post.link
                 vc.completeButton.isEnabled = false
                 vc.completeButton.setTitleColor(UIColor.lightGray, for: .normal)
@@ -191,7 +191,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
         case 2:
             let post = pastChallenges?[indexPath.row] as! IndividualMealChallenge
             if post.link != nil {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChallengeWebViewController") as! ChallengeWebViewController
                 vc.link = post.link
                 vc.completeButton.isEnabled = false
                 vc.completeButton.setTitleColor(UIColor.lightGray, for: .normal)
