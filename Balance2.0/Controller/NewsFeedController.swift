@@ -374,7 +374,7 @@ class NewsFeedController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             if let mealReminder = reminder as? IndividualMealChallenge {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChallengeWebViewController") as! ChallengeWebViewController
                 vc.link = mealReminder.link!
                 vc.challenge = mealReminder
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -382,7 +382,7 @@ class NewsFeedController: UITableViewController {
         }
         else {
             if let post = PostsList.main.allPosts[indexPath.row-1] as? HealthyTipPost {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TipWebViewController") as! TipWebViewController
                 vc.link = post.link
                 self.navigationController?.pushViewController(vc, animated: true)
             }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WebViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ChallengeWebViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var webView: UIWebView!
     @IBOutlet var completeButton: UIButton!
