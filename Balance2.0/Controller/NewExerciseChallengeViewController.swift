@@ -273,12 +273,15 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         ChallengeList.exerciseChallengeList.add(challenge: newChallenge)
         
         //self.navigationController?.popViewController(animated: false)
-        
-        let pendingChallengeViewController = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseChallengeViewController") as! ExerciseChallengeViewController
+    
         var controllers = self.navigationController?.viewControllers
         let index = controllers?.index(of: self)
-        controllers?[index!] = pendingChallengeViewController
-        self.navigationController?.setViewControllers(controllers!, animated: true)
+        
+        if let _ = controllers?[index!-1] as? ViewController {
+            let pendingChallengeViewController = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseChallengeViewController") as! ExerciseChallengeViewController
+            controllers?[index!] = pendingChallengeViewController
+            self.navigationController?.setViewControllers(controllers!, animated: true)
+        }
         
     }
     

@@ -386,7 +386,7 @@
                                                 <constraint firstItem="ZHP-ra-VHW" firstAttribute="leading" secondItem="6i1-MQ-jfP" secondAttribute="leading" constant="15" id="OUC-P2-fIW"/>
                                             </constraints>
                                         </view>
-                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gJ0-NL-IdM">
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gJ0-NL-IdM">
                                             <rect key="frame" x="30" y="247" width="59" height="22"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRc-Gp-Rba">
@@ -2648,7 +2648,7 @@
         <!--Challenges-->
         <scene sceneID="bEy-DK-V4w">
             <objects>
-                <viewController id="e9d-PG-aXt" customClass="ParentExerciseChallengeViewController" customModule="Balance2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ParentExerciseChallengeViewController" id="e9d-PG-aXt" customClass="ParentExerciseChallengeViewController" customModule="Balance2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jgj-Ac-a6Q"/>
                         <viewControllerLayoutGuide type="bottom" id="oYQ-ue-VBf"/>
@@ -2658,16 +2658,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxz-NB-PSH">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="474"/>
                                 <connections>
                                     <segue destination="aiB-sy-Ibh" kind="embed" id="49i-YG-I5f"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOY-QR-CYU">
-                                <rect key="frame" x="0.0" y="528" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="538" width="375" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQi-2t-i5H">
-                                        <rect key="frame" x="107" y="25" width="162" height="40"/>
+                                        <rect key="frame" x="107" y="20" width="162" height="40"/>
                                         <color key="backgroundColor" red="0.0" green="0.61176470589999998" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Oni-3E-lu1"/>
@@ -2685,7 +2685,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="zQi-2t-i5H" firstAttribute="centerY" secondItem="hOY-QR-CYU" secondAttribute="centerY" id="AhK-VM-epI"/>
-                                    <constraint firstAttribute="height" constant="90" id="aGq-Jg-iFd"/>
+                                    <constraint firstAttribute="height" constant="80" id="aGq-Jg-iFd"/>
                                     <constraint firstItem="zQi-2t-i5H" firstAttribute="centerX" secondItem="hOY-QR-CYU" secondAttribute="centerX" id="mmG-Et-CkL"/>
                                 </constraints>
                             </view>
@@ -2695,9 +2695,9 @@
                             <constraint firstItem="hOY-QR-CYU" firstAttribute="leading" secondItem="OBN-SC-1Xc" secondAttribute="leading" id="IU7-OS-zTR"/>
                             <constraint firstItem="oYQ-ue-VBf" firstAttribute="top" secondItem="hOY-QR-CYU" secondAttribute="bottom" id="MBc-5V-MBZ"/>
                             <constraint firstAttribute="trailing" secondItem="uxz-NB-PSH" secondAttribute="trailing" id="UuK-2J-PNb"/>
-                            <constraint firstItem="oYQ-ue-VBf" firstAttribute="top" secondItem="uxz-NB-PSH" secondAttribute="bottom" id="VhM-J5-Ucc"/>
                             <constraint firstAttribute="trailing" secondItem="hOY-QR-CYU" secondAttribute="trailing" id="eY1-Sh-ZRh"/>
                             <constraint firstItem="uxz-NB-PSH" firstAttribute="leading" secondItem="OBN-SC-1Xc" secondAttribute="leading" id="wfR-YJ-Toc"/>
+                            <constraint firstItem="hOY-QR-CYU" firstAttribute="top" secondItem="uxz-NB-PSH" secondAttribute="bottom" id="ykb-ZI-L64"/>
                             <constraint firstItem="uxz-NB-PSH" firstAttribute="top" secondItem="Jgj-Ac-a6Q" secondAttribute="bottom" id="z9o-5U-Czt"/>
                         </constraints>
                     </view>
@@ -4323,7 +4323,7 @@
         <!--My Challenges-->
         <scene sceneID="jVL-Wc-Wl9">
             <objects>
-                <tableViewController id="kWI-xn-G8X" customClass="MealChallengeTableViewController" customModule="Balance2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MealChallengeTableView" id="kWI-xn-G8X" customClass="MealChallengeTableViewController" customModule="Balance2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="135" sectionHeaderHeight="28" sectionFooterHeight="28" id="1n7-LN-oag">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

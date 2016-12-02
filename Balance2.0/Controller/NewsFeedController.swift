@@ -406,6 +406,7 @@ class NewsFeedController: UITableViewController {
         reminder = mainChallenges.allChallenges[0]
         
         self.tableView.reloadData()
+        self.tableView.setContentOffset(CGPoint.zero, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

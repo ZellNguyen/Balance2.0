@@ -300,11 +300,14 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         let newChallengPost = MealChallengePost(caption: title, date: fromDate!, isReady: false, mealChallenge: [newChallenge])
         PostsList.hidden.add(newChallengPost)
         
-        let pendingChallengeViewController = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseChallengeViewController") as! ExerciseChallengeViewController
         var controllers = self.navigationController?.viewControllers
         let index = controllers?.index(of: self)
-        controllers?[index!] = pendingChallengeViewController
-        self.navigationController?.setViewControllers(controllers!, animated: true)
+        
+        if let _ = controllers?[index!-1] as? ViewController {
+            let pendingChallengeViewController = self.storyboard?.instantiateViewController(withIdentifier: "MealChallengeTableView") as! MealChallengeTableViewController
+            controllers?[index!] = pendingChallengeViewController
+            self.navigationController?.setViewControllers(controllers!, animated: true)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
