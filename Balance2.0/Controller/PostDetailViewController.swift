@@ -15,7 +15,7 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
     var mealType: MealType?
     
     var isChallenge = false
-    var challengIndex: Int!
+    var challenge: IndividualMealChallenge? = nil
 
     @IBOutlet var saveButton: UIButton!
     
@@ -49,6 +49,8 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         
         // Text Field Delegation
         captionTextField.delegate = self
+        captionTextField.layer.borderColor = UIColor.darkGray.cgColor
+        captionTextField.layer.borderWidth = CGFloat(1.4)
         
         // ADd food tags into view
         self.loadTags()
@@ -115,56 +117,23 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
             let tags = self.mealTagList
             let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags!)
             
-            let challenge = ChallengeList.mealChallengeList.allChallenges[challengIndex] as! IndividualMealChallenge
-            let challengeCopy = challenge.copy() as! IndividualMealChallenge
+            let challengeCopy = challenge?.copy() as! IndividualMealChallenge
             challengeCopy.post = post
             //challenge.status = ChallengeStatus.finished
             
-            let challengePost = PostsList.mealChallenges.allPosts[challengIndex] as! MealChallengePost
+            let challengeIndex = ChallengeList.mealChallengeList.allChallenges.index(where: {(char: Challenge) in
+                if let mealChar = char as? IndividualMealChallenge {
+                    return mealChar == challenge
+                }
+                return false
+            })
+            let challengePost = PostsList.mealChallenges.allPosts[challengeIndex!] as! MealChallengePost
             challengePost.mealChallenge.append(challengeCopy)
             if challengePost.mealChallenge.count == 2 {
                 challengePost.isReady = true
                 PostsList.main.add(challengePost)
             }
-            //self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.selectedIndex = 0
-        }
-    }
-    
-    // After press post
-    @IBAction func postMeal(_ sender: Any) {
-        let postImage = self.image
-        var caption = ""
-        if captionTextField.text != nil {
-            caption = captionTextField.text!
-        }
-        let type = mealType
-        if !isChallenge {
-            print("DONE")
-            
-            let tags = self.mealTagList
-            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags!)
-            self.loggedList?.add(tags: tags!)
-            PostsList.main.add(post)
-            
             self.navigationController?.popViewController(animated: true)
-        }
-        else {
-            let tags = self.mealTagList
-            let post = MealPost(image: postImage, caption: caption, type: type!, tags: tags!)
-            
-            let challenge = ChallengeList.mealChallengeList.allChallenges[challengIndex] as! IndividualMealChallenge
-            let challengeCopy = challenge.copy() as! IndividualMealChallenge
-            challengeCopy.post = post
-            //challenge.status = ChallengeStatus.finished
-            
-            let challengePost = PostsList.mealChallenges.allPosts[challengIndex] as! MealChallengePost
-            challengePost.mealChallenge.append(challengeCopy)
-            if challengePost.mealChallenge.count == 2 {
-                challengePost.isReady = true
-                PostsList.main.add(challengePost)
-            }
-            //self.navigationController?.popViewController(animated: true)
             self.tabBarController?.selectedIndex = 0
         }
     }
@@ -241,10 +210,10 @@ class PostDetailViewController: UIViewController, UITextFieldDelegate {
         self.mealTagList = nil
         self.foodTagList = nil
     }
-    
+    /*
     override func viewWillAppear(_ animated: Bool) {
         self.loggedList = FoodTagList.logged
         self.mealTagList = FoodTagList()
         self.foodTagList = FoodTagList.main
-    }
+    }*/
 }

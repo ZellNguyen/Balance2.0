@@ -74,7 +74,7 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         self.toDatePicker.isHidden = true
         self.toDatePicker.backgroundColor = UIColor.white
         self.toolBarPicker.isHidden = true
-        self.friendNameLabel.isHidden = true
+        //self.friendNameLabel.isHidden = true
         
         // Initialize image
         self.senderImage.image = ProfileManager.myProfile.profile.picture
@@ -88,7 +88,8 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         if self.receiver != nil {
             self.friendImage.image = receiver?.profile.picture
             self.friendNameLabel.text = receiver?.fullName
-            self.friendNameLabel.isHidden = false
+            //self.friendNameLabel.isHidden = false
+            self.friendNameLabel.textColor = UIColor.black
         }
         
         // Date Picker
@@ -151,7 +152,8 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
 
         self.friendImage.image = friend?.profile.picture
         self.friendNameLabel.text = friend?.fullName
-        self.friendNameLabel.isHidden = false
+        self.friendNameLabel.textColor = UIColor.black
+        //self.friendNameLabel.isHidden = false
         self.friendTableView.isHidden = true
         self.searchDisplayController?.isActive = false
         self.friendSearchBar.isHidden = true
@@ -252,7 +254,7 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         
         let message = messageTextField.text ?? ""
         
-        if message.isEmpty || fromDate == nil || toDate == nil {
+        if message.isEmpty || fromDate == nil || toDate == nil || receiver == nil {
             present(alertBox, animated: true, completion: nil)
             return
         }
@@ -270,7 +272,14 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
         
         ChallengeList.exerciseChallengeList.add(challenge: newChallenge)
         
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: false)
+        
+        let pendingChallengeViewController = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseChallengeViewController") as! ExerciseChallengeViewController
+        var controllers = self.navigationController?.viewControllers
+        let index = controllers?.index(of: self)
+        controllers?[index!] = pendingChallengeViewController
+        self.navigationController?.setViewControllers(controllers!, animated: true)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

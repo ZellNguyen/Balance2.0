@@ -72,6 +72,7 @@ class SingleCharityViewController: UIViewController {
     @IBOutlet var charityImage: UIImageView!
     @IBOutlet var captionLabel: UILabel!
     @IBOutlet var donateButton: UIButton!
+    @IBOutlet var requestLabel: UILabel!
     
     var company: String!
     var image: UIImage!
@@ -116,7 +117,7 @@ class SingleCharityViewController: UIViewController {
             self.isDonated = true
             self.shareButton.isHidden = false
             self.changeCaptionAfterDonated(donatedSteps!)
-            //self.dismiss(animated: true, completion: nil)
+            self.requestLabel.isHidden = true
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         confirmBox.addAction(cancelAction)
@@ -147,7 +148,7 @@ class SingleCharityViewController: UIViewController {
         
         PostsList.main.add(post)
         
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 

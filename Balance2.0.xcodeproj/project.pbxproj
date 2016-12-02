@@ -11,6 +11,8 @@
 		F50633A21DD711A5008A586F /* Charity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50633A11DD711A5008A586F /* Charity.swift */; };
 		F50633A41DD712E8008A586F /* CompanyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50633A31DD712E8008A586F /* CompanyList.swift */; };
 		F50633A61DD7133B008A586F /* CharityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50633A51DD7133B008A586F /* CharityList.swift */; };
+		F5075E8B1DF14CA100E526C6 /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5075E8A1DF14CA100E526C6 /* ReminderCell.swift */; };
+		F5075E8F1DF159D100E526C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5075E8E1DF159D100E526C6 /* Assets.xcassets */; };
 		F50F0A561DDA5B66002ACDFB /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50F0A551DDA5B66002ACDFB /* Challenge.swift */; };
 		F50F0A591DDA5C62002ACDFB /* IndividualExerciseChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50F0A581DDA5C62002ACDFB /* IndividualExerciseChallenge.swift */; };
 		F50F0A5B1DDA5F57002ACDFB /* IndividualMealChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50F0A5A1DDA5F57002ACDFB /* IndividualMealChallenge.swift */; };
@@ -72,6 +74,8 @@
 		F50633A11DD711A5008A586F /* Charity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Charity.swift; path = Model/Charity.swift; sourceTree = "<group>"; };
 		F50633A31DD712E8008A586F /* CompanyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompanyList.swift; path = Controller/CompanyList.swift; sourceTree = "<group>"; };
 		F50633A51DD7133B008A586F /* CharityList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharityList.swift; path = Model/CharityList.swift; sourceTree = "<group>"; };
+		F5075E8A1DF14CA100E526C6 /* ReminderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReminderCell.swift; path = Controller/ReminderCell.swift; sourceTree = "<group>"; };
+		F5075E8E1DF159D100E526C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Balance2.0/Assets.xcassets; sourceTree = "<group>"; };
 		F50F0A551DDA5B66002ACDFB /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Challenge.swift; path = Model/Challenge.swift; sourceTree = "<group>"; };
 		F50F0A581DDA5C62002ACDFB /* IndividualExerciseChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndividualExerciseChallenge.swift; path = Model/IndividualExerciseChallenge.swift; sourceTree = "<group>"; };
 		F50F0A5A1DDA5F57002ACDFB /* IndividualMealChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndividualMealChallenge.swift; path = Model/IndividualMealChallenge.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 		F53E4B951DD46FA200C14C83 = {
 			isa = PBXGroup;
 			children = (
+				F5075E8E1DF159D100E526C6 /* Assets.xcassets */,
 				F53E4BA01DD46FA200C14C83 /* Balance2.0 */,
 				F53E4B9F1DD46FA200C14C83 /* Products */,
 				F53E10101DDE80FE00508DA7 /* Frameworks */,
@@ -221,6 +226,7 @@
 				F5F66EF71DE8BE8200A32BD2 /* NewMealChallengeController.swift */,
 				F565CF5B1DE924B2002118B4 /* WebViewController.swift */,
 				F5F362401DE98C3B00D1D971 /* MealChallengeCell.swift */,
+				F5075E8A1DF14CA100E526C6 /* ReminderCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -325,6 +331,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5075E8F1DF159D100E526C6 /* Assets.xcassets in Resources */,
 				F53E4BAC1DD46FA200C14C83 /* LaunchScreen.storyboard in Resources */,
 				F53E4BA71DD46FA200C14C83 /* Main.storyboard in Resources */,
 			);
@@ -390,6 +397,7 @@
 				F5A6F5331DD50E5C0090CC90 /* CharityCell.swift in Sources */,
 				F53E4BA41DD46FA200C14C83 /* ViewController.swift in Sources */,
 				F57084F91DE4DB1B00DE4732 /* DashboardViewController.swift in Sources */,
+				F5075E8B1DF14CA100E526C6 /* ReminderCell.swift in Sources */,
 				F5A6F5391DD524C30090CC90 /* HealthyTipCell.swift in Sources */,
 				F53E4BCE1DD4754000C14C83 /* CommentTableViewController.swift in Sources */,
 				F5A6F5371DD521030090CC90 /* HealthyTipPost.swift in Sources */,

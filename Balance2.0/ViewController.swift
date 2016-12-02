@@ -94,10 +94,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    /*override func viewDidAppear(_ animated: Bool) {
         let newsfeed = self.childViewControllers[0] as! NewsFeedController
         newsfeed.tableView.reloadData()
-    }
+    }*/
     
 
     // MARK: Style Buttons

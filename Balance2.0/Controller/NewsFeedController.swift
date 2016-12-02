@@ -12,6 +12,8 @@ class NewsFeedController: UITableViewController {
     
     var postsList: PostsList? = PostsList()
     
+    var reminder: Challenge? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let isLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
@@ -26,12 +28,50 @@ class NewsFeedController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (postsList!.allPosts.count)
+        return (postsList!.allPosts.count + 1)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // In case Reminder
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as! ReminderCell
+            
+            
+            
+            if let mealChallenge = reminder as? IndividualMealChallenge {
+                cell.challengeImage.image = UIImage.init(named: "Challenge(N)-1")
+                if mealChallenge.sender != ProfileManager.myProfile.myself {
+                    cell.titleLabel.text = "Today is \"\(mealChallenge.option.name!)\" with \(mealChallenge.sender.fullName!)"
+                }
+                else {
+                   cell.titleLabel.text = "Today is \"\(mealChallenge.option.name!)\" with \(mealChallenge.receiver?.fullName!)"
+                }
+            }
+            
+            if let exerciseChallenge = reminder as? IndividualExerciseChallenge {
+                cell.challengeImage.image = UIImage.init(named: "Challenge(E)-1")
+                if exerciseChallenge.sender != ProfileManager.myProfile.myself {
+                    cell.titleLabel.text = "Today is a step challenge with \(exerciseChallenge.sender.fullName!)"
+                }
+                else {
+                    cell.titleLabel.text = "Today is a step challenge with \(exerciseChallenge.receiver?.fullName!)"
+                }
+            }
+            
+            cell.parentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            cell.parentView.layer.shadowColor = UIColor.black.cgColor
+            cell.parentView.layer.shadowOpacity = 0.3
+            cell.parentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            //cell.parentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: cell.parentView.bounds.minX, y: cell.parentView.bounds.minY, width: cell.parentView.bounds.width, height: cell.parentView.bounds.height + 4)).cgPath
+            cell.parentView.layer.shadowRadius = 3
+            cell.parentView.layer.shouldRasterize = true
+            cell.parentView.layer.rasterizationScale = UIScreen.main.scale
+            
+            return cell
+        }
+        
         // In case Dequeue Meal Cells
-        if let post = postsList?.allPosts[indexPath.row] as? MealPost {
+        if let post = postsList?.allPosts[indexPath.row-1] as? MealPost {
             
             // Dequeue Meal Cells
             let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as! MealPostCell
@@ -48,12 +88,12 @@ class NewsFeedController: UITableViewController {
             cell.captionLabel.text = post.caption
             
             // Set up comment butotn
-            cell.commentButton.tag = indexPath.row
+            cell.commentButton.tag = indexPath.row-1
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
             cell.numberOfComments.text = String(post.comments.allComments.count)
             
             // Set up like button 
-            cell.likeButton.tag = indexPath.row
+            cell.likeButton.tag = indexPath.row-1
             cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             cell.numberOfLikes.text = String(post.likes.count)
             
@@ -99,14 +139,17 @@ class NewsFeedController: UITableViewController {
             cell.parentView.layer.shadowColor = UIColor.black.cgColor
             cell.parentView.layer.shadowOpacity = 0.3
             cell.parentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            //cell.parentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: cell.parentView.bounds.minX, y: cell.parentView.bounds.minY, width: cell.parentView.bounds.width, height: cell.parentView.bounds.height + 4)).cgPath
             cell.parentView.layer.shadowRadius = 3
+            cell.parentView.layer.shouldRasterize = true
+            cell.parentView.layer.rasterizationScale = UIScreen.main.scale
             
             cell.selectionStyle = .none
             return cell
         }
             
         // In case Dequeue Charity Cell
-        else if let post = postsList?.allPosts[indexPath.row] as? CharityPost {
+        else if let post = postsList?.allPosts[indexPath.row-1] as? CharityPost {
             
             // Dequeue exercise cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharityCell", for: indexPath) as! CharityCell
@@ -123,11 +166,11 @@ class NewsFeedController: UITableViewController {
             }
 
             // Set up buttons
-            cell.commentButton.tag = indexPath.row
+            cell.commentButton.tag = indexPath.row-1
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
             cell.numberOfComments.text = String(post.comments.allComments.count)
             
-            cell.likeButton.tag = indexPath.row
+            cell.likeButton.tag = indexPath.row-1
             cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             cell.numberOfLikes.text = String(post.likes.count)
             
@@ -148,15 +191,18 @@ class NewsFeedController: UITableViewController {
             cell.parentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
             cell.parentView.layer.shadowColor = UIColor.black.cgColor
             cell.parentView.layer.shadowOpacity = 0.3
-            cell.parentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            //cell.parentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            cell.parentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: cell.parentView.bounds.minX, y: cell.parentView.bounds.minY, width: cell.parentView.bounds.width, height: cell.parentView.bounds.height + 4)).cgPath
             cell.parentView.layer.shadowRadius = 3
+            cell.parentView.layer.shouldRasterize = true
+            cell.parentView.layer.rasterizationScale = UIScreen.main.scale
             
             cell.selectionStyle = .none
             return cell
         }
             
         // In case Dequeue Healthy Tip Post
-        else if let post = postsList?.allPosts[indexPath.row] as? HealthyTipPost {
+        else if let post = postsList?.allPosts[indexPath.row-1] as? HealthyTipPost {
             
             // Dequeue healthy tip cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "HealthyTipCell", for: indexPath) as!HealthyTipCell
@@ -165,11 +211,11 @@ class NewsFeedController: UITableViewController {
             cell.captionLabel.text = post.title
             
             // Set up buttons
-            cell.commentButton.tag = indexPath.row
+            cell.commentButton.tag = indexPath.row-1
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
             cell.numberOfComments.text = String(post.comments.allComments.count)
             
-            cell.likeButton.tag = indexPath.row
+            cell.likeButton.tag = indexPath.row-1
             cell.likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             cell.numberOfLikes.text = String(post.likes.count)
 
@@ -191,14 +237,17 @@ class NewsFeedController: UITableViewController {
             cell.parentView.layer.shadowColor = UIColor.black.cgColor
             cell.parentView.layer.shadowOpacity = 0.3
             cell.parentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            //cell.parentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: cell.parentView.bounds.minX, y: cell.parentView.bounds.minY, width: cell.parentView.bounds.width, height: cell.parentView.bounds.height + 4)).cgPath
             cell.parentView.layer.shadowRadius = 3
+            cell.parentView.layer.shouldRasterize = true
+            cell.parentView.layer.rasterizationScale = UIScreen.main.scale
             
             cell.selectionStyle = .none
             return cell
             
         }
             
-        else if let post = postsList?.allPosts[indexPath.row] as? MealChallengePost {
+        else if let post = postsList?.allPosts[indexPath.row-1] as? MealChallengePost {
             
             //Dequeue challenge cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "MealChallengeCell", for: indexPath) as! MealChallengeCell
@@ -217,12 +266,12 @@ class NewsFeedController: UITableViewController {
             cell.image1.image = post.mealChallenge[0].post?.image
             cell.image2.image = post.mealChallenge[1].post?.image
             
-            cell.like1Button.tag = indexPath.row
+            cell.like1Button.tag = indexPath.row-1
             cell.like1Button.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             cell.like2Button.tag = indexPath.row
             cell.like2Button.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             
-            cell.commentButton.tag = indexPath.row
+            cell.commentButton.tag = indexPath.row-1
             cell.commentButton.addTarget(self, action: #selector(comment(_:)), for: .touchUpInside)
             cell.numberOfComments.text = String(post.comments.allComments.count)
             
@@ -230,7 +279,10 @@ class NewsFeedController: UITableViewController {
             cell.parentView.layer.shadowColor = UIColor.black.cgColor
             cell.parentView.layer.shadowOpacity = 0.3
             cell.parentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            //cell.parentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: cell.parentView.bounds.minX, y: cell.parentView.bounds.minY, width: cell.parentView.bounds.width, height: cell.parentView.bounds.height + 4)).cgPath
             cell.parentView.layer.shadowRadius = 3
+            cell.parentView.layer.shouldRasterize = true
+            cell.parentView.layer.rasterizationScale = UIScreen.main.scale
             
             cell.selectionStyle = .none
             return cell
@@ -320,19 +372,44 @@ class NewsFeedController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let post = PostsList.main.allPosts[indexPath.row] as? HealthyTipPost {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-            vc.link = post.link
-            self.navigationController?.pushViewController(vc, animated: true)
+        if indexPath.row == 0 {
+            if let mealReminder = reminder as? IndividualMealChallenge {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                vc.link = mealReminder.link!
+                vc.challenge = mealReminder
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        else {
+            if let post = PostsList.main.allPosts[indexPath.row-1] as? HealthyTipPost {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                vc.link = post.link
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.postsList = PostsList.main
+        
+        // Load reminder
+        let mealChallenges = ChallengeList.mealChallengeList
+        let exerciseChallenges = ChallengeList.exerciseChallengeList
+        
+        let mainChallenges = ChallengeList()
+        mainChallenges.allChallenges = mealChallenges.allChallenges
+        mainChallenges.allChallenges.append(contentsOf: exerciseChallenges.allChallenges)
+        mainChallenges.allChallenges.sort(by: {
+            $0.toDate < $1.toDate
+        })
+        
+        reminder = mainChallenges.allChallenges[0]
+        
         self.tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.postsList = nil
+        self.reminder = nil
     }
 }

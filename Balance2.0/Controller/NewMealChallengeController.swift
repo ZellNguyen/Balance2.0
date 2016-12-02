@@ -85,7 +85,7 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         self.toDatePicker.isHidden = true
         self.toDatePicker.backgroundColor = UIColor.white
         self.toolBarPicker.isHidden = true
-        self.friendNameLabel.isHidden = true
+        //self.friendNameLabel.isHidden = true
         
         // Initialize image
         self.senderImage.image = ProfileManager.myProfile.profile.picture
@@ -173,7 +173,8 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         self.isSearchActive = false
         self.friendImage.image = friend?.profile.picture
         self.friendNameLabel.text = friend?.fullName
-        self.friendNameLabel.isHidden = false
+        //self.friendNameLabel.isHidden = false
+        self.friendNameLabel.textColor = UIColor.black
         self.friendTableView.isHidden = true
         self.searchDisplayController?.isActive = false
     }
@@ -278,7 +279,7 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         let message = messageTextField.text ?? ""
         let title = titleTextField.text ?? ""
         
-        if message.isEmpty || title.isEmpty || fromDate == nil || toDate == nil {
+        if message.isEmpty || title.isEmpty || fromDate == nil || toDate == nil || receiver == nil {
             present(alertBox, animated: true, completion: nil)
             return
         }
@@ -299,7 +300,11 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         let newChallengPost = MealChallengePost(caption: title, date: fromDate!, isReady: false, mealChallenge: [newChallenge])
         PostsList.hidden.add(newChallengPost)
         
-        self.navigationController?.popViewController(animated: true)
+        let pendingChallengeViewController = self.storyboard?.instantiateViewController(withIdentifier: "ExerciseChallengeViewController") as! ExerciseChallengeViewController
+        var controllers = self.navigationController?.viewControllers
+        let index = controllers?.index(of: self)
+        controllers?[index!] = pendingChallengeViewController
+        self.navigationController?.setViewControllers(controllers!, animated: true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

@@ -19,6 +19,9 @@ class ExerciseChallengeViewController: UIPageViewController, UIPageViewControlle
         let startVC = self.viewController(atIndex: 0) as ExerciseChallengeTableViewController
         self.setViewControllers([startVC], direction: .forward, animated: false, completion: nil)
         self.dataSource = self
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.edgesForExtendedLayout = []
     }
 
     override func didReceiveMemoryWarning() {
@@ -262,4 +265,14 @@ class ExerciseActiveChallengeCell: UITableViewCell {
     @IBOutlet var userStepBar: UIProgressView!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var friendNameLabel: UILabel!
+}
+
+class ParentExerciseChallengeViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addButton.layer.masksToBounds = true
+        addButton.layer.cornerRadius = CGFloat(20)
+    }
+    
+    @IBOutlet var addButton: UIButton!
 }

@@ -8,12 +8,13 @@
 
 import UIKit
 
-class MealDashboardViewController: UIViewController {
+class MealDashboardViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var addMealButton: UIButton!
     @IBOutlet var mealHistoryButton: UIButton!
     @IBOutlet var mealChallengeButton: UIButton!
 
     @IBOutlet var tagProgressViews: [UIProgressView]!
+    @IBOutlet var numberOfTagLabels: [UILabel]!
     
     @IBOutlet var tagLabels: [UILabel]!
     
@@ -34,12 +35,6 @@ class MealDashboardViewController: UIViewController {
         // Upscale the progress view
         for progressView in tagProgressViews {
             progressView.transform = CGAffineTransform(scaleX: 1.0, y: 1.3)
-            
-            // Shadow of progress views
-            progressView.layer.shadowColor = UIColor.black.cgColor
-            progressView.layer.shadowOpacity = 0.3
-            progressView.layer.shadowOffset = CGSize(width: 0, height: 4)
-            progressView.layer.shadowRadius = 3
         }
         
         // Shadow of segmented Control
@@ -126,7 +121,7 @@ class MealDashboardViewController: UIViewController {
             counts[tag.name] = (counts[tag.name] ?? 0) + 1
         }
         
-        let sortedCounts = counts.sorted(by: { $0.0 > $1.0 })
+        let sortedCounts = counts.sorted(by: { $0.value > $1.value })
         var sortedTagNames = [String]()
         var sortedTagCounts = [Int]()
         var index = 0
@@ -142,8 +137,16 @@ class MealDashboardViewController: UIViewController {
         let max = sortedTagCounts[0] == 0 ? 1 : sortedTagCounts[0]
         for i in 0..<4 {
             tagLabels[i].adjustsFontSizeToFitWidth = true
-            tagLabels[i].text = sortedTagNames[i]
-            tagProgressViews[i].progress = Float(sortedTagCounts[i])/Float(max) + 0.01
+            if i < sortedTagCounts.count {
+                tagLabels[i].text = sortedTagNames[i]
+                tagProgressViews[i].progress = Float(sortedTagCounts[i])/Float(max) + 0.01
+                numberOfTagLabels[i].text = String(sortedTagCounts[i])
+            }
+            else {
+                tagLabels[i].text = ""
+                tagProgressViews[i].progress = 0.01
+                numberOfTagLabels[i].text = "0"
+            }
         }
     }
     
@@ -153,6 +156,43 @@ class MealDashboardViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.loggedList = FoodTagList.logged
+    }
+    
+    @IBAction func takePhoto(_ sender: Any) {
+        //button.titleLabel?.textColor = UIColor.white
+        let imagePicker = UIImagePickerController()
+        
+        // If the device has a camera, take a picture; otherwise,
+        // just pick from the library
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+        }
+        else {
+            imagePicker.sourceType = .savedPhotosAlbum
+        }
+        
+        imagePicker.delegate = self
+        
+        // Place image picker on the screen
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // Get picked image from info dictionary
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        dismiss(animated: true, completion: nil)
+        
+        // Push Post Detail View Controller
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PostDetailViewController") as? PostDetailViewController {
+            //print("DONE TAKING PHOTO!")
+            if let navigator = self.navigationController {
+                navigator.pushViewController(viewController, animated: true)
+                viewController.image = image
+                //viewController.delegate = self
+            }
+        }
     }
 }
 

@@ -16,6 +16,8 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
     var pendingChallenges: [Challenge]? = [Challenge]()
     var pastChallenges: [Challenge]? = [Challenge]()
     
+    @IBOutlet var addButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,6 +30,9 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
         self.activeChallenges = self.filterChallenge(byStatus: .active)
         self.pendingChallenges = self.filterChallenge(byStatus: .pending)
         self.pastChallenges = self.filterChallenge(byStatus: .finishedVoting)
+        
+        addButton.layer.masksToBounds = true
+        addButton.layer.cornerRadius = CGFloat(20)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -96,8 +101,6 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
             
             cell.friendImage.layer.masksToBounds = true
             cell.friendImage.layer.cornerRadius = CGFloat(21.5)
-            cell.takePhotoButton.tag = indexPath.row
-            cell.takePhotoButton.addTarget(self, action: #selector(takePhoto(_:)), for: .touchUpInside)
             cell.selectionStyle = .none
             return cell
         
@@ -172,6 +175,7 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
             if post.link != nil {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                 vc.link = post.link
+                vc.challenge = post
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             
@@ -180,6 +184,8 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
             if post.link != nil {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                 vc.link = post.link
+                vc.completeButton.isEnabled = false
+                vc.completeButton.setTitleColor(UIColor.lightGray, for: .normal)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         case 2:
@@ -187,6 +193,8 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
             if post.link != nil {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                 vc.link = post.link
+                vc.completeButton.isEnabled = false
+                vc.completeButton.setTitleColor(UIColor.lightGray, for: .normal)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         default:
@@ -238,45 +246,6 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
         // Pass the selected object to the new view controller.
     }
     */
-
-    func takePhoto(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        
-        // If the device has a camera, take a picture; otherwise,
-        // just pick from the library
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.sourceType = .camera
-        }
-        else {
-            imagePicker.sourceType = .savedPhotosAlbum
-        }
-        
-        imagePicker.delegate = self
-        
-        // Place image picker on the screen
-        present(imagePicker, animated: true, completion: { () -> Void in
-            imagePicker.view.tag = sender.tag
-        })
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        // Get picked image from info dictionary
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        
-        dismiss(animated: true, completion: nil)
-        
-        // Push Post Detail View Controller
-        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PostDetailViewController") as? PostDetailViewController {
-            //print("DONE TAKING PHOTO!")
-            if let navigator = self.navigationController {
-                navigator.pushViewController(viewController, animated: true)
-                viewController.isChallenge = true
-                viewController.challengIndex = picker.view.tag
-                viewController.image = image
-            }
-        }
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         challengeList = nil
@@ -294,8 +263,6 @@ class ActiveMealChallengeCell: UITableViewCell {
     
     @IBOutlet var friendImage: UIImageView!
     @IBOutlet var friendNameLabel: UILabel!
-    
-    @IBOutlet var takePhotoButton: UIButton!
 }
 
 class PendingMealSentChallengeCell: UITableViewCell {
