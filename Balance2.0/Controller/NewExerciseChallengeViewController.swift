@@ -282,6 +282,9 @@ class NewExerciseChallengeViewController: UIViewController, UITableViewDataSourc
             controllers?[index!] = pendingChallengeViewController
             self.navigationController?.setViewControllers(controllers!, animated: true)
         }
+        else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
         
     }
     

@@ -52,16 +52,22 @@ class MealDashboardViewController: UIViewController, UIImagePickerControllerDele
         addMealButton.layer.shadowOpacity = 0.3
         addMealButton.layer.shadowOffset = CGSize(width: -2, height: 2)
         addMealButton.layer.shadowRadius = 2
+        addMealButton.layer.shouldRasterize = true
+        addMealButton.layer.rasterizationScale = UIScreen.main.scale
         
         mealHistoryButton.layer.shadowColor = UIColor.black.cgColor
         mealHistoryButton.layer.shadowOpacity = 0.3
         mealHistoryButton.layer.shadowOffset = CGSize(width: -2, height: 2)
         mealHistoryButton.layer.shadowRadius = 2
+        mealHistoryButton.layer.shouldRasterize = true
+        mealHistoryButton.layer.rasterizationScale = UIScreen.main.scale
         
         mealChallengeButton.layer.shadowColor = UIColor.black.cgColor
         mealChallengeButton.layer.shadowOpacity = 0.3
         mealChallengeButton.layer.shadowOffset = CGSize(width: -2, height: 2)
         mealChallengeButton.layer.shadowRadius = 2
+        mealChallengeButton.layer.shouldRasterize = true
+        mealChallengeButton.layer.rasterizationScale = UIScreen.main.scale
         
         self.view.layoutIfNeeded()
         
@@ -214,18 +220,24 @@ class ExerciseDashboardViewController: UIViewController {
         rankingButton.layer.shadowOpacity = 0.3
         rankingButton.layer.shadowOffset = CGSize(width: -2, height: 2)
         rankingButton.layer.shadowRadius = 2
+        rankingButton.layer.shouldRasterize = true
+        rankingButton.layer.rasterizationScale = UIScreen.main.scale
         
         // Shadow of progress views
         charityButton.layer.shadowColor = UIColor.black.cgColor
         charityButton.layer.shadowOpacity = 0.3
         charityButton.layer.shadowOffset = CGSize(width: -2, height: 2)
         charityButton.layer.shadowRadius = 2
+        charityButton.layer.shouldRasterize = true
+        charityButton.layer.rasterizationScale = UIScreen.main.scale
         
         // Shadow of progress views
         challengeButton.layer.shadowColor = UIColor.black.cgColor
         challengeButton.layer.shadowOpacity = 0.3
         challengeButton.layer.shadowOffset = CGSize(width: -2, height: 2)
         challengeButton.layer.shadowRadius = 2
+        charityButton.layer.shouldRasterize = true
+        charityButton.layer.rasterizationScale = UIScreen.main.scale
         
         for index in 0..<7 {
             loadOneBar(daysAgo: 6-index)
@@ -315,6 +327,9 @@ class ExerciseDashboardViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.stepArray = [Double]()
+        for index in 0..<7 {
+            loadOneBar(daysAgo: 6-index)
+        }
     }
     
 }

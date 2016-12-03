@@ -270,9 +270,6 @@ class ExerciseActiveChallengeCell: UITableViewCell {
 class ParentExerciseChallengeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        addButton.layer.masksToBounds = true
-        addButton.layer.cornerRadius = CGFloat(20)
     }
-    
-    @IBOutlet var addButton: UIButton!
+
 }

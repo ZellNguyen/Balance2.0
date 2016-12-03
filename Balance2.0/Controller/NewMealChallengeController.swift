@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewMealChallengeController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITextFieldDelegate {
+class NewMealChallengeController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet var friendTableView: UITableView!
     
@@ -19,8 +19,14 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet var senderLabel: UILabel!
     @IBOutlet var senderImage: UIImageView!
     @IBOutlet var friendImage: UIImageView!
+    @IBOutlet var challengeOptionPicker: UIPickerView!
     
     @IBOutlet var sendButton: UIButton!
+    
+    var options: [MealChallengeOption]? = nil
+    var option: MealChallengeOption? = nil
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,18 +70,16 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         self.fromDateLabel.layer.addSublayer(lowerBorder2)
         self.fromDateLabel.layer.addSublayer(rightBorder2)
         
-        // Challenge Field
-        self.titleTextField.delegate = self
-        self.titleTextField.backgroundColor = UIColor.white
-        self.titleTextField.clipsToBounds = false
+        // Challenge Select Button
+        self.selectTitleButton.clipsToBounds = false
         let lowerBorder3 = CALayer()
         lowerBorder3.backgroundColor = UIColor.lightGray.cgColor
-        lowerBorder3.frame = CGRect(x: 0, y: titleTextField.frame.height, width: titleTextField.frame.width, height: 1.0)
+        lowerBorder3.frame = CGRect(x: 0, y: selectTitleButton.frame.height, width: selectTitleButton.frame.width, height: 1.0)
         let rightBorder3 = CALayer()
         rightBorder3.backgroundColor = UIColor.lightGray.cgColor
-        rightBorder3.frame = CGRect(x: titleTextField.frame.width, y: 0, width: 1.0, height: titleTextField.frame.height)
-        self.titleTextField.layer.addSublayer(lowerBorder3)
-        self.titleTextField.layer.addSublayer(rightBorder3)
+        rightBorder3.frame = CGRect(x: selectTitleButton.frame.width, y: 0, width: 1.0, height: selectTitleButton.frame.height)
+        self.selectTitleButton.layer.addSublayer(lowerBorder3)
+        self.selectTitleButton.layer.addSublayer(rightBorder3)
 
         
         
@@ -86,6 +90,13 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         self.toDatePicker.backgroundColor = UIColor.white
         self.toolBarPicker.isHidden = true
         //self.friendNameLabel.isHidden = true
+        
+        // Challenge Picker
+        challengeOptionPicker.delegate = self
+        challengeOptionPicker.dataSource = self
+        challengeOptionPicker.backgroundColor = UIColor.white
+        challengeOptionPicker.isHidden = true
+        options = [MealChallengeOption.blackBox, MealChallengeOption.no_meat, MealChallengeOption.no_cheese_day, MealChallengeOption.organic_day, MealChallengeOption.salad, MealChallengeOption.detox_day, MealChallengeOption.leaflyVeggies, MealChallengeOption.vegetarian]
         
         // Initialize image
         self.senderImage.image = ProfileManager.myProfile.profile.picture
@@ -132,6 +143,7 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
     override func viewWillAppear(_ animated: Bool) {
         self.friendList = ProfileManager.myProfile.friendList
         self.filteredFriend = [UserAccount]()
+        self.options = [MealChallengeOption.blackBox, MealChallengeOption.no_meat, MealChallengeOption.no_cheese_day, MealChallengeOption.organic_day, MealChallengeOption.salad, MealChallengeOption.detox_day, MealChallengeOption.leaflyVeggies, MealChallengeOption.vegetarian]
         self.friendTableView.isHidden = true
         self.friendSearchBar.isHidden = true
     }
@@ -207,7 +219,8 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBOutlet var messageTextField: UITextField!
-    @IBOutlet var titleTextField: UITextField!
+    @IBOutlet var selectTitleButton: UIButton!
+    
     
     @IBAction func endEditing(_ sender: Any) {
         dismissKeyboard()
@@ -267,6 +280,12 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         self.toDate = toDatePicker.date
         toDatePicker.isHidden = true
         toolBarPicker.isHidden = true
+        
+        if self.option == nil {
+            option = options?[0]
+        }
+        selectTitleButton.setTitle((option?.name)!, for: .normal)
+        challengeOptionPicker.isHidden = true
     }
     
     // MARK: Save the challenge
@@ -277,9 +296,9 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         alertBox.addAction(okAction)
         
         let message = messageTextField.text ?? ""
-        let title = titleTextField.text ?? ""
+        let title = option?.name
         
-        if message.isEmpty || title.isEmpty || fromDate == nil || toDate == nil || receiver == nil {
+        if message.isEmpty || option == nil || fromDate == nil || toDate == nil || receiver == nil {
             present(alertBox, animated: true, completion: nil)
             return
         }
@@ -293,11 +312,12 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
         }
         
         
-        let newChallenge = IndividualMealChallenge(title: title, message: message, fromDate: fromDate!, toDate: toDate!, receiver: receiver!, option: MealChallengeOption.no_meat, link: nil)
+        let newChallenge = IndividualMealChallenge(title: title!, message: message, fromDate: fromDate!, toDate: toDate!, receiver: receiver!, option: option!, link: nil)
+        
     
         ChallengeList.mealChallengeList.add(challenge: newChallenge)
         
-        let newChallengPost = MealChallengePost(caption: title, date: fromDate!, isReady: false, mealChallenge: [newChallenge])
+        let newChallengPost = MealChallengePost(caption: title!, date: fromDate!, isReady: false, mealChallenge: [newChallenge])
         PostsList.hidden.add(newChallengPost)
         
         var controllers = self.navigationController?.viewControllers
@@ -308,11 +328,38 @@ class NewMealChallengeController: UIViewController, UITableViewDataSource, UITab
             controllers?[index!] = pendingChallengeViewController
             self.navigationController?.setViewControllers(controllers!, animated: true)
         }
+        else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    @IBAction func pickChallengeOption(_ sender: UIButton) {
+        toolBarPicker.isHidden = false
+        challengeOptionPicker.isHidden = false
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return (self.options?.count)!
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        option = options?[row]
+        selectTitleButton.setTitle((option?.name)!, for: .normal)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return (options?[row].name)!
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         self.friendList = nil
         self.filteredFriend = nil
+        self.options = nil
+        self.option = nil
     }
     
 }

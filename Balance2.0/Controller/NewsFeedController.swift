@@ -208,7 +208,18 @@ class NewsFeedController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HealthyTipCell", for: indexPath) as!HealthyTipCell
             
             // Set up caption
-            cell.captionLabel.text = post.title
+            let seeMoreString = "See more >"
+            let caption = "\(post.title!)... \(seeMoreString)"
+            
+            let range = (caption as NSString).range(of: seeMoreString)
+            let attributeCaption = NSMutableAttributedString(string: caption)
+            attributeCaption.addAttribute(NSForegroundColorAttributeName, value: UIColor.lightGray, range: range)
+            cell.captionLabel.attributedText = attributeCaption
+            cell.captionLabel.tag = indexPath.row - 1
+            
+            let recognizer = UITapGestureRecognizer(target: self, action: #selector(showTipWeb(_:)))
+            cell.captionLabel.isUserInteractionEnabled = true
+            cell.captionLabel.addGestureRecognizer(recognizer)
             
             // Set up buttons
             cell.commentButton.tag = indexPath.row-1
@@ -380,8 +391,11 @@ class NewsFeedController: UITableViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
-        else {
-            if let post = PostsList.main.allPosts[indexPath.row-1] as? HealthyTipPost {
+    }
+    
+    func showTipWeb(_ sender: UITapGestureRecognizer) {
+        if let label = sender.view as? UILabel {
+            if let post = postsList?.allPosts[label.tag] as? HealthyTipPost {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TipWebViewController") as! TipWebViewController
                 vc.link = post.link
                 self.navigationController?.pushViewController(vc, animated: true)

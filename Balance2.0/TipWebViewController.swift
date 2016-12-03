@@ -12,7 +12,7 @@ class TipWebViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        webView.loadRequest(URLRequest(url: URL(string: link!)!))
         // Do any additional setup after loading the view.
     }
 
@@ -33,5 +33,5 @@ class TipWebViewController: UIViewController {
     */
 
     @IBOutlet var webView: UIWebView!
-    var link: String? = nil
+    var link: String? = "google.ca"
 }

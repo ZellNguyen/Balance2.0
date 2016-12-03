@@ -12,7 +12,7 @@ class ChallengeWebViewController: UIViewController, UIImagePickerControllerDeleg
 
     @IBOutlet var webView: UIWebView!
     @IBOutlet var completeButton: UIButton!
-    var link: String!
+    var link: String? = "google.ca"
     var challenge: IndividualMealChallenge? = nil
     
     override func viewDidLoad() {
@@ -20,8 +20,20 @@ class ChallengeWebViewController: UIViewController, UIImagePickerControllerDeleg
 
         // Do any additional setup after loading the view.
         
-        webView.loadRequest(URLRequest(url: URL(string: link)!))
+        webView.loadRequest(URLRequest(url: URL(string: link!)!))
         
+        completeButton.layer.shadowColor = UIColor.black.cgColor
+        completeButton.layer.shadowOpacity = 0.5
+        completeButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        //cell.parentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: cell.parentView.bounds.minX, y: cell.parentView.bounds.minY, width: cell.parentView.bounds.width, height: cell.parentView.bounds.height + 4)).cgPath
+        completeButton.layer.shadowRadius = 4
+        completeButton.layer.shouldRasterize = true
+        completeButton.layer.rasterizationScale = UIScreen.main.scale
+        
+        //completeButton.layer.masksToBounds = true
+        completeButton.layer.cornerRadius = CGFloat(20)
+        
+        self.automaticallyAdjustsScrollViewInsets = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,16 +80,16 @@ class ChallengeWebViewController: UIViewController, UIImagePickerControllerDeleg
         // Push Post Detail View Controller
         if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PostDetailViewController") as? PostDetailViewController {
             //print("DONE TAKING PHOTO!")
+            viewController.isChallenge = true
+            viewController.challenge = self.challenge
+            viewController.image = image
             if let navigator = self.navigationController {
-                navigator.pushViewController(viewController, animated: true)
-                viewController.isChallenge = true
-                viewController.challenge = self.challenge
-                viewController.image = image
+                var controllers = navigator.viewControllers
+                let index = controllers.index(of: self)
+                controllers[index!] = viewController
+                navigator.setViewControllers(controllers, animated: true)
             }
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.challenge = nil
-    }
 }

@@ -16,8 +16,6 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
     var pendingChallenges: [Challenge]? = [Challenge]()
     var pastChallenges: [Challenge]? = [Challenge]()
     
-    @IBOutlet var addButton: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,9 +28,6 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
         self.activeChallenges = self.filterChallenge(byStatus: .active)
         self.pendingChallenges = self.filterChallenge(byStatus: .pending)
         self.pastChallenges = self.filterChallenge(byStatus: .finishedVoting)
-        
-        addButton.layer.masksToBounds = true
-        addButton.layer.cornerRadius = CGFloat(20)
     }
 
     override func viewWillAppear(_ animated: Bool) {

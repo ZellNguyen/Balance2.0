@@ -13,9 +13,15 @@ struct MealChallengeOption {
     var image: UIImage!
     
     
-    static var no_meat = MealChallengeOption(name: "No Meat", image: UIImage.init(named: "default-image-post"))
-    static var salad = MealChallengeOption(name: "Salad", image: UIImage.init(named: "default-image-post"))
+    static var no_meat = MealChallengeOption(name: "No meat day", image: UIImage.init(named: "default-image-post"))
+    static var salad = MealChallengeOption(name: "Salad day", image: UIImage.init(named: "default-image-post"))
+    static var no_cheese_day = MealChallengeOption(name: "No cheese day", image: UIImage.init(named: "default-image-post"))
 
+    static var detox_day = MealChallengeOption(name: "Detox Day", image: UIImage.init(named: "default-image-post"))
+    static var organic_day = MealChallengeOption(name: "Organic Food Day", image: UIImage.init(named: "default-image-post"))
+    static var vegetarian = MealChallengeOption(name: "Vegetarian day", image: UIImage.init(named: "default-image-post"))
+    static var leaflyVeggies = MealChallengeOption(name: "Leafly veggies day", image: UIImage.init(named: "default-image-post"))
+    static var blackBox = MealChallengeOption(name: "BlackBox", image: UIImage.init(named: "default-image-post"))
 }
 
 class IndividualMealChallenge: NSObject, Challenge, NSCopying {
