@@ -112,6 +112,11 @@ class MealChallengeTableViewController: UITableViewController, UIImagePickerCont
                 cell.friendImage.layer.masksToBounds = true
                 cell.friendImage.layer.cornerRadius = CGFloat(21.5)
                 cell.friendNameLabel.text = challenge.receiver?.fullName
+                
+                let fromString = DateFormatter.localizedString(from: challenge.fromDate, dateStyle: .medium, timeStyle: .none)
+                let toString = DateFormatter.localizedString(from: challenge.toDate, dateStyle: .medium, timeStyle: .none)
+                let dateString = "\(fromString) - \(toString)"
+                cell.dateLabel.text = dateString
                 cell.selectionStyle = .none
                 return cell
             }

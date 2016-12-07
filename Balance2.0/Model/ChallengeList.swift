@@ -35,11 +35,10 @@ class ChallengeList {
         let receiver1 = ProfileManager.myProfile.myself
         
         let fromDate1 = Calendar.current.date(byAdding: .day, value: 9, to: Date())
-        let toDate1 = Calendar.current.date(byAdding: .day, value: 7, to: fromDate1!)
-        let message1 = "Alice, new challenge 15000 steps in total. I'm here to beat you"
+        let toDate1 = Calendar.current.date(byAdding: .day, value: 1, to: fromDate1!)
+        let message1 = "I'm here to beat you"
         
         let challenge1 = IndividualExerciseChallenge(message: message1, sender: sender1, receiver: receiver1, fromDate: fromDate1!, toDate: toDate1!)
-        list.add(challenge: challenge1)
         
         let sender2 = ProfileManager.myProfile.friendList.allFriends[1]
         let receiver2 = ProfileManager.myProfile.myself
@@ -50,6 +49,7 @@ class ChallengeList {
         
         let challenge2 = IndividualExerciseChallenge(message: message2, sender: sender2, receiver: receiver2, fromDate: fromDate2!, toDate: toDate2!)
         list.add(challenge: challenge2)
+        list.add(challenge: challenge1)
         
         return list
     }()
@@ -70,6 +70,20 @@ class ChallengeList {
         list.add(challenge: challenge1)
         let challengePost1 = MealChallengePost(caption: title1, date: fromDate1, isReady: false, mealChallenge: [challenge1])
         PostsList.hidden.add(challengePost1)
+        
+        let title2 = "BlackBox"
+        let message2 = "Let's see who's eating healthier!!!"
+        let sender2 = ProfileManager.myProfile.myself
+        let receiver2 = ProfileManager.myProfile.friendList.allFriends[1]
+        let fromDate2 = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+        let toDate2 = Calendar.current.date(byAdding: .day, value: 6, to: Date())
+        
+        let post2 = MealPost(image: UIImage.init(named: "Meal3"), caption: "Salad", type: .lunch, tags: FoodTagList())
+        
+        let challenge2 = IndividualMealChallenge(title: title2, message: message2, post: post2, fromDate: fromDate2!, toDate: toDate2!, sender: sender2!, receiver: receiver2, option: MealChallengeOption.blackBox, status: ChallengeStatus.active, link: "http://hexagonbalance.weebly.com/no-meat-day.html")
+        list.add(challenge: challenge2)
+        let challengePost2 = MealChallengePost(caption: title2, date: fromDate2!, isReady: false, mealChallenge: [challenge2])
+        PostsList.hidden.add(challengePost2)
         
         return list
     }()

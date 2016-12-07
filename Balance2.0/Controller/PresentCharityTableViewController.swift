@@ -96,7 +96,9 @@ class SingleCharityViewController: UIViewController {
         donateButton.layer.shadowRadius = 4
         
         // Hide share Button
-        shareButton.isHidden = true
+        shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share(_:)))
+        self.navigationItem.rightBarButtonItem = shareButton
+        shareButton.isEnabled = false
     }
     
     @IBAction func donate(_ sender: UIButton) {
@@ -115,7 +117,7 @@ class SingleCharityViewController: UIViewController {
             ProfileManager.myProfile.profile.donate(steps: donatedSteps!, for: charity)
             CharityList.main.update()
             self.isDonated = true
-            self.shareButton.isHidden = false
+            self.shareButton.isEnabled = true
             self.changeCaptionAfterDonated(donatedSteps!)
             self.requestLabel.isHidden = true
         })
@@ -136,9 +138,9 @@ class SingleCharityViewController: UIViewController {
         self.donateButton.isHidden = true
     }
     
-    @IBOutlet var shareButton: UIButton!
+    var shareButton: UIBarButtonItem!
     
-    @IBAction func share(_ sender: UIButton){
+    func share(_ sender: UIButton){
         
         if !isDonated {
             return

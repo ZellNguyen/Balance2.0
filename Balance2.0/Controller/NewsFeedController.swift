@@ -279,7 +279,7 @@ class NewsFeedController: UITableViewController {
             
             cell.like1Button.tag = indexPath.row-1
             cell.like1Button.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
-            cell.like2Button.tag = indexPath.row
+            cell.like2Button.tag = indexPath.row-1
             cell.like2Button.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
             
             cell.commentButton.tag = indexPath.row-1
@@ -313,14 +313,14 @@ class NewsFeedController: UITableViewController {
                 sender.setImage(UIImage.init(named: "unlike_Health"), for: .normal)
                 self.postsList?.unlike(atPost: sender.tag)
                 //self.tableView.reloadData()
-                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! HealthyTipCell
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag+1, section: 0)) as! HealthyTipCell
                 cell.numberOfLikes.text = String(post.likes.count)
             }
             else {
                 self.postsList?.like(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "liked_Health"), for: .normal)
                 //self.tableView.reloadData()
-                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! HealthyTipCell
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag+1, section: 0)) as! HealthyTipCell
                 cell.numberOfLikes.text = String(post.likes.count)
             }
             return
@@ -331,14 +331,14 @@ class NewsFeedController: UITableViewController {
                 sender.setImage(UIImage.init(named: "unlike_Charity"), for: .normal)
                 self.postsList?.unlike(atPost: sender.tag)
                 //self.tableView.reloadData()
-                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! CharityCell
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag+1, section: 0)) as! CharityCell
                 cell.numberOfLikes.text = String(post.likes.count)
             }
             else {
                 self.postsList?.like(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "liked_Charity"), for: .normal)
                 //self.tableView.reloadData()
-                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! CharityCell
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag+1, section: 0)) as! CharityCell
                 cell.numberOfLikes.text = String(post.likes.count)
             }
             
@@ -351,14 +351,14 @@ class NewsFeedController: UITableViewController {
                 self.postsList?.unlike(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "unlike_Food"), for: .normal)
                 //self.tableView.reloadData()
-                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MealPostCell
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag+1, section: 0)) as! MealPostCell
                 cell.numberOfLikes.text = String(post.likes.count)
             }
             else {
                 self.postsList?.like(atPost: sender.tag)
                 sender.setImage(UIImage.init(named: "liked_Food"), for: .normal)
                 //self.tableView.reloadData()
-                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! MealPostCell
+                let cell = tableView.cellForRow(at: IndexPath(row: sender.tag+1, section: 0)) as! MealPostCell
                 cell.numberOfLikes.text = String(post.likes.count)
             }
             return
