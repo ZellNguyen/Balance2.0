@@ -420,11 +420,15 @@ class NewsFeedController: UITableViewController {
         reminder = mainChallenges.allChallenges[0]
         
         self.tableView.reloadData()
-        self.tableView.setContentOffset(CGPoint.zero, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.postsList = nil
         self.reminder = nil
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
     }
 }

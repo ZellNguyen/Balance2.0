@@ -24,10 +24,10 @@ class CharityPost: NSObject, UserPost {
         self.user = user
         self.charity = charity
         self.image = image
-        self.caption = caption
         self.comments = comments
         self.date = date
         self.likes = likes
+        self.caption = "\(user.fullName!) donated to \(charity.title!) on \(DateFormatter.localizedString(from: date, dateStyle: .long, timeStyle: .none))"
         
         super.init()
     }

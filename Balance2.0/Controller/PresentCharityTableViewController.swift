@@ -10,7 +10,7 @@ import UIKit
 
 class PresentCharityTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate{
     var charityList: CharityList?
-    var filteredCharity: [Charity]? = [Charity]()
+    //var filteredCharity: [Charity]? = [Charity]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,13 +41,7 @@ class PresentCharityTableViewController: UITableViewController, UIPopoverPresent
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let singleCharityViewController: SingleCharityViewController = storyboard.instantiateViewController(withIdentifier: "SingleCharityViewController") as! SingleCharityViewController
 
-        singleCharityViewController.company = charity?.company
-        singleCharityViewController.caption = charity?.caption
-        singleCharityViewController.image = charity?.image
-        singleCharityViewController.charityTitle = charity?.title
-        
-        // Pass index to pop over view
-        singleCharityViewController.tag = sender.tag
+        singleCharityViewController.charity = charity
         
         self.navigationController?.pushViewController(singleCharityViewController, animated: true)
     }
@@ -55,7 +49,6 @@ class PresentCharityTableViewController: UITableViewController, UIPopoverPresent
     // Reload Data 
     override func viewWillAppear(_ animated: Bool) {
         charityList = CharityList.main
-        filteredCharity = [Charity]()
         
         charityList?.update()
         tableView.reloadData()
@@ -63,7 +56,6 @@ class PresentCharityTableViewController: UITableViewController, UIPopoverPresent
     
     override func viewWillDisappear(_ animated: Bool) {
         charityList = nil
-        filteredCharity = nil
     }
 }
 
@@ -74,19 +66,15 @@ class SingleCharityViewController: UIViewController {
     @IBOutlet var donateButton: UIButton!
     @IBOutlet var requestLabel: UILabel!
     
-    var company: String!
-    var image: UIImage!
-    var caption: String!
-    var charityTitle: String!
-    var tag: Int! = 0
+    var charity: Charity? = nil
     
     var isDonated: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        companyLabel.text = company
-        charityImage.image = image
-        captionLabel.text = caption
+        companyLabel.text = charity?.company!
+        charityImage.image = charity?.image
+        captionLabel.text = charity?.caption!
         
         // Rounded Button 
         donateButton.layer.cornerRadius = 20
@@ -112,9 +100,9 @@ class SingleCharityViewController: UIViewController {
         }
         let confirmBox = UIAlertController(title: "Confirm Registration", message: "Are you sure that you will take part in this charity?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { action in
-            let charity = CharityList.main.launchedCharites[self.tag]
+            let charity = self.charity
             let donatedSteps = ProfileManager.myProfile.profile.currentSteps
-            ProfileManager.myProfile.profile.donate(steps: donatedSteps!, for: charity)
+            ProfileManager.myProfile.profile.donate(steps: donatedSteps!, for: charity!)
             CharityList.main.update()
             self.isDonated = true
             self.shareButton.isEnabled = true
@@ -132,7 +120,7 @@ class SingleCharityViewController: UIViewController {
     func changeCaptionAfterDonated(_ amount: Int) {
         let money = Float(amount) / 10000
         let moneyInString = String(format: "%.2f", money)
-        let caption = "\(self.company!) donated \(moneyInString) for \(self.charityTitle!) project. \n\n Thank you for your donation!"
+        let caption = "\(self.charity?.company!) donated \(moneyInString) for \(self.charity?.title!) project. \n\n Thank you for your donation!"
         
         self.captionLabel.text = caption
         self.donateButton.isHidden = true
@@ -145,11 +133,16 @@ class SingleCharityViewController: UIViewController {
         if !isDonated {
             return
         }
-        let charity = CharityList.main.launchedCharites[self.tag]
-        let post = CharityPost(charity: charity)
+        guard self.charity != nil else {
+            return
+        }
+        
+        let charity = self.charity
+        let post = CharityPost(charity: charity!)
         
         PostsList.main.add(post)
         
+        self.tabBarController?.selectedIndex = 0
         self.navigationController?.popToRootViewController(animated: true)
     }
 }
